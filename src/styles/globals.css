@@ -211,15 +211,6 @@ input, textarea, select { font-family: var(--font-body); }
   100% { background-position: 0% 50%; }
 }
 
-.gold-gradient-move {
-  background: linear-gradient(270deg, #FDE68A, #F59E0B, #FDE68A);
-  background-size: 200% 200%;
-  animation: goldGradient 3s ease infinite;
-  border: 2px solid #D97706 !important;
-  color: #78350F !important;
-  --bubble-bg: #F59E0B;
-}
-
 .typewriter-container {
   display: inline-block;
   overflow: hidden;
@@ -369,6 +360,15 @@ input, textarea, select { font-family: var(--font-body); }
 
 .annotation-pill:hover {
   transform: scale(1.05) translateY(-5px);
+}
+
+.gold-gradient-move {
+  background: linear-gradient(270deg, #FDE68A, #F59E0B, #FDE68A);
+  background-size: 200% 200%;
+  animation: goldGradient 3s ease infinite;
+  border: 2px solid #D97706 !important;
+  color: #78350F !important;
+  --bubble-bg: #F59E0B;
 }
 
 /* Remove decorative circles (thought bubble effect) */
