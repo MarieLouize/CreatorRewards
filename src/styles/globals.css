@@ -217,6 +217,7 @@ input, textarea, select { font-family: var(--font-body); }
   animation: goldGradient 3s ease infinite;
   border: 2px solid #D97706 !important;
   color: #78350F !important;
+  --bubble-bg: #F59E0B;
 }
 
 .typewriter-container {
