@@ -340,22 +340,20 @@ input, textarea, select { font-family: var(--font-body); }
 }
 
 .annotation-pill:before {
-  width: 44px;
-  height: 44px;
-  top: -12px;
-  left: 28px;
-  box-shadow: -50px 30px 0 -12px var(--bubble-bg);
+  width: 34px;
+  height: 34px;
+  bottom: -12px;
+  left: 20px;
+  box-shadow: 12px 8px 0 -4px var(--bubble-bg);
 }
 
 .annotation-pill:after {
-  bottom: -10px;
-  right: 26px;
-  width: 30px;
-  height: 30px;
-  box-shadow: 40px -34px 0 0 var(--bubble-bg),
-             -28px -6px 0 -2px var(--bubble-bg),
-             -24px 17px 0 -6px var(--bubble-bg),
-             -5px 25px 0 -10px var(--bubble-bg);
+  bottom: -18px;
+  right: 30px;
+  width: 20px;
+  height: 20px;
+  box-shadow: -15px 4px 0 0 var(--bubble-bg),
+             -40px -2px 0 -4px var(--bubble-bg);
 }
 
 .annotation-pill:hover {
@@ -363,12 +361,19 @@ input, textarea, select { font-family: var(--font-body); }
 }
 
 .gold-gradient-move {
-  background: linear-gradient(270deg, #FDE68A, #F59E0B, #FDE68A);
-  background-size: 200% 200%;
-  animation: goldGradient 3s ease infinite;
-  border: 2px solid #D97706 !important;
-  color: #78350F !important;
-  --bubble-bg: #F59E0B;
+  background: linear-gradient(90deg, 
+    #BF953F, 
+    #FCF6BA, 
+    #B38728, 
+    #FBF5B7, 
+    #AA771C
+  );
+  background-size: 400% 400%;
+  animation: goldGradient 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border: 1.5px solid rgba(184, 134, 11, 0.5) !important;
+  color: #5d4007 !important;
+  --bubble-bg: #BF953F;
+  box-shadow: 0 10px 20px rgba(184, 134, 11, 0.15), 6px 6px 0px rgba(0,0,0,0.05);
 }
 
 /* Remove decorative circles (thought bubble effect) */
