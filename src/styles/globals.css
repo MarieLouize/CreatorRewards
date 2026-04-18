@@ -223,6 +223,8 @@ input, textarea, select { font-family: var(--font-body); }
   overflow: hidden;
   position: relative;
   background-color: var(--cr-yellow);
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .slideshow-container::before {

@@ -52,10 +52,16 @@ export default function LandingPage() {
     touchStartY.current = e.touches[0].clientY;
   };
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    // Prevent default to avoid pull-to-refresh or other browser behaviors
+    if (e.cancelable) e.preventDefault();
+  };
+
   const handleTouchEnd = (e: React.TouchEvent) => {
     const touchEndY = e.changedTouches[0].clientY;
     const diff = touchStartY.current - touchEndY;
     
+    // threshold of 50px for a swipe
     if (Math.abs(diff) > 50) {
       if (diff > 0) nextSlide();
       else prevSlide();
@@ -66,6 +72,7 @@ export default function LandingPage() {
     <div 
       className={`slideshow-container ${isPinkBg ? 'pink-bg' : ''}`}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       <Navbar activeSlide={activeSlide} />
