@@ -86,7 +86,7 @@ export default function LandingPage() {
       </a>
 
       {activeSlide < totalSlides - 1 && (
-        <div className="scroll-indicator" onClick={nextSlide} style={{ cursor: 'pointer' }}>
+        <div className="scroll-indicator" onClick={nextSlide} style={{ cursor: 'pointer', color: 'white' }}>
           <div className="pulsing-arrow" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <ChevronDown size={24} strokeWidth={3} />
             <ChevronDown size={24} strokeWidth={3} style={{ marginTop: '-12px' }} />

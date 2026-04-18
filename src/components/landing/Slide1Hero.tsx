@@ -12,7 +12,7 @@ export default function Slide1Hero({ active }: { active: boolean }) {
   return (
     <section className={`slide bg-matcha-grad ${active ? 'active' : ''}`}>
       <div className="animate-pop-bounce delay-1">
-        <span className="annotation-pill float-subtle" style={{ position: 'relative', top: '0', left: '0', marginBottom: '32px' }}>
+        <span className="annotation-pill float-subtle gold-gradient-move" style={{ position: 'relative', top: '0', left: '0', marginBottom: '32px' }}>
           🚀 Launching Soon · Nigeria's Creator Platform <VerifiedBadge />
         </span>
       </div>
