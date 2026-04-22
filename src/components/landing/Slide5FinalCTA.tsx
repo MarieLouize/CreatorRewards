@@ -2,6 +2,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useWaitlistCount } from '../../hooks/useWaitlistCount';
 import { VerifiedBadge } from './SocialElements';
+import SplitText from './SplitText';
+import MagneticWrapper from './MagneticWrapper';
 
 export default function Slide5FinalCTA({ active }: { active: boolean }) {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
         </span>
       </div>
 
-      <h2 className="animate-slide-up delay-2 mobile-text-xl" style={{
+      <h2 className="mobile-text-xl" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(60px, 12vw, 96px)',
         fontWeight: 700,
@@ -29,7 +31,9 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
         letterSpacing: '-0.02em',
         marginBottom: '40px'
       }}>
-        DON'T<br />MISS YOUR<br />SPOT.
+        <SplitText text="DON'T" active={active} delay={0.1} /><br />
+        <SplitText text="MISS YOUR" active={active} delay={0.4} /><br />
+        <SplitText text="SPOT." active={active} delay={0.7} />
       </h2>
 
       <p className="animate-slide-up delay-3 mobile-text-sm mobile-px-4" style={{
@@ -42,10 +46,12 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
         CreatorRewards is launching soon. Waitlist closes when we hit capacity.
       </p>
 
-      <div className="animate-pop-bounce delay-4" style={{ animationDelay: '0.4s' }}>
+      <MagneticWrapper range={100} className="animate-pop-bounce delay-4" style={{ animationDelay: '0.4s' }}>
         <button 
           className="pulse-glow-button"
           onClick={() => navigate('/join')}
+          onMouseEnter={e => (e.currentTarget.style.animation = 'chromatic-shift 0.2s infinite linear, pulseGlow 2s ease-in-out infinite')}
+          onMouseLeave={e => (e.currentTarget.style.animation = active ? 'pulseGlow 2s ease-in-out infinite' : 'none')}
           style={{
             backgroundColor: 'var(--cr-yellow)',
             color: 'var(--cr-dark)',
@@ -65,7 +71,7 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
         >
           Secure My Spot →
         </button>
-      </div>
+      </MagneticWrapper>
 
       <div className="animate-slide-up delay-5 mobile-stack mobile-px-4" style={{
         marginTop: '64px',
@@ -97,7 +103,8 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
           left: `${Math.random() * 100}%`,
           opacity: 0.6,
           animation: `spin ${5 + Math.random() * 5}s linear infinite`,
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          zIndex: -1
         }} />
       ))}
     </section>

@@ -7,27 +7,21 @@ export interface WaitlistEntry {
   email: string;
   phone?: string;
   location_city?: string;
-  location_country?: string;
   gender?: 'male' | 'female' | 'prefer_not_to_say';
 
   // Creator Profile
-  primary_platform: 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'facebook';
+  selected_platforms: string[];
   instagram_handle?: string;
   tiktok_handle?: string;
   youtube_handle?: string;
   twitter_handle?: string;
   facebook_handle?: string;
 
-  // Metrics
-  total_followers?: number;
-  primary_follower_count?: number;
-  avg_engagement_rate?: number;
-  monthly_content_count?: number;
-
   // Content
   content_niches?: string[];
   content_formats?: string[];
-  bio?: string;
+  preferred_content?: string;
+  avoid_content?: string;
 
   // Brand Experience
   has_worked_with_brands?: boolean;
@@ -36,7 +30,6 @@ export interface WaitlistEntry {
 
   // Discovery
   referral_source?: string;
-  referral_code?: string;
 
   // Admin
   status: 'pending' | 'approved' | 'rejected';

@@ -6,7 +6,7 @@ import type { WaitlistFormData } from '../types/waitlist';
 import ProgressBar from '../components/form/ProgressBar';
 import Step1Personal from '../components/form/Step1Personal';
 import Step2Creator from '../components/form/Step2Creator';
-import Step3Numbers from '../components/form/Step3Numbers';
+import Step3Content from '../components/form/Step3Content';
 import Step4Brands from '../components/form/Step4Brands';
 import SuccessView from '../components/form/SuccessView';
 
@@ -14,27 +14,22 @@ const INITIAL_FORM: WaitlistFormData = {
   full_name: '',
   email: '',
   phone: '',
-  location_country: 'Nigeria',
   location_city: '',
   gender: undefined,
-  primary_platform: 'instagram',
+  selected_platforms: [],
   instagram_handle: '',
   tiktok_handle: '',
   youtube_handle: '',
   twitter_handle: '',
   facebook_handle: '',
-  bio: '',
-  total_followers: undefined,
-  primary_follower_count: undefined,
-  avg_engagement_rate: undefined,
-  monthly_content_count: undefined,
   content_niches: [],
   content_formats: [],
+  preferred_content: '',
+  avoid_content: '',
   has_worked_with_brands: undefined,
   brand_count_estimate: undefined,
   preferred_deal_type: [],
   referral_source: '',
-  referral_code: '',
 };
 
 function validateStep(step: number, data: WaitlistFormData): Partial<Record<keyof WaitlistFormData, string>> {
@@ -45,12 +40,14 @@ function validateStep(step: number, data: WaitlistFormData): Partial<Record<keyo
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Enter a valid email address';
   }
   if (step === 2) {
-    if (!data.primary_platform) errors.primary_platform = 'Select your primary platform';
-    const handleField = `${data.primary_platform}_handle` as keyof WaitlistFormData;
-    if (!data[handleField]) errors[handleField] = `Enter your ${data.primary_platform} handle`;
-  }
-  if (step === 3) {
-    if (!data.primary_follower_count) errors.primary_follower_count = 'Enter your follower count';
+    if (data.selected_platforms.length === 0) {
+      errors.selected_platforms = 'Select at least one platform';
+    } else {
+      data.selected_platforms.forEach(p => {
+        const field = `${p}_handle` as keyof WaitlistFormData;
+        if (!data[field]) errors[field] = `Enter your ${p} handle`;
+      });
+    }
   }
   return errors;
 }
@@ -84,7 +81,7 @@ export default function JoinPage() {
   };
 
   const handleSubmit = async () => {
-    const stepErrors = validateStep(4, formData);
+    const stepErrors = validateStep(currentStep, formData);
     if (Object.keys(stepErrors).length > 0) { setErrors(stepErrors); return; }
 
     setLoading(true);
@@ -92,7 +89,6 @@ export default function JoinPage() {
     try {
       const payload = {
         ...formData,
-        // Strip empty strings to null for optional fields
         phone: formData.phone || null,
         location_city: formData.location_city || null,
         gender: formData.gender || null,
@@ -101,13 +97,10 @@ export default function JoinPage() {
         youtube_handle: formData.youtube_handle || null,
         twitter_handle: formData.twitter_handle || null,
         facebook_handle: formData.facebook_handle || null,
-        bio: formData.bio || null,
-        total_followers: formData.total_followers || null,
-        avg_engagement_rate: formData.avg_engagement_rate || null,
-        monthly_content_count: formData.monthly_content_count || null,
+        preferred_content: formData.preferred_content || null,
+        avoid_content: formData.avoid_content || null,
         brand_count_estimate: formData.brand_count_estimate || null,
         referral_source: formData.referral_source || null,
-        referral_code: formData.referral_code || null,
       };
       const { data, error } = await supabase
         .from('waitlist_entries')
@@ -132,7 +125,7 @@ export default function JoinPage() {
   const STEP_COMPONENTS = [
     <Step1Personal key={1} data={formData} onChange={handleChange} errors={errors} />,
     <Step2Creator key={2} data={formData} onChange={handleChange} errors={errors} />,
-    <Step3Numbers key={3} data={formData} onChange={handleChange} errors={errors} />,
+    <Step3Content key={3} data={formData} onChange={handleChange} errors={errors} />,
     <Step4Brands key={4} data={formData} onChange={handleChange} errors={errors} />,
   ];
 
@@ -142,6 +135,16 @@ export default function JoinPage() {
       display: 'flex', flexDirection: 'column', alignItems: 'center',
       padding: '40px 24px 80px', position: 'relative', overflow: 'hidden',
     }}>
+      {/* Decorative elements - ensured lower z-index */}
+      <div style={{
+        position: 'absolute', top: '10%', right: '-5%', width: '300px', height: '300px',
+        background: 'var(--cr-pink)', filter: 'url(#liquid-filter)', opacity: 0.1, zIndex: -1,
+      }} />
+      <div style={{
+        position: 'absolute', bottom: '10%', left: '-5%', width: '400px', height: '400px',
+        background: 'var(--cr-purple)', filter: 'url(#liquid-filter)', opacity: 0.1, zIndex: -1,
+      }} />
+
       {/* Header */}
       <div style={{ width: '100%', maxWidth: '640px', marginBottom: '40px', position: 'relative', zIndex: 1 }}>
         <Link to="/" style={{
@@ -180,7 +183,7 @@ export default function JoinPage() {
           <SuccessView position={success.position} email={success.email} />
         ) : (
           <>
-            <ProgressBar currentStep={currentStep} />
+            <ProgressBar currentStep={currentStep} totalSteps={4} />
             <div style={{ minHeight: '320px' }}>
               {STEP_COMPONENTS[currentStep - 1]}
             </div>

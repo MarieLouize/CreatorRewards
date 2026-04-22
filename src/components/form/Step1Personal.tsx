@@ -6,13 +6,6 @@ interface Props {
   errors: Partial<Record<keyof WaitlistFormData, string>>;
 }
 
-const AFRICAN_COUNTRIES = [
-  'Nigeria', 'Ghana', 'Kenya', 'South Africa', 'Ethiopia', 'Tanzania', 'Uganda',
-  'Rwanda', 'Senegal', 'Côte d\'Ivoire', 'Cameroon', 'Zimbabwe', 'Zambia',
-  'Egypt', 'Morocco', 'Tunisia', 'Algeria', 'Other Africa',
-  'United Kingdom', 'United States', 'Canada', 'Other',
-];
-
 export default function Step1Personal({ data, onChange, errors }: Props) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
@@ -61,22 +54,10 @@ export default function Step1Personal({ data, onChange, errors }: Props) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-        <div className="form-field">
-          <label className="form-label">City</label>
-          <input className="form-input" type="text" placeholder="e.g. Lagos, Abuja"
-            value={data.location_city || ''} onChange={e => onChange('location_city', e.target.value)} />
-        </div>
-        <div className="form-field">
-          <label className="form-label">Country</label>
-          <select className="form-input"
-            value={data.location_country || 'Nigeria'}
-            onChange={e => onChange('location_country', e.target.value)}>
-            {AFRICAN_COUNTRIES.map(c => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-        </div>
+      <div className="form-field">
+        <label className="form-label">City</label>
+        <input className="form-input" type="text" placeholder="e.g. Lagos, Abuja"
+          value={data.location_city || ''} onChange={e => onChange('location_city', e.target.value)} />
       </div>
     </div>
   );

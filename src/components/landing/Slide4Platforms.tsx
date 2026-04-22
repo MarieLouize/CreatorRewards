@@ -1,4 +1,6 @@
 
+import SplitText from './SplitText';
+import NichePill from './NichePill';
 
 export default function Slide4Platforms({ active }: { active: boolean }) {
   const platforms = [
@@ -36,7 +38,7 @@ export default function Slide4Platforms({ active }: { active: boolean }) {
         </span>
       </div>
 
-      <h2 className="animate-slide-up delay-2 mobile-text-lg" style={{
+      <h2 className="mobile-text-lg" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(32px, 6vw, 64px)',
         fontWeight: 700,
@@ -45,7 +47,7 @@ export default function Slide4Platforms({ active }: { active: boolean }) {
         marginBottom: '48px',
         textTransform: 'uppercase'
       }}>
-        EVERY CREATOR. EVERY FORMAT. EVERY NICHE.
+        <SplitText text="EVERY CREATOR. EVERY FORMAT. EVERY NICHE." active={active} delay={0.3} />
       </h2>
 
       {/* Platforms Row */}
@@ -78,18 +80,17 @@ export default function Slide4Platforms({ active }: { active: boolean }) {
         maxWidth: '900px'
       }}>
         {niches.map((n, i) => (
-          <div key={i} className={`animate-pop-bounce annotation-pill no-circles float-subtle ${i > 7 ? 'mobile-hide' : ''}`} style={{ 
-            position: 'relative', top: '0', left: '0',
-            backgroundColor: n.color, 
-            color: 'white', 
-            borderColor: 'transparent',
-            fontSize: `${12 + (i % 2) * 2}px`,
-            padding: '5px 12px',
-            animationDelay: `${0.5 + (i * 0.05)}s, ${Math.random() * 2}s`,
-            animationDuration: '0.6s, 5s'
-          }}>
-            {n.name}
-          </div>
+          <NichePill 
+            key={i} 
+            name={n.name} 
+            color={n.color} 
+            delay={0.5 + (i * 0.05)}
+            className={i > 7 ? 'mobile-hide' : ''}
+            style={{ 
+              fontSize: `${12 + (i % 2) * 2}px`,
+              padding: '5px 12px',
+            }}
+          />
         ))}
       </div>
 
@@ -99,7 +100,8 @@ export default function Slide4Platforms({ active }: { active: boolean }) {
         top: '15%',
         right: '10%',
         fontSize: '48px',
-        animation: 'spin 10s linear infinite'
+        animation: 'spin 10s linear infinite',
+        zIndex: -1
       }}>
         ✦
       </div>
@@ -109,7 +111,8 @@ export default function Slide4Platforms({ active }: { active: boolean }) {
         bottom: '15%',
         left: '10%',
         fontSize: '48px',
-        animation: 'spin 15s linear infinite reverse'
+        animation: 'spin 15s linear infinite reverse',
+        zIndex: -1
       }}>
         ✦
       </div>

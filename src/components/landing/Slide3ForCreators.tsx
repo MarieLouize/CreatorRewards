@@ -1,4 +1,5 @@
 import { AudienceComment, DMNotification } from './SocialElements';
+import SplitText from './SplitText';
 
 const CursorIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -9,7 +10,7 @@ const CursorIcon = () => (
 export default function Slide3ForCreators({ active }: { active: boolean }) {
   return (
     <section className={`slide bg-matcha-grad ${active ? 'active' : ''}`}>
-      <h2 className="animate-slide-up delay-1 mobile-text-xl" style={{
+      <h2 className="mobile-text-xl" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(56px, 10vw, 96px)',
         fontWeight: 800,
@@ -20,8 +21,8 @@ export default function Slide3ForCreators({ active }: { active: boolean }) {
         letterSpacing: '-0.02em',
         maxWidth: '900px'
       }}>
-        SORRY, I HAVE<br />
-        <span style={{ color: 'var(--cr-pink)' }}>PLANS</span> TONIGHT.
+        <SplitText text="SORRY, I HAVE" active={active} delay={0.1} /><br />
+        <span style={{ color: 'var(--cr-pink)' }}><SplitText text="PLANS" active={active} delay={0.4} /></span> <SplitText text="TONIGHT." active={active} delay={0.6} />
       </h2>
 
       <div style={{ position: 'relative', width: '100%', height: '300px', marginTop: '40px' }}>

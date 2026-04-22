@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+    <style>
+        @keyframes bend-it-like-beckham {
+  from {
+    corner-shape: superellipse(-6);
+  }
+
+  to {
+    corner-shape: superellipse(6);
+  }
+}
+
+body::before {
+  /* Fill (+ 1rem) */
+  content: "";
+  position: fixed;
+  inset: -1rem;
+
+  /* Enable click-through */
+  pointer-events: none;
+
+  /* Invert underlying layer */
+  mix-blend-mode: difference;
+  background: white;
+
+  /* Don’t forget this! */
+  border-bottom-left-radius: 100%;
+
+  /* Animation settings */
+  animation: bend-it-like-beckham;
+  animation-timeline: scroll();
+}
+
+/* Added to cards */
+.no-filter {
+  isolation: isolate;
+}
+
+/* Ignore */
+
+* {
+  margin: unset;
+  text-box: cap alphabetic;
+}
+
+:root {
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  scrollbar-width: none;
+
+  body {
+    background: #b7245c;
+
+    section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:nth-child(odd) {
+        height: 100vh;
+      }
+
+      &:nth-child(even) {
+        padding: 10vw 0;
+        border-block: 0.0625rem solid #00000030;
+      }
+
+      .center {
+        color: white;
+
+        h1 {
+          font: 900 5.0625rem figtree;
+        }
+
+        h2 {
+          text-align: center;
+          font: 900 3.375rem figtree;
+        }
+
+        #cards {
+          display: flex;
+          gap: 2.25rem;
+          margin-top: 3.375rem;
+
+          article {
+            color: black;
+            background: white;
+            padding: 2.25rem;
+            display: grid;
+            gap: 1.5rem;
+            border-radius: 5rem;
+            corner-shape: squircle;
+
+            h3 {
+              font: 900 2.25rem figtree;
+            }
+
+            p {
+              font: 700 1.5rem figtree;
+            }
+
+            button {
+              color: white;
+              background: #b7245c;
+              border: none;
+              height: 3rem;
+              width: fit-content;
+              padding: 0 1.5rem;
+              font: 700 1rem figtree;
+              border-radius: 5rem;
+              corner-shape: squircle;
+
+              &:hover {
+                cursor: pointer;
+                filter: brightness(110%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    </style>
+</head>
+<body>
+    <section>
+  <div class="center">
+    <h1>HEY BIG SCROLLER</h1>
+  </div>
+</section>
+
+<section>
+  <div class="center">
+    <h2>ANIMATE A DIV FOR ME</h2>
+    <div id="cards" class="no-filter">
+      <article>
+        <h3>Card 1</h3>
+        <p>Description ipsum</p>
+        <button>Button</button>
+      </article>
+      <article>
+        <h3>Card 2</h3>
+        <p>Description ipsum</p>
+        <button>Button</button>
+      </article>
+      <article>
+        <h3>Card 3</h3>
+        <p>Description ipsum</p>
+        <button>Button</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="center">
+    <h2><i>Fin.</i></h2>
+  </div>
+</section>
+</body>
+</html>

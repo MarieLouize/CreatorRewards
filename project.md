@@ -1,436 +1,478 @@
-# Landing Page Redesign — Update Prompt for Claude Code
+# Landing Page Redesign v2 — Refined & Sophisticated
+## Update Prompt for Claude Code
 
-## Context
-The project already exists (React + TypeScript + Supabase, from the original spec). The `/join` waitlist form and `/admin` dashboard are **untouched** — this update affects **only `LandingPage.tsx`** and its child components under `src/components/landing/`, plus `globals.css` (CSS variable overrides for the landing scope).
-
----
-
-## What's Changing
-
-Completely replace the dark/gold palette and current landing page layout with a new design: a **fixed-height, 5-screen slideshow** where each screen is styled like a bold social media marketing poster. The vibe is bright, light, poppy, and Gen-Z — think Instagram/TikTok creator culture, not luxury dark mode.
+## What Changed From v1
+The previous direction (flat yellow poster + cartoon pill callouts) is scrapped. The new direction is **editorial and sophisticated** — each slide uses a full-bleed photo-style gradient background with **real-looking phone UI widgets floating on top** (Spotify/music players, iMessage bubbles, DM notifications, Instagram engagement bars). Inspired by polished Instagram carousel ads. The social media elements now look like actual app UI, not decorative stickers.
 
 ---
 
 ## New Design Direction
 
-### Visual Reference
-The reference is a bright social media marketing poster with:
-- **Warm butter yellow** background as the dominant color
-- **Hot pink / magenta** as the primary type and accent color  
-- **Blush / soft white** as a neutral surface color
-- Bold, chunky, all-caps display typography
-- **Floating pill-shaped annotation bubbles** (like social media sticker labels) with retro cursor icons (the classic Windows pointer SVG)
-- Playful, relatable humor that speaks directly to content creators
+### Aesthetic
+**Editorial Lifestyle × Phone UI Collage.** Each slide looks like a full-bleed lifestyle photo (simulated with CSS gradient backgrounds + abstract shapes) with authentic-looking smartphone interface elements layered on top — as if screenshotted from a real phone. Refined, aspirational, creator-coded. The overall feel is the kind of content a Nigerian fashion/lifestyle creator would make for their brand partnerships page.
 
-### New Palette (replace all CSS variables on the landing scope):
-```css
---cr-yellow: #F9C846      /* warm butter yellow — main bg */
---cr-pink: #F03E7A        /* hot magenta pink — headlines, CTAs */
---cr-blush: #FFE8EC       /* soft blush — card surfaces */
---cr-white: #FFFFFF
---cr-dark: #1A1A1A        /* near-black for body text only */
---cr-orange: #FF7043      /* warm orange — accent pill variant */
---cr-purple: #9B5DE5      /* electric purple — occasional accent */
---cr-green: #00C896       /* mint green — success/money moments */
---cr-pill-bg: #FFE8EC     /* blush pill default */
---cr-pill-border: #F03E7A
-```
+### Reference Breakdown (from provided screenshots)
+- **Image 1**: Earthy olive/green photo background, bold white editorial serif headline overlaid directly on the photo, bottom carousel dots, engagement sidebar icons
+- **Image 2**: Neutral street photo, a **hot pink Spotify/podcast player card** floating in the upper third, a **white iMessage-style note card** in the lower third, gold pin emoji accent — all layered over the photo realistically
 
-### Typography (keep Fontshare imports from original):
-- **Display**: `Clash Display` — 700 weight, ALL CAPS, very tight letter-spacing (`-0.02em`)
-- **Body**: `Cabinet Grotesk` — 500 weight for labels, 400 for body
+### Typography (update from v1)
+- **Display**: `Cormorant Garamond` — elegant, editorial, high contrast. For hero/slide headlines. Load via Google Fonts.
+- **UI Text**: `DM Sans` — clean, modern, works perfectly for simulated phone UI elements. Load via Google Fonts.
+- **Accent/Labels**: `Clash Display` — keep for short all-caps labels/badges only (not headlines)
 
-### Social Media Element Language
-Every screen must feel like it was designed in Canva or Later for an IG story. Use these recurring design elements across the 5 screens:
-
-**Pill annotation bubbles** — styled like social media sticker/label callouts:
-```css
-.annotation-pill {
-  background: var(--cr-blush);
-  border: 2px solid var(--cr-pink);
-  border-radius: 100px;
-  padding: 8px 18px;
-  font-family: 'Cabinet Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--cr-pink);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  position: absolute;  /* positioned decoratively on each slide */
-}
-```
-
-**Cursor icon** (use this inline SVG as a decorative element on pill bubbles):
 ```html
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-  <path d="M5 3l14 9-7 1-4 7L5 3z" fill="#1A1A1A" stroke="#1A1A1A" stroke-width="1.5" stroke-linejoin="round"/>
-</svg>
+<!-- In index.html, replace Fontshare link with: -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Keep Fontshare for Clash Display labels -->
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600&display=swap" rel="stylesheet">
 ```
 
-**Stat badge** — a bold number pill:
+### New Palette
 ```css
-.stat-badge {
-  background: var(--cr-pink);
-  color: white;
-  font-family: 'Clash Display', sans-serif;
-  font-weight: 700;
-  font-size: 22px;
-  padding: 10px 20px;
-  border-radius: 100px;
-  display: inline-block;
-}
+/* Slide backgrounds — each slide gets its own bg treatment */
+--slide-1-bg-start: #2D3A2E;   /* deep forest green */
+--slide-1-bg-end: #4A5C3F;     /* olive */
+--slide-2-bg-start: #C9BEB4;   /* warm taupe */
+--slide-2-bg-end: #E8DDD5;     /* soft linen */
+--slide-3-bg-start: #1C1C1E;   /* near-black */
+--slide-3-bg-end: #2C2C2E;     /* dark charcoal */
+--slide-4-bg-start: #F5EFE8;   /* cream */
+--slide-4-bg-end: #EDE4D8;     /* warm parchment */
+--slide-5-bg-start: #FF2D78;   /* hot pink */
+--slide-5-bg-end: #FF6BA8;     /* lighter pink */
+
+/* UI widget colors */
+--widget-pink: #FF2D78         /* Spotify-style hot pink widget bg */
+--widget-white: #FFFFFF
+--widget-dark: #1C1C1E         /* dark widget bg */
+--widget-overlay: rgba(255,255,255,0.92)  /* frosted card */
+
+/* Text */
+--text-on-dark: #FFFFFF
+--text-on-light: #1C1C1E
+--text-muted-dark: rgba(255,255,255,0.65)
+--text-muted-light: #6B6B6B
+
+/* Accents */
+--accent-pink: #FF2D78
+--accent-gold: #C9A84C         /* muted, sophisticated gold — NOT garish */
+--accent-green: #34C759        /* iOS green */
 ```
-
-**Like/heart reaction count element** (decorative on relevant slides):
-A `❤️ 4,821` or `🔥 Going viral` label in a white rounded pill.
-
-**Floating card** (simulated phone screen or post preview):
-A blush/white card with rounded corners (20px), a subtle pink border, portrait aspect ratio, mimicking a phone or IG post crop.
 
 ---
 
-## Slideshow Architecture
+## Reusable Widget Components
 
-### Container Setup
-```tsx
-// LandingPage.tsx structure
-const LandingPage = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
+Build these as React components that appear across slides. They should look **extremely realistic** — copy the exact feel of real iOS UI elements.
 
-  return (
-    <div className="slideshow-container">
-      {/* Persistent Navbar */}
-      <Navbar />  {/* logo left, CTA button right — always visible */}
-
-      {/* Persistent CTA button (floating, bottom-right) */}
-      <a href="/join" className="persistent-cta">
-        Join the Waitlist →
-      </a>
-
-      {/* 5 slide panels */}
-      <div className="slides-wrapper">
-        <Slide1Hero active={activeSlide === 0} />
-        <Slide2HowItWorks active={activeSlide === 1} />
-        <Slide3ForCreators active={activeSlide === 2} />
-        <Slide4Brands active={activeSlide === 3} />
-        <Slide5FinalCTA active={activeSlide === 4} />
-      </div>
-
-      {/* Dot navigation */}
-      <DotNav active={activeSlide} total={5} onChange={setActiveSlide} />
-    </div>
-  );
-};
+### `<SpotifyPlayerWidget />`
+```
+Hot pink background (#FF2D78), white text, rounded 20px corners, ~300px wide
+Layout (top to bottom):
+  Row 1: [Album art thumbnail — 48x48px rounded square, placeholder gradient] [Title + Artist name]
+  Row 2: Progress bar (thin, white 30% opacity track, white filled portion, white dot handle)
+  Row 3: [time stamp left "0:44"] [play/skip controls right — DM Sans, use ▶▶ text symbol]
+  
+Props: title, artist, albumColor (gradient css string), progress (0-1)
+Width: ~320px, position: absolute (parent handles placement)
 ```
 
-### Fixed-Height Scroll Behavior
+### `<iMessageBubble />`
+```
+White background, shadow (0 4px 20px rgba(0,0,0,0.12)), rounded 18px (less rounded on one corner — like real iMessage)
+Header: small muted text "Feb 3, 2026 at 2:27 PM" — DM Sans 11px, #8E8E93
+Title: DM Sans 700, 15px, dark
+Body: DM Sans 400, 14px, dark, line-height 1.5
+Width: ~280px, max 85% of slide, position: absolute
+```
+
+### `<InstagramEngagementBar />`
+```
+Frosted white background (rgba 92% opacity), blur backdrop, rounded 14px, padding 12px 16px
+Row: [❤️ icon] [count] [💬 icon] [count] [↗️ send icon] [count]
+Caption below: small text truncated — "@username · sponsored"
+This mimics the Instagram engagement sidebar turned horizontal
+```
+
+### `<DMNotificationCard />`
+```
+Dark background (#1C1C1E), white text, iOS notification style
+Rounded 20px, ~280px wide
+Header row: [App icon — small circle] ["Direct Message"] [timestamp muted]
+Avatar row: [circular avatar placeholder] [username bold] [message preview text muted]
+Bottom: "Reply" pill button — white bg, dark text
+```
+
+### `<CreatorEarningsWidget />`
+```
+Frosted white card, rounded 20px, ~260px wide
+Header: "This Month" — DM Sans 12px muted
+Amount: "₦ 187,500" — Cormorant Garamond 600 36px, dark
+Sub-row: green up-arrow + "+23% vs last month" — DM Sans 12px green
+Progress bar: thin, green fill, shows "Goal: ₦250K"
+```
+
+### `<BrandDealCard />`
+```
+White card, rounded 16px, border 1px solid #E5E5EA, ~280px wide
+Logo placeholder: colored circle with brand initial
+Brand name: DM Sans 600
+Deal type badge: pink pill "Sponsored Post"
+Rate: "₦45,000" bold
+Status dot: green dot + "Deal Active"
+```
+
+---
+
+## Background Simulation (No Real Photos Needed)
+
+Since we can't use real photography, simulate lifestyle photo backgrounds with layered CSS:
+
 ```css
-.slideshow-container {
-  height: 100dvh;
-  overflow: hidden;
-  position: relative;
-}
-
-.slides-wrapper {
-  height: 100%;
-  position: relative;
-}
-
-/* Each slide is 100dvh, absolutely positioned, transitions in/out */
-.slide {
+/* Pattern for each slide bg — creates an organic, photographic feel */
+.slide-bg {
   position: absolute;
   inset: 0;
-  height: 100dvh;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
+  background: linear-gradient(160deg, var(--bg-start), var(--bg-end));
+  overflow: hidden;
 }
 
-.slide.active {
-  opacity: 1;
-  pointer-events: all;
+/* Abstract photo-like shapes — blurred blobs that suggest a person/scene */
+.slide-bg::before {
+  content: '';
+  position: absolute;
+  /* Large organic blob — suggests a figure */
+  width: 55%;
+  height: 80%;
+  border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+  background: rgba(255,255,255,0.06);
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(2px);
+}
+
+.slide-bg::after {
+  content: '';
+  position: absolute;
+  /* Lighting blob — top, suggests natural light */
+  width: 70%;
+  height: 40%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  top: -10%;
+  left: 15%;
+  filter: blur(40px);
 }
 ```
 
-### Keyboard + Scroll Navigation
-```tsx
-useEffect(() => {
-  const handleKey = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') setActiveSlide(s => Math.min(s + 1, 4));
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') setActiveSlide(s => Math.max(s - 1, 0));
-  };
+Each slide gets unique blob shapes via a child `.bg-figure` div positioned absolutely.
 
-  // Wheel/trackpad swipe
-  let lastScroll = 0;
-  const handleWheel = (e: WheelEvent) => {
-    const now = Date.now();
-    if (now - lastScroll < 800) return;  // debounce
-    lastScroll = now;
-    if (e.deltaY > 30) setActiveSlide(s => Math.min(s + 1, 4));
-    if (e.deltaY < -30) setActiveSlide(s => Math.max(s - 1, 0));
-  };
+---
 
-  window.addEventListener('keydown', handleKey);
-  window.addEventListener('wheel', handleWheel, { passive: true });
-  return () => { window.removeEventListener('keydown', handleKey); window.removeEventListener('wheel', handleWheel); };
-}, []);
+## The 5 Slides (Revised)
+
+### Slide 1 — Hero
+**Background**: Deep forest green gradient (`#2D3A2E` → `#4A5C3F`)  
+Simulates: outdoor street/lifestyle photo (like Image 1 reference)
+
+**Layout**:
+- **Top-left headline** (Cormorant Garamond 600 italic, white, large — direct text overlay on the bg like Image 1):
+  ```
+  on your way to
+  your next
+  brand deal —
+  ```
+  Small line (DM Sans 500, 14px, white 70% opacity): `YOUR CREATOR PLATFORM IS HERE`
+
+- **Large editorial statement** (Cormorant Garamond 700, white, ~72px desktop / 52px mobile, no line-height space):
+  ```
+  Creator
+  Rewards.
+  ```
+  
+- **Floating widget — positioned center-right**: `<InstagramEngagementBar />` with fake counts (❤️ 4,821 · 💬 312 · ↗️ 9K)
+
+- **Bottom text strip** (white, DM Sans 500, 13px, muted):
+  `✦ Nigeria's creator monetisation platform · Launching 2025`
+
+- **Slide dots** at bottom-center (white dots, matches image 1 reference exactly)
+
+---
+
+### Slide 2 — The Earnings Story
+**Background**: Warm taupe gradient (`#C9BEB4` → `#E8DDD5`)  
+Simulates: neutral, soft lifestyle photo
+
+**Layout**:
+- **Top-center**: `<SpotifyPlayerWidget />` — pink bg, title "Your Brand Deal Alert 🔔", artist "CreatorRewards · Just Now"  
+  This is the exact design from Image 2 reference — pink card, white text, progress bar
+
+- **Bottom-center**: `<iMessageBubble />` styled as a "note" card:
+  ```
+  February 2026
+  
+  THIS MONTH'S EARNINGS
+  
+  You've earned ₦187,500 across
+  4 brand campaigns this month.
+  Your engagement rate: 6.2%
+  Brands love working with you.
+  ```
+
+- **Small gold pin accent** (top-right corner of the iMessage card — `📌` emoji at 18px, or a CSS circle in `--accent-gold`)
+
+- **No headline** — let the widgets tell the story
+
+---
+
+### Slide 3 — How It Works
+**Background**: Near-black (`#1C1C1E` → `#2C2C2E`)  
+Simulates: dark, moody night shot
+
+**Layout**:
+- **Top editorial label** (Clash Display 600, 11px, letter-spacing 0.15em, white 50% opacity): `HOW IT WORKS`
+
+- **Left-aligned headline** (Cormorant Garamond 600, white, 58px desktop / 40px mobile, line-height 1.1):
+  ```
+  Three steps
+  to your first
+  brand deal.
+  ```
+
+- **Three `<iMessageBubble />` cards**, stacked with slight offset/rotation, positioned right-half of slide:
+  ```
+  Card 1 (rotated -2deg):
+  "01 — Apply"
+  Fill your creator profile in minutes.
+  We verify you're legit.
+  
+  Card 2 (rotated 1deg, slightly overlapping):
+  "02 — Browse"
+  Pick campaigns that match your niche.
+  
+  Card 3 (rotated -1deg):
+  "03 — Get Paid"
+  Post content, earn real ₦.
+  Direct to your account.
+  ```
+  Cards are white/frosted on the dark bg — creates strong contrast
+
+- **Bottom-left**: `<CreatorEarningsWidget />` partially visible (cropped by slide edge — feels organic)
+
+---
+
+### Slide 4 — Platform Support
+**Background**: Warm cream (`#F5EFE8` → `#EDE4D8`)  
+Simulates: bright, airy lifestyle shot
+
+**Layout**:
+- **Top-right corner headline** (Cormorant Garamond 700 italic, dark, 60px):
+  ```
+  Every
+  creator.
+  Every
+  platform.
+  ```
+
+- **Left side**: vertical stack of `<BrandDealCard />` widgets — 2 visible, 3rd partially cropped at bottom:
+  ```
+  Card 1: "Lagos Fashion Week" · Sponsored Post · ₦80,000
+  Card 2: "Bolt Nigeria" · UGC Content · ₦45,000  
+  Card 3 (partial): "Flutterwave" · Ambassador · ...
+  ```
+
+- **Platform pills row** (bottom of slide) — clean white pills, dark text, subtle border, real platform names with SVG icon:
+  `Instagram · TikTok · YouTube · X · Facebook`
+
+- **Floating `<DMNotificationCard />`** positioned upper-left:
+  ```
+  "New brand inquiry from: ZARA NG
+  Hi! We love your content. Are you 
+  open to a collaboration?..."
+  ```
+
+---
+
+### Slide 5 — Final CTA
+**Background**: Hot pink gradient (`#FF2D78` → `#FF6BA8`)  
+Simulates: vibrant, high-energy shot
+
+**Layout**:
+- **Top**: Live count badge — white pill, pink text: `[N] creators already on the waitlist` (live Supabase count)
+
+- **Center headline** (Cormorant Garamond 700 italic, white, 80px desktop / 56px mobile, tight line-height):
+  ```
+  Don't miss
+  your spot.
+  ```
+
+- **Sub** (DM Sans 400, white 85% opacity, 18px):
+  `CreatorRewards launches soon. Waitlist closes at capacity.`
+
+- **Large CTA button** (white bg, pink text, DM Sans 700, full-width on mobile / 360px desktop):
+  `Secure My Spot →`
+  Hover: scale up slightly, deepen shadow
+
+- **`<InstagramEngagementBar />`** at bottom — dark variant — shows the live count as a "like" count
+
+- **Decorative**: 3–4 scattered white circles at various opacities + sizes (CSS, abstract background texture suggestion)
+
+---
+
+## Slideshow & Persistence (from v1 — keep unchanged)
+
+All navigation mechanics from v1 spec remain:
+- Fixed `100dvh` height, CSS opacity fade (0.5s ease)
+- Wheel + keyboard + touch swipe navigation (debounced)
+- Dot nav: bottom-center on all slides (horizontal row), matches the Instagram carousel dots in reference images
+- Persistent CTA: **update style** — now `white` background with `--accent-pink` text (more refined than the bold flat shadow from v1). Smaller, more pill-like.
+
+```css
+.persistent-cta {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  background: white;
+  color: var(--accent-pink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  text-decoration: none;
+  border: 1.5px solid rgba(255,45,120,0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+}
+
+.persistent-cta:hover {
+  background: var(--accent-pink);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-1px);
+}
 ```
 
-### Dot Navigation
-Small vertical dot strip, right edge of screen, centered vertically:
+**On slides with light backgrounds (slides 2, 4)**: switch the CTA to `background: var(--accent-pink); color: white` for contrast — toggle via `activeSlide` prop.
+
+---
+
+## Navbar (refined)
+
+```css
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 150;
+  padding: 20px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Frosted glass effect — sophisticated, not flat */
+  background: rgba(0,0,0,0.0);   /* starts transparent */
+}
+```
+
+- **Logo**: "CreatorRewards" — Cormorant Garamond 600, white (or dark based on slide bg)
+- No secondary nav button — the persistent CTA handles this
+
+---
+
+## Dot Navigation (update from v1)
+
+Change from right-side vertical dots to **bottom-center horizontal dots** — matches Instagram carousel UX exactly (as seen in both reference images):
+
 ```css
 .dot-nav {
   position: fixed;
-  right: 24px;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  gap: 6px;
   z-index: 100;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(240, 62, 122, 0.3);
+  background: rgba(255,255,255,0.4);
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .dot.active {
-  background: var(--cr-pink);
-  transform: scale(1.4);
+  width: 20px;     /* elongated pill when active — Instagram-style */
+  border-radius: 3px;
+  background: white;
 }
 ```
 
-### Persistent CTA Button
-Always visible, bottom-right corner, above all content:
+On slides 2 and 4 (light backgrounds), use dark dots instead:
 ```css
-.persistent-cta {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 200;
-  background: var(--cr-pink);
-  color: white;
-  font-family: 'Clash Display', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 14px 28px;
-  border-radius: 100px;
-  text-decoration: none;
-  box-shadow: 4px 4px 0px #1A1A1A;  /* bold flat shadow — poster style */
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.persistent-cta:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #1A1A1A;
-}
-
-.persistent-cta:active {
-  transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0px #1A1A1A;
-}
+.dot { background: rgba(0,0,0,0.25); }
+.dot.active { background: rgba(0,0,0,0.7); }
 ```
 
 ---
 
-## The 5 Slides
+## Animation (refined from v1)
 
-Each slide has a yellow (`--cr-yellow`) background unless specified. All text animates in on `.active` with CSS keyframes (staggered `animation-delay`).
+Replace the bouncy `popIn` with more refined entrance animations:
 
 ```css
-@keyframes popIn {
-  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+/* Headline text — elegant fade up */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Widgets — subtle slide in from slightly off-screen + fade */
+@keyframes widgetIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.slide.active .animate-item {
-  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-/* Stagger via nth-child or explicit delay classes */
-.delay-1 { animation-delay: 0.05s; }
-.delay-2 { animation-delay: 0.15s; }
-.delay-3 { animation-delay: 0.28s; }
-.delay-4 { animation-delay: 0.42s; }
-.delay-5 { animation-delay: 0.58s; }
+/* Stagger delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.25s; }
+.delay-3 { animation-delay: 0.4s; }
+.delay-4 { animation-delay: 0.58s; }
+
+.slide.active .headline { animation: fadeUp 0.7s cubic-bezier(0.25, 0, 0, 1) both; }
+.slide.active .widget   { animation: widgetIn 0.6s cubic-bezier(0.25, 0, 0, 1) both; }
 ```
 
 ---
 
-### Slide 1 — Hero ("Get Paid. Stay You.")
-**Background**: `--cr-yellow`
-
-**Layout** (centered, full bleed poster):
-- Top: eyebrow badge pill — blush bg, pink text: `🚀 Launching Soon · Nigeria's Creator Platform`
-- Center headline (Clash Display, 96px desktop / 56px mobile, pink):
-  ```
-  GET PAID.
-  STAY YOU.
-  ```
-  Each line pops in with stagger.
-- Below headline: sub text (Cabinet Grotesk, 18px, `--cr-dark`):
-  `Post content. Work with brands. Get paid straight to your account.`
-- **Floating annotation pills** (positioned absolutely, scattered around):
-  - Bottom-left area: pill reading `"editing reels 📱"` with cursor icon
-  - Top-right area: pill reading `"brand deal incoming 💰"` with cursor icon  
-  - Bottom-right: orange pill reading `"₦42,000 earned this week"` (use `--cr-orange` bg variant)
-- **Decorative phone mockup**: a tall blush/white rounded rectangle (like a phone silhouette, no screen content needed — just the shape) placed right-of-center, slightly rotated 5deg. Give it a thick pink border (4px).
-
----
-
-### Slide 2 — How It Works ("3 Steps to Getting Paid")
-**Background**: `--cr-pink` (invert the palette — pink bg, white/yellow text)
-
-**Layout**:
-- Section label pill (white bg, pink text): `HOW IT WORKS`
-- Headline (Clash Display, white): `THREE STEPS TO YOUR FIRST BRAND DEAL`
-- Three step cards in a row (desktop) / stack (mobile):
-  Each card: white background, yellow number badge top-left, pink title, dark body text
-  1. `01 · Apply & Get Verified` — "Fill your profile. We check you're legit."
-  2. `02 · Browse Campaigns` — "Pick brand deals that match your vibe and niche."
-  3. `03 · Post & Get Paid` — "Drop the content. Money hits your account."
-- Decorative: a large `₦` symbol watermark behind the cards (white, 10% opacity, 200px Clash Display)
-- Annotation pill floating off one card: `"avg ₦35K per deal"` with cursor
-
----
-
-### Slide 3 — For Creators ("We Get the Creator Life")
-**Background**: `--cr-yellow`
-
-**Layout** (inspired directly by the reference poster — relatable humor):
-- Big headline (Clash Display, pink, ~80px):
-  ```
-  SORRY,
-  I HAVE PLANS
-  TONIGHT.
-  ```
-- Below headline, a cluster of annotation pills arranged like the reference image:
-  - `"editing reels"` + cursor (left)
-  - `"batching content"` + cursor (right)
-  - `"stalking brand pages for deals"` + cursor (bottom)
-  - `"checking my CreatorRewards dashboard"` + cursor (bottom-right, slightly larger, orange variant)
-- Sub text: `You work hard. CreatorRewards makes sure you get paid for it.`
-- This slide should feel like a direct callback to the reference image — same scattered pill layout, same humor energy.
-
----
-
-### Slide 4 — Platform & Niche ("Every Creator, Every Niche")
-**Background**: `--cr-blush` (soft blush white)
-
-**Layout**:
-- Eyebrow: pill badge `WE SUPPORT`
-- Headline (Clash Display, pink): `EVERY CREATOR. EVERY FORMAT. EVERY NICHE.`
-- Two rows of pill tags:
-  **Platforms row** (with emoji icons):
-  `📸 Instagram · 🎵 TikTok · 📺 YouTube · 🐦 X/Twitter · 👥 Facebook`
-  — Each pill: white bg, pink border, pink text
-
-  **Niches cloud** (mix of pink/yellow/orange pills, scattered sizes):
-  `Lifestyle · Fashion · Comedy · Tech · Food · Travel · Beauty · Gaming · Sports · Finance · Music · Parenting · Fitness · Entertainment`
-  — Randomise sizes (some `font-size: 13px`, some `16px`, some `19px`) for a "scattered" feel. Use alternating pink, orange, purple pill backgrounds.
-- Decorative: a big animated `✦` sparkle in the corner (slow spin CSS animation)
-
----
-
-### Slide 5 — Final CTA ("Don't Miss Your Spot")
-**Background**: `--cr-pink`
-
-**Layout** (energetic, maximum urgency):
-- Top: animated counter pill — white bg, pink text: live `[N] creators already joined` (fetch from Supabase `useWaitlistCount` hook — same hook from original spec). If count is 0, show `"Waitlist Open Now"`.
-- Giant headline (Clash Display, white, 96px desktop / 60px mobile):
-  ```
-  DON'T
-  MISS YOUR
-  SPOT.
-  ```
-- Sub (Cabinet Grotesk, white, 20px):
-  `CreatorRewards is launching soon. Waitlist closes when we hit capacity.`
-- CTA button (extra large, yellow bg, dark text, thick dark flat shadow):
-  `Secure My Spot → ` (links to `/join`)
-  ```css
-  /* On slide 5, override the persistent CTA to be hidden — the in-slide button takes over */
-  ```
-- Bottom: platform handles / social links row (white icon pills): `@CreatorRewards` on IG, TikTok, X
-- Decorative: scattered confetti shapes (CSS-only, small circles/squares in yellow, blush, orange — positioned absolutely, some with slow spin animations)
-
----
-
-## Navbar (persists across all slides)
-
-```css
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 150;
-  padding: 16px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;  /* no bg — see-through over slides */
-}
-```
-
-- **Logo**: `CR` in a hot pink rounded square badge + "CreatorRewards" in Clash Display 600, dark
-- **Right**: Ghost pill CTA — `Join Waitlist` — pink border, pink text, transparent bg (secondary to the persistent bottom-right CTA)
-- On slides with a pink background (slides 2 + 5), logo text switches to white. Use a CSS class toggled via `activeSlide` prop.
-
----
-
-## Mobile Considerations
-
-- All slides are responsive. On mobile (< 768px):
-  - Font sizes: hero headline drops to ~52px, step 5 headline to ~48px
-  - Step cards on slide 2 stack vertically, scrollable within the slide (overflow-y: auto on the cards container)
-  - Annotation pills on slide 1 and 3 reduce to 2 each, repositioned so they don't overlap headline
-  - Dot nav moves to bottom-center (horizontal dots row) instead of right-side vertical
-  - Persistent CTA shrinks: `padding: 12px 20px; font-size: 14px; bottom: 20px; right: 20px;`
-
----
-
-## Touch/Swipe (mobile)
-```tsx
-// Add to LandingPage
-const touchStartY = useRef(0);
-
-const handleTouchStart = (e: React.TouchEvent) => {
-  touchStartY.current = e.touches[0].clientY;
-};
-
-const handleTouchEnd = (e: React.TouchEvent) => {
-  const diff = touchStartY.current - e.changedTouches[0].clientY;
-  if (Math.abs(diff) < 50) return;
-  if (diff > 0) setActiveSlide(s => Math.min(s + 1, 4));
-  else setActiveSlide(s => Math.max(s - 1, 0));
-};
-```
-
----
-
-## File Changes Summary
+## File Changes
 
 | File | Action |
 |------|--------|
-| `src/styles/globals.css` | Add new `--cr-*` CSS variables for landing scope |
-| `src/pages/LandingPage.tsx` | Full rewrite — slideshow container + 5 slides |
-| `src/components/landing/HeroSection.tsx` | → Becomes `Slide1Hero.tsx` |
-| `src/components/landing/HowItWorks.tsx` | → Becomes `Slide2HowItWorks.tsx` |
-| `src/components/landing/Slide3ForCreators.tsx` | New file |
-| `src/components/landing/Slide4Platforms.tsx` | New file (merges old PlatformStrip + NicheCloud) |
-| `src/components/landing/Slide5FinalCTA.tsx` | New file (replaces old FinalCTA) |
-| `src/components/landing/DotNav.tsx` | New file |
-| `src/components/Navbar.tsx` | Update: transparent bg, accepts `lightMode` prop for pink-bg slides |
-| `src/hooks/useWaitlistCount.ts` | No change needed |
+| `src/styles/globals.css` | Replace `--cr-*` variables with new palette |
+| `src/pages/LandingPage.tsx` | Update: same slideshow shell, swap slide components |
+| `src/components/landing/widgets/SpotifyPlayerWidget.tsx` | **New** |
+| `src/components/landing/widgets/iMessageBubble.tsx` | **New** |
+| `src/components/landing/widgets/InstagramEngagementBar.tsx` | **New** |
+| `src/components/landing/widgets/DMNotificationCard.tsx` | **New** |
+| `src/components/landing/widgets/CreatorEarningsWidget.tsx` | **New** |
+| `src/components/landing/widgets/BrandDealCard.tsx` | **New** |
+| `src/components/landing/Slide1Hero.tsx` | Full rewrite |
+| `src/components/landing/Slide2Earnings.tsx` | Full rewrite |
+| `src/components/landing/Slide3HowItWorks.tsx` | Full rewrite |
+| `src/components/landing/Slide4Platforms.tsx` | Full rewrite |
+| `src/components/landing/Slide5FinalCTA.tsx` | Full rewrite |
+| `src/components/Navbar.tsx` | Update: Cormorant logo, slide-aware light/dark |
+| `index.html` | Update font links |
 
-**Do not touch**: `src/pages/JoinPage.tsx`, `src/pages/AdminPage.tsx`, all admin components, all form components, Supabase clients, types.
+**Do not touch**: All form components, admin components, Supabase clients, types, hooks.
 
 ---
 
-*Update prompt v1.0 — CreatorRewards Landing Redesign · April 2026*
+*Update prompt v2.0 — CreatorRewards Refined Landing · April 2026*

@@ -1,6 +1,7 @@
 
-
 import { NotificationBanner } from './SocialElements';
+import SplitText from './SplitText';
+import ParallaxCard from './ParallaxCard';
 
 const CursorIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -47,7 +48,7 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
         </span>
       </div>
 
-      <h2 className="animate-slide-up delay-2 mobile-text-lg" style={{
+      <h2 className="mobile-text-lg" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(32px, 6vw, 64px)',
         fontWeight: 700,
@@ -57,7 +58,7 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
         textTransform: 'uppercase',
         maxWidth: '800px'
       }}>
-        THREE STEPS TO YOUR FIRST BRAND DEAL
+        <SplitText text="THREE STEPS TO YOUR FIRST BRAND DEAL" active={active} delay={0.3} />
       </h2>
 
       <div className="mobile-scroll-y mobile-px-4" style={{
@@ -69,7 +70,7 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
         width: '100%'
       }}>
         {steps.map((step, i) => (
-          <div key={i} className={`animate-slide-up delay-${i + 3}`} style={{
+          <ParallaxCard key={i} className={`animate-slide-up delay-${i + 3}`} style={{
             backgroundColor: 'white',
             padding: '24px',
             borderRadius: '24px',
@@ -104,7 +105,7 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
               lineHeight: 1.4,
               fontSize: '14px'
             }}>{step.desc}</p>
-          </div>
+          </ParallaxCard>
         ))}
       </div>
 

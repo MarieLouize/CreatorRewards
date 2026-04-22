@@ -81,8 +81,13 @@ export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpd
           <Section title="Contact Info">
             <Row label="Email"><a href={`mailto:${entry.email}`} style={{ color: 'var(--accent-gold)' }}>{entry.email}</a></Row>
             {entry.phone && <Row label="Phone">{entry.phone}</Row>}
-            <Row label="Location">{[entry.location_city, entry.location_country].filter(Boolean).join(', ') || '—'}</Row>
+            <Row label="City">{entry.location_city || '—'}</Row>
             {entry.gender && <Row label="Gender" style={{ textTransform: 'capitalize' }}>{entry.gender.replace(/_/g, ' ')}</Row>}
+          </Section>
+
+          {/* Platforms */}
+          <Section title="Platforms">
+            <Row label="Selected">{entry.selected_platforms?.join(', ') || '—'}</Row>
           </Section>
 
           {/* Social handles */}
@@ -101,17 +106,21 @@ export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpd
             </Section>
           )}
 
-          {/* Stats */}
-          <Section title="Creator Stats">
-            <Row label="Primary Platform" style={{ textTransform: 'capitalize' }}>{entry.primary_platform}</Row>
-            <Row label="Followers (primary)">{entry.primary_follower_count?.toLocaleString() ?? '—'}</Row>
-            <Row label="Total Followers">{entry.total_followers?.toLocaleString() ?? '—'}</Row>
-            <Row label="Avg Engagement">{entry.avg_engagement_rate ? `${entry.avg_engagement_rate}%` : '—'}</Row>
+          {/* Content Preferences */}
+          <Section title="Content Preferences">
+            <div style={{ marginBottom: '16px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Preferred Content</span>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{entry.preferred_content || '—'}</p>
+            </div>
+            <div>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Would Not Promote</span>
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{entry.avoid_content || '—'}</p>
+            </div>
           </Section>
 
-          {/* Content */}
+          {/* Content Taxonomies */}
           {(entry.content_niches?.length || entry.content_formats?.length) && (
-            <Section title="Content">
+            <Section title="Content Tags">
               {entry.content_niches?.length ? (
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Niches</span>
@@ -132,13 +141,6 @@ export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpd
                   </div>
                 </div>
               ) : null}
-            </Section>
-          )}
-
-          {/* Bio */}
-          {entry.bio && (
-            <Section title="Bio">
-              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{entry.bio}</p>
             </Section>
           )}
 

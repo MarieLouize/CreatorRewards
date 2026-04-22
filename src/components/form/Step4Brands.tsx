@@ -113,14 +113,6 @@ export default function Step4Brands({ data, onChange }: Props) {
           ))}
         </select>
       </div>
-
-      {/* Referral code */}
-      <div className="form-field">
-        <label className="form-label">Referral Code (optional)</label>
-        <input className="form-input" type="text" placeholder="Referral code (optional)"
-          value={data.referral_code || ''}
-          onChange={e => onChange('referral_code', e.target.value)} />
-      </div>
     </div>
   );
 }

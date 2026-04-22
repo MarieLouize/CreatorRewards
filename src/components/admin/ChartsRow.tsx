@@ -31,10 +31,12 @@ export default function ChartsRow({ entries }: Props) {
     count,
   }));
 
-  // Platform breakdown
+  // Platform breakdown (counting all selected platforms)
   const platformCounts: Record<string, number> = {};
   entries.forEach(e => {
-    platformCounts[e.primary_platform] = (platformCounts[e.primary_platform] || 0) + 1;
+    (e.selected_platforms || []).forEach(p => {
+      platformCounts[p] = (platformCounts[p] || 0) + 1;
+    });
   });
   const pieData = Object.entries(platformCounts).map(([name, value]) => ({ name, value }));
 
@@ -77,7 +79,7 @@ export default function ChartsRow({ entries }: Props) {
         borderRadius: '12px', padding: '24px',
       }}>
         <h3 style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-secondary)', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          Platform Split
+          Platform Distribution
         </h3>
         {pieData.length > 0 ? (
           <ResponsiveContainer width="100%" height={200}>

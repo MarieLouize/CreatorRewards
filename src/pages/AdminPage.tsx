@@ -67,7 +67,7 @@ function PasswordGate({ onSuccess }: { onSuccess: () => void }) {
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('admin_authed') === '1');
-  const [filters, setFilters] = useState({ status: 'all', platform: 'all', search: '', page: 0 });
+  const [filters, setFilters] = useState({ status: 'all', search: '', page: 0 });
   const [selectedEntry, setSelectedEntry] = useState<WaitlistEntry | null>(null);
 
   const { entries, total, loading, updateStatus, updateNotes } = useWaitlistEntries(filters);

@@ -74,8 +74,31 @@ export default function LandingPage() {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      style={{ '--scroll-progress': activeSlide / (totalSlides - 1) } as any}
     >
       <Navbar activeSlide={activeSlide} />
+
+      {/* HUD Viewport Borders */}
+      <div className="hud-border">
+        <div className="corner-bracket corner-tl" style={{ transform: activeSlide % 2 === 0 ? 'scale(1)' : 'scale(1.2) translate(-2px, -2px)' }} />
+        <div className="corner-bracket corner-tr" style={{ transform: activeSlide % 2 === 0 ? 'scale(1)' : 'scale(1.2) translate(2px, -2px)' }} />
+        <div className="corner-bracket corner-bl" style={{ transform: activeSlide % 2 === 0 ? 'scale(1)' : 'scale(1.2) translate(-2px, 2px)' }} />
+        <div className="corner-bracket corner-br" style={{ transform: activeSlide % 2 === 0 ? 'scale(1)' : 'scale(1.2) translate(2px, 2px)' }} />
+      </div>
+
+      {/* Bending Background Layer */}
+      <div style={{
+        position: 'fixed',
+        inset: '-1rem',
+        background: isPinkBg ? 'var(--cr-yellow)' : 'var(--cr-pink)',
+        zIndex: -10,
+        opacity: 0.1,
+        transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+        clipPath: activeSlide % 2 === 0 
+          ? 'ellipse(100% 100% at 50% 100%)' 
+          : 'ellipse(150% 100% at 50% 120%)',
+        animation: 'bend-it 8s infinite ease-in-out'
+      }} />
 
       <a 
         href="/join" 
@@ -94,7 +117,27 @@ export default function LandingPage() {
         </div>
       )}
 
-      <div className="slides-wrapper">
+      <div className="slides-wrapper" style={{
+        perspective: '1200px',
+        transformStyle: 'preserve-3d'
+      }}>
+        {/* Tech Particles */}
+        <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -5 }}>
+          {[...Array(20)].map((_, i) => (
+            <div key={i} style={{
+              position: 'absolute',
+              width: '2px',
+              height: '2px',
+              background: isPinkBg ? 'white' : 'var(--cr-pink)',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: 0.2,
+              animation: `drift ${10 + Math.random() * 10}s infinite alternate linear`,
+              animationDelay: `${Math.random() * 5}s`
+            }} />
+          ))}
+        </div>
+
         <Slide1Hero active={activeSlide === 0} />
         <Slide2HowItWorks active={activeSlide === 1} />
         <Slide3ForCreators active={activeSlide === 2} />

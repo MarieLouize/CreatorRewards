@@ -5,7 +5,7 @@ interface Props {
   entries: WaitlistEntry[];
   total: number;
   loading: boolean;
-  filters: { status: string; platform: string; search: string; page: number };
+  filters: { status: string; search: string; page: number };
   onFilterChange: (key: string, value: string | number) => void;
   onUpdateStatus: (id: string, status: 'pending' | 'approved' | 'rejected') => void;
   onRowClick: (entry: WaitlistEntry) => void;
@@ -17,21 +17,20 @@ const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
   rejected: { bg: 'rgba(255,92,92,0.12)',   color: '#FF5C5C' },
 };
 
-const PLATFORMS = ['all', 'instagram', 'tiktok', 'youtube', 'twitter', 'facebook'];
 const PAGE_SIZE = 25;
 
 function exportCSV(entries: WaitlistEntry[]) {
-  const headers = ['Position', 'Name', 'Email', 'Phone', 'Platform', 'Followers', 'Niches', 'City', 'Country', 'Status', 'Signed Up'];
+  const headers = ['Position', 'Name', 'Email', 'Phone', 'Platforms', 'Niches', 'Preferred', 'Avoid', 'City', 'Status', 'Signed Up'];
   const rows = entries.map(e => [
     e.waitlist_position ?? '',
     e.full_name,
     e.email,
     e.phone ?? '',
-    e.primary_platform,
-    e.primary_follower_count ?? '',
+    (e.selected_platforms ?? []).join('; '),
     (e.content_niches ?? []).join('; '),
+    e.preferred_content ?? '',
+    e.avoid_content ?? '',
     e.location_city ?? '',
-    e.location_country ?? '',
     e.status,
     new Date(e.created_at).toLocaleDateString(),
   ]);
@@ -71,17 +70,6 @@ export default function EntriesTable({ entries, total, loading, filters, onFilte
               {s}
             </button>
           ))}
-          {/* Platform filter */}
-          <select
-            value={filters.platform}
-            onChange={e => onFilterChange('platform', e.target.value)}
-            style={{
-              background: 'var(--bg-secondary)', border: '1px solid var(--border)',
-              borderRadius: '6px', color: 'var(--text-secondary)', fontSize: '13px',
-              padding: '6px 10px', cursor: 'pointer', outline: 'none',
-            }}>
-            {PLATFORMS.map(p => <option key={p} value={p} style={{ textTransform: 'capitalize' }}>{p === 'all' ? 'All Platforms' : p}</option>)}
-          </select>
           {/* Search */}
           <input
             type="text" placeholder="Search name or email…"
@@ -90,7 +78,7 @@ export default function EntriesTable({ entries, total, loading, filters, onFilte
             style={{
               background: 'var(--bg-secondary)', border: '1px solid var(--border)',
               borderRadius: '6px', color: 'var(--text-primary)', fontSize: '13px',
-              padding: '6px 12px', outline: 'none', width: '200px',
+              padding: '6px 12px', outline: 'none', width: '250px',
             }}
             onFocus={e => (e.target.style.borderColor = 'var(--accent-gold)')}
             onBlur={e => (e.target.style.borderColor = 'var(--border)')}
@@ -107,7 +95,7 @@ export default function EntriesTable({ entries, total, loading, filters, onFilte
         <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '700px' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border)' }}>
-              {['#', 'Name', 'Email', 'Platform', 'Followers', 'Niches', 'Location', 'Signed Up', 'Status', 'Action'].map(h => (
+              {['#', 'Name', 'Email', 'Platforms', 'Niches', 'City', 'Signed Up', 'Status', 'Action'].map(h => (
                 <th key={h} style={{
                   padding: '12px 16px', textAlign: 'left',
                   fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em',
@@ -118,9 +106,9 @@ export default function EntriesTable({ entries, total, loading, filters, onFilte
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan={10} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>Loading…</td></tr>
+              <tr><td colSpan={9} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>Loading…</td></tr>
             ) : entries.length === 0 ? (
-              <tr><td colSpan={10} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>No entries found</td></tr>
+              <tr><td colSpan={9} style={{ textAlign: 'center', padding: '40px', color: 'var(--text-muted)' }}>No entries found</td></tr>
             ) : entries.map(entry => {
               const sc = STATUS_COLORS[entry.status];
               return (
@@ -142,16 +130,13 @@ export default function EntriesTable({ entries, total, loading, filters, onFilte
                     {entry.email}
                   </td>
                   <td style={{ padding: '12px 16px', fontSize: '13px', color: 'var(--text-secondary)', textTransform: 'capitalize' }}>
-                    {entry.primary_platform}
-                  </td>
-                  <td style={{ padding: '12px 16px', fontSize: '13px', color: 'var(--text-secondary)' }}>
-                    {entry.primary_follower_count?.toLocaleString() ?? '—'}
+                    {entry.selected_platforms?.slice(0, 2).join(', ')}{(entry.selected_platforms?.length ?? 0) > 2 ? '...' : ''}
                   </td>
                   <td style={{ padding: '12px 16px', fontSize: '12px', color: 'var(--text-muted)', maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {(entry.content_niches ?? []).slice(0, 3).join(', ')}
                   </td>
                   <td style={{ padding: '12px 16px', fontSize: '13px', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
-                    {[entry.location_city, entry.location_country].filter(Boolean).join(', ') || '—'}
+                    {entry.location_city || '—'}
                   </td>
                   <td style={{ padding: '12px 16px', fontSize: '12px', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                     {new Date(entry.created_at).toLocaleDateString()}

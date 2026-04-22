@@ -4,7 +4,6 @@ import type { WaitlistEntry } from '../types/waitlist';
 
 interface Filters {
   status: string;
-  platform: string;
   search: string;
   page: number;
 }
@@ -26,9 +25,6 @@ export function useWaitlistEntries(filters: Filters) {
     if (filters.status && filters.status !== 'all') {
       query = query.eq('status', filters.status);
     }
-    if (filters.platform && filters.platform !== 'all') {
-      query = query.eq('primary_platform', filters.platform);
-    }
     if (filters.search) {
       query = query.or(`full_name.ilike.%${filters.search}%,email.ilike.%${filters.search}%`);
     }
@@ -41,7 +37,7 @@ export function useWaitlistEntries(filters: Filters) {
     setEntries((data as WaitlistEntry[]) ?? []);
     setTotal(count ?? 0);
     setLoading(false);
-  }, [filters.status, filters.platform, filters.search, filters.page]);
+  }, [filters.status, filters.search, filters.page]);
 
   useEffect(() => { fetch(); }, [fetch]);
 

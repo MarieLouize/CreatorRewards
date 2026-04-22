@@ -12,20 +12,20 @@ export default function StatsBar({ entries, total }: Props) {
 
   const platformCounts: Record<string, number> = {};
   entries.forEach(e => {
-    platformCounts[e.primary_platform] = (platformCounts[e.primary_platform] || 0) + 1;
+    (e.selected_platforms || []).forEach(p => {
+      platformCounts[p] = (platformCounts[p] || 0) + 1;
+    });
   });
   const topPlatform = Object.entries(platformCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—';
 
-  const withFollowers = entries.filter(e => e.primary_follower_count);
-  const avgFollowers = withFollowers.length
-    ? Math.round(withFollowers.reduce((sum, e) => sum + (e.primary_follower_count ?? 0), 0) / withFollowers.length)
-    : 0;
+  const brandExperience = entries.filter(e => e.has_worked_with_brands).length;
+  const brandPercent = total > 0 ? Math.round((brandExperience / total) * 100) : 0;
 
   const stats = [
     { label: 'Total Signups', value: total.toLocaleString() },
     { label: 'This Week', value: thisWeek.toLocaleString() },
     { label: 'Top Platform', value: topPlatform.charAt(0).toUpperCase() + topPlatform.slice(1) },
-    { label: 'Avg Followers', value: avgFollowers ? avgFollowers.toLocaleString() : '—' },
+    { label: 'Brand Experience', value: `${brandPercent}%` },
   ];
 
   return (

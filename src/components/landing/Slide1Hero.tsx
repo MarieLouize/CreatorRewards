@@ -1,6 +1,7 @@
 
 
 import { VerifiedBadge, LikeCounter } from './SocialElements';
+import SplitText from './SplitText';
 
 const CursorIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -11,13 +12,74 @@ const CursorIcon = () => (
 export default function Slide1Hero({ active }: { active: boolean }) {
   return (
     <section className={`slide bg-matcha-grad ${active ? 'active' : ''}`}>
-      <div className="animate-pop-bounce delay-1">
-        <span className="annotation-pill float-subtle gold-gradient-move" style={{ position: 'relative', top: '0', left: '0', marginBottom: '32px' }}>
-          🚀 Launching Soon · Nigeria's Creator Platform <VerifiedBadge />
-        </span>
+      <div className="animate-pop-bounce delay-1" style={{ marginBottom: '32px' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '12px',
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(8px)',
+          border: '1.5px solid var(--cr-dark)',
+          padding: '6px 16px',
+          borderRadius: '4px',
+          position: 'relative',
+          overflow: 'hidden',
+          boxShadow: '4px 4px 0px var(--cr-dark)',
+        }}>
+          {/* Scanning Effect */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            width: '30%',
+            height: '100%',
+            background: 'linear-gradient(90deg, transparent, rgba(251, 113, 133, 0.2), transparent)',
+            animation: 'scan-horizontal 3s infinite linear',
+            pointerEvents: 'none'
+          }} />
+
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '10px',
+            fontWeight: 800,
+            fontFamily: 'monospace',
+            color: 'var(--cr-pink)',
+            textTransform: 'uppercase'
+          }}>
+            <span style={{ 
+              width: '6px', height: '6px', borderRadius: '50%', 
+              background: 'var(--cr-pink)', animation: 'pulse-soft 1.5s infinite' 
+            }} />
+            Live Status
+          </div>
+
+          <div style={{ height: '12px', width: '1px', background: 'var(--cr-dark)', opacity: 0.2 }} />
+
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '13px',
+            fontWeight: 700,
+            color: 'var(--cr-dark)',
+            letterSpacing: '0.02em'
+          }}>
+            LAUNCHING SOON <VerifiedBadge />
+          </span>
+
+          <div style={{ height: '12px', width: '1px', background: 'var(--cr-dark)', opacity: 0.2 }} />
+
+          <span style={{
+            fontFamily: 'monospace',
+            fontSize: '10px',
+            fontWeight: 600,
+            color: 'var(--text-muted)'
+          }}>
+            [V2.0.4]
+          </span>
+        </div>
       </div>
 
-      <h1 className="animate-slide-up delay-2 mobile-text-xl" style={{
+      <h1 className="mobile-text-xl" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(56px, 10vw, 96px)',
         fontWeight: 700,
@@ -28,11 +90,27 @@ export default function Slide1Hero({ active }: { active: boolean }) {
         letterSpacing: '-0.02em',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        animation: active ? 'chromatic-shift 4s infinite linear' : 'none'
       }}>
-        <span className={active ? 'typewriter-container' : ''}>GET PAID.</span>
-        <span className={active ? 'typewriter-container' : ''} style={{ animationDelay: '1s, 0s' }}>STAY YOU.</span>
+        <SplitText text="GET PAID." active={active} delay={0.2} />
+        <SplitText text="STAY YOU." active={active} delay={0.5} />
       </h1>
+
+      {/* Liquid Background Blob */}
+      <div style={{
+        position: 'absolute',
+        top: '10%',
+        left: '-5%',
+        width: '400px',
+        height: '400px',
+        background: 'var(--cr-yellow)',
+        filter: 'url(#liquid-filter)',
+        opacity: 0.4,
+        zIndex: -2,
+        borderRadius: '50%',
+        animation: 'drift 20s infinite alternate linear'
+      }} />
 
       <p className="animate-slide-up delay-3 mobile-text-sm" style={{
         fontFamily: 'var(--font-body)',

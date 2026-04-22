@@ -8,29 +8,35 @@ interface Props {
   errors: Partial<Record<keyof WaitlistFormData, string>>;
 }
 
-const PLATFORMS: { value: string; label: string; Icon: LucideIcon; color: string }[] = [
-  { value: 'instagram', label: 'Instagram', Icon: Camera,     color: '#E1306C' },
-  { value: 'tiktok',    label: 'TikTok',    Icon: Music2,     color: '#69C9D0' },
-  { value: 'youtube',   label: 'YouTube',   Icon: PlayCircle, color: '#FF0000' },
-  { value: 'twitter',   label: 'Twitter/X', Icon: AtSign,     color: '#CCCCCC' },
-  { value: 'facebook',  label: 'Facebook',  Icon: Users,      color: '#1877F2' },
+const PLATFORMS: { value: string; label: string; Icon: LucideIcon; color: string; field: keyof WaitlistFormData }[] = [
+  { value: 'instagram', label: 'Instagram', Icon: Camera,     color: '#E1306C', field: 'instagram_handle' },
+  { value: 'tiktok',    label: 'TikTok',    Icon: Music2,     color: '#69C9D0', field: 'tiktok_handle' },
+  { value: 'youtube',   label: 'YouTube',   Icon: PlayCircle, color: '#FF0000', field: 'youtube_handle' },
+  { value: 'twitter',   label: 'Twitter/X', Icon: AtSign,     color: '#1DA1F2', field: 'twitter_handle' },
+  { value: 'facebook',  label: 'Facebook',  Icon: Users,      color: '#1877F2', field: 'facebook_handle' },
 ];
 
 export default function Step2Creator({ data, onChange, errors }: Props) {
-  const charCount = (data.bio || '').length;
+  const togglePlatform = (platform: string) => {
+    const current = data.selected_platforms || [];
+    if (current.includes(platform)) {
+      onChange('selected_platforms', current.filter(p => p !== platform));
+    } else {
+      onChange('selected_platforms', [...current, platform]);
+    }
+  };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-      {/* Primary platform */}
       <div className="form-field">
-        <label className="form-label">Primary Platform *</label>
-        {errors.primary_platform && <span className="form-error">{errors.primary_platform}</span>}
+        <label className="form-label">Which platforms are you on? *</label>
+        {errors.selected_platforms && <span className="form-error">{errors.selected_platforms}</span>}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '12px' }}>
           {PLATFORMS.map(({ value, label, Icon, color }) => {
-            const active = data.primary_platform === value;
+            const active = (data.selected_platforms || []).includes(value);
             return (
               <button key={value} type="button"
-                onClick={() => onChange('primary_platform', value)}
+                onClick={() => togglePlatform(value)}
                 style={{
                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
                   padding: '16px 20px', borderRadius: '16px', cursor: 'pointer',
@@ -50,49 +56,26 @@ export default function Step2Creator({ data, onChange, errors }: Props) {
         </div>
       </div>
 
-      {/* Handles */}
-      <div>
-        <label className="form-label" style={{ marginBottom: '16px', display: 'block' }}>Social Handles</label>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          {[
-            { field: 'instagram_handle', label: 'Instagram', placeholder: '@yourhandle' },
-            { field: 'tiktok_handle', label: 'TikTok', placeholder: '@yourhandle' },
-            { field: 'youtube_handle', label: 'YouTube', placeholder: 'Channel name or URL' },
-            { field: 'twitter_handle', label: 'Twitter / X', placeholder: '@yourhandle' },
-            { field: 'facebook_handle', label: 'Facebook', placeholder: 'Page name' },
-          ].map(({ field, label, placeholder }) => (
-            <div key={field} className="form-field">
-              <label className="form-label" style={{ fontSize: '11px' }}>{label}</label>
+      {/* Dynamic Handles */}
+      {(data.selected_platforms || []).length > 0 && (
+        <div style={{ 
+          display: 'flex', flexDirection: 'column', gap: '20px',
+          animation: 'slideUpSmooth 0.4s cubic-bezier(0.16,1,0.3,1) both' 
+        }}>
+          <label className="form-label">Social Handles *</label>
+          {PLATFORMS.filter(p => (data.selected_platforms || []).includes(p.value)).map(p => (
+            <div key={p.value} className="form-field">
+              <label className="form-label" style={{ fontSize: '11px', color: p.color }}>{p.label} Handle</label>
               <input
-                className={`form-input${errors[field as keyof WaitlistFormData] ? ' error' : ''}`}
-                type="text" placeholder={placeholder}
-                value={(data[field as keyof WaitlistFormData] as string) || ''}
-                onChange={e => onChange(field as keyof WaitlistFormData, e.target.value)} />
-              {errors[field as keyof WaitlistFormData] && (
-                <span className="form-error">{errors[field as keyof WaitlistFormData]}</span>
-              )}
+                className={`form-input${errors[p.field] ? ' error' : ''}`}
+                type="text" placeholder={`@your_${p.value}_handle`}
+                value={(data[p.field] as string) || ''}
+                onChange={e => onChange(p.field, e.target.value)} />
+              {errors[p.field] && <span className="form-error">{errors[p.field]}</span>}
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Bio */}
-      <div className="form-field">
-        <label className="form-label">Creator Bio</label>
-        <textarea
-          className="form-input"
-          placeholder="Tell brands a little about you and your content…"
-          maxLength={280}
-          rows={4}
-          value={data.bio || ''}
-          onChange={e => onChange('bio', e.target.value)}
-        />
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '4px' }}>
-          <span className="form-helper" style={{ color: charCount > 250 ? 'var(--accent-coral)' : 'var(--text-muted)' }}>
-            {charCount}/280
-          </span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
