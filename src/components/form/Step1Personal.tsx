@@ -10,8 +10,8 @@ export default function Step1Personal({ data, onChange, errors }: Props) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
       <div className="form-field">
-        <label className="form-label">Full Name *</label>
-        <p className="form-helper" style={{ marginBottom: '8px' }}>Enter your legal name or professional brand name.</p>
+        <label className="form-label">Name *</label>
+        <p className="form-helper" style={{ marginBottom: '8px' }}>Your name or professional identifier.</p>
         <input className={`form-input${errors.full_name ? ' error' : ''}`}
           type="text" placeholder="e.g. Tunde Balogun"
           value={data.full_name || ''} onChange={e => onChange('full_name', e.target.value)} />
