@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Slide1Hero from '../components/landing/Slide1Hero';
 import Slide2HowItWorks from '../components/landing/Slide2HowItWorks';
@@ -21,6 +21,15 @@ export default function LandingPage() {
 
   // Slides 2 and 5 (index 1 and 4) have pink backgrounds
   const isPinkBg = activeSlide === 1 || activeSlide === 4;
+
+  const techParticles = useMemo(() => {
+    return [...Array(20)].map((_) => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+      driftDuration: 10 + Math.random() * 10,
+      delay: Math.random() * 5
+    }));
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -119,21 +128,22 @@ export default function LandingPage() {
 
       <div className="slides-wrapper" style={{
         perspective: '1200px',
-        transformStyle: 'preserve-3d'
+        transformStyle: 'preserve-3d',
+        height: '100%'
       }}>
         {/* Tech Particles */}
         <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -5 }}>
-          {[...Array(20)].map((_, i) => (
+          {techParticles.map((p, i) => (
             <div key={i} style={{
               position: 'absolute',
               width: '2px',
               height: '2px',
               background: isPinkBg ? 'white' : 'var(--cr-pink)',
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: p.left,
+              top: p.top,
               opacity: 0.2,
-              animation: `drift ${10 + Math.random() * 10}s infinite alternate linear`,
-              animationDelay: `${Math.random() * 5}s`
+              animation: `drift ${p.driftDuration}s infinite alternate linear`,
+              animationDelay: `${p.delay}s`
             }} />
           ))}
         </div>

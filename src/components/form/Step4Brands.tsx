@@ -3,7 +3,7 @@ import type { WaitlistFormData } from '../../types/waitlist';
 interface Props {
   data: WaitlistFormData;
   onChange: (field: keyof WaitlistFormData, value: unknown) => void;
-  errors?: Partial<Record<keyof WaitlistFormData, string>>;
+  errors: Partial<Record<keyof WaitlistFormData, string>>;
 }
 
 const DEAL_TYPES = [
@@ -22,7 +22,7 @@ const REFERRAL_SOURCES = [
   { value: 'other', label: 'Other' },
 ];
 
-export default function Step4Brands({ data, onChange }: Props) {
+export default function Step4Brands({ data, onChange, errors }: Props) {
   const dealTypes = (data.preferred_deal_type as string[]) || [];
   const workedWithBrands = data.has_worked_with_brands;
 
@@ -38,8 +38,10 @@ export default function Step4Brands({ data, onChange }: Props) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
       {/* Has worked with brands */}
       <div className="form-field">
-        <label className="form-label">Have you worked with brands before?</label>
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '12px' }}>
+        <label className="form-label">Have you worked with brands before? *</label>
+        <p className="form-helper" style={{ marginBottom: '12px' }}>Tell us about your experience with brand partnerships.</p>
+        {errors.has_worked_with_brands && <span className="form-error">{errors.has_worked_with_brands}</span>}
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '4px' }}>
           {[
             { value: 'no', label: 'No', boolVal: false },
             { value: 'yes', label: 'Yes', boolVal: true },
@@ -64,8 +66,8 @@ export default function Step4Brands({ data, onChange }: Props) {
 
       {/* Brand count — conditional */}
       {workedWithBrands === true && (
-        <div className="form-field">
-          <label className="form-label">How many brands?</label>
+        <div className="form-field" style={{ animation: 'slideUpSmooth 0.4s both' }}>
+          <label className="form-label">How many brands have you collaborated with?</label>
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', paddingTop: '10px' }}>
             {(['1-3', '4-10', '10+'] as const).map(opt => (
               <button key={opt} type="button"
@@ -90,7 +92,8 @@ export default function Step4Brands({ data, onChange }: Props) {
       {/* Preferred deal type */}
       <div className="form-field">
         <label className="form-label">Preferred Deal Types</label>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '12px' }}>
+        <p className="form-helper" style={{ marginBottom: '12px' }}>What kind of partnerships are you most interested in?</p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '4px' }}>
           {DEAL_TYPES.map(d => (
             <button key={d.value} type="button"
               className={`chip${dealTypes.includes(d.value) ? ' selected' : ''}`}
@@ -103,8 +106,10 @@ export default function Step4Brands({ data, onChange }: Props) {
 
       {/* Referral source */}
       <div className="form-field">
-        <label className="form-label">How did you hear about us?</label>
-        <select className="form-input"
+        <label className="form-label">How did you hear about us? *</label>
+        <p className="form-helper" style={{ marginBottom: '12px' }}>Helps us understand our growth.</p>
+        {errors.referral_source && <span className="form-error">{errors.referral_source}</span>}
+        <select className={`form-input${errors.referral_source ? ' error' : ''}`}
           value={data.referral_source || ''}
           onChange={e => onChange('referral_source', e.target.value)}>
           <option value="">Select an option</option>

@@ -16,12 +16,21 @@ const INITIAL_FORM: WaitlistFormData = {
   phone: '',
   location_city: '',
   gender: undefined,
+  primary_platform: 'instagram',
   selected_platforms: [],
   instagram_handle: '',
+  instagram_link: '',
   tiktok_handle: '',
+  tiktok_link: '',
   youtube_handle: '',
+  youtube_link: '',
   twitter_handle: '',
+  twitter_link: '',
   facebook_handle: '',
+  facebook_link: '',
+  snapchat_handle: '',
+  snapchat_link: '',
+  creator_type: undefined,
   content_niches: [],
   content_formats: [],
   preferred_content: '',
@@ -40,13 +49,28 @@ function validateStep(step: number, data: WaitlistFormData): Partial<Record<keyo
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = 'Enter a valid email address';
   }
   if (step === 2) {
-    if (data.selected_platforms.length === 0) {
+    if ((data.selected_platforms || []).length === 0) {
       errors.selected_platforms = 'Select at least one platform';
     } else {
-      data.selected_platforms.forEach(p => {
-        const field = `${p}_handle` as keyof WaitlistFormData;
-        if (!data[field]) errors[field] = `Enter your ${p} handle`;
+      data.selected_platforms?.forEach(p => {
+        const handleField = `${p}_handle` as keyof WaitlistFormData;
+        const linkField = `${p}_link` as keyof WaitlistFormData;
+        if (!data[handleField]) errors[handleField] = `Enter your ${p} handle`;
+        if (!data[linkField]) errors[linkField] = `Enter your ${p} profile link`;
       });
+    }
+  }
+  if (step === 3) {
+    if (!data.creator_type) {
+      errors.creator_type = 'Select your creator type';
+    }
+  }
+  if (step === 4) {
+    if (data.has_worked_with_brands === undefined || data.has_worked_with_brands === null) {
+      errors.has_worked_with_brands = 'Please select an option';
+    }
+    if (!data.referral_source) {
+      errors.referral_source = 'Please tell us how you heard about us';
     }
   }
   return errors;
@@ -93,10 +117,19 @@ export default function JoinPage() {
         location_city: formData.location_city || null,
         gender: formData.gender || null,
         instagram_handle: formData.instagram_handle || null,
+        instagram_link: formData.instagram_link || null,
         tiktok_handle: formData.tiktok_handle || null,
+        tiktok_link: formData.tiktok_link || null,
         youtube_handle: formData.youtube_handle || null,
+        youtube_link: formData.youtube_link || null,
         twitter_handle: formData.twitter_handle || null,
+        twitter_link: formData.twitter_link || null,
         facebook_handle: formData.facebook_handle || null,
+        facebook_link: formData.facebook_link || null,
+        snapchat_handle: formData.snapchat_handle || null,
+        snapchat_link: formData.snapchat_link || null,
+        creator_type: formData.creator_type || null,
+        bio: formData.bio || null,
         preferred_content: formData.preferred_content || null,
         avoid_content: formData.avoid_content || null,
         brand_count_estimate: formData.brand_count_estimate || null,

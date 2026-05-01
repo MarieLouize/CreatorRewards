@@ -11,28 +11,32 @@ export default function Step1Personal({ data, onChange, errors }: Props) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
       <div className="form-field">
         <label className="form-label">Full Name *</label>
+        <p className="form-helper" style={{ marginBottom: '8px' }}>Enter your legal name or professional brand name.</p>
         <input className={`form-input${errors.full_name ? ' error' : ''}`}
-          type="text" placeholder="Your full name"
+          type="text" placeholder="e.g. Tunde Balogun"
           value={data.full_name || ''} onChange={e => onChange('full_name', e.target.value)} />
         {errors.full_name && <span className="form-error">{errors.full_name}</span>}
       </div>
 
       <div className="form-field">
         <label className="form-label">Email Address *</label>
+        <p className="form-helper" style={{ marginBottom: '8px' }}>We'll use this to notify you when your spot is ready.</p>
         <input className={`form-input${errors.email ? ' error' : ''}`}
-          type="email" placeholder="your@email.com"
+          type="email" placeholder="tunde@creator.com"
           value={data.email || ''} onChange={e => onChange('email', e.target.value)} />
         {errors.email && <span className="form-error">{errors.email}</span>}
       </div>
 
       <div className="form-field">
         <label className="form-label">Phone Number</label>
+        <p className="form-helper" style={{ marginBottom: '8px' }}>Optional. For receiving urgent campaign invites via WhatsApp/SMS.</p>
         <input className="form-input" type="tel" placeholder="+234 800 000 0000"
           value={data.phone || ''} onChange={e => onChange('phone', e.target.value)} />
       </div>
 
       <div className="form-field">
         <label className="form-label">Gender</label>
+        <p className="form-helper" style={{ marginBottom: '8px' }}>Helps us match you with gender-specific brand campaigns.</p>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', paddingTop: '8px' }}>
           {[
             { value: 'male', label: 'Male' },
@@ -56,7 +60,8 @@ export default function Step1Personal({ data, onChange, errors }: Props) {
 
       <div className="form-field">
         <label className="form-label">City</label>
-        <input className="form-input" type="text" placeholder="e.g. Lagos, Abuja"
+        <p className="form-helper" style={{ marginBottom: '8px' }}>Brands often look for creators in specific Nigerian cities.</p>
+        <input className="form-input" type="text" placeholder="e.g. Lagos, Abuja, Port Harcourt"
           value={data.location_city || ''} onChange={e => onChange('location_city', e.target.value)} />
       </div>
     </div>

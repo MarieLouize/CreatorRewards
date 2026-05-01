@@ -64,6 +64,11 @@
 /* ─── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background-color: var(--bg-page);
   color: var(--text-primary);
@@ -316,6 +321,7 @@ input, textarea, select { font-family: var(--font-body); }
 
 /* ─── Slideshow Architecture ────────────────────────────── */
 .slideshow-container {
+  height: 100vh;
   height: 100dvh;
   overflow: hidden;
   position: relative;
@@ -348,6 +354,7 @@ input, textarea, select { font-family: var(--font-body); }
 .slide {
   position: absolute;
   inset: 0;
+  height: 100vh;
   height: 100dvh;
   opacity: 0;
   pointer-events: none;

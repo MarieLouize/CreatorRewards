@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 
 interface Props {
@@ -15,6 +14,7 @@ export default function NichePill({ name, color, delay = 0, className, style }: 
     floatDuration: 3 + Math.random() * 4,
     driftX: (Math.random() - 0.5) * 20,
     driftY: (Math.random() - 0.5) * 20,
+    delay: Math.random() * 2,
   }));
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function NichePill({ name, color, delay = 0, className, style }: 
         backgroundColor: color,
         color: 'white',
         borderColor: 'transparent',
-        animationDelay: `${delay}s, ${Math.random() * 2}s`,
+        animationDelay: `${delay}s, ${randomConfig.delay}s`,
         animationDuration: `0.6s, ${randomConfig.floatDuration}s`,
         transform: `translate(${mouseOffset.x}px, ${mouseOffset.y}px)`,
         transition: 'transform 0.4s cubic-bezier(0.2, 0, 0.2, 1)',

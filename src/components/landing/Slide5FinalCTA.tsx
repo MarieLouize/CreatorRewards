@@ -1,4 +1,4 @@
-
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWaitlistCount } from '../../hooks/useWaitlistCount';
 import { VerifiedBadge } from './SocialElements';
@@ -8,6 +8,16 @@ import MagneticWrapper from './MagneticWrapper';
 export default function Slide5FinalCTA({ active }: { active: boolean }) {
   const navigate = useNavigate();
   const count = useWaitlistCount();
+
+  const confetti = useMemo(() => {
+    return [...Array(12)].map((_, i) => ({
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      color: ['var(--cr-yellow)', 'var(--cr-blush)', 'var(--cr-orange)'][i % 3],
+      duration: 5 + Math.random() * 5,
+      isCircle: i % 2 === 0
+    }));
+  }, []);
 
   return (
     <section className={`slide bg-pink-grad ${active ? 'active' : ''}`}>
@@ -92,17 +102,17 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
       </div>
 
       {/* Decorative Confetti Shapes (CSS only) */}
-      {[...Array(12)].map((_, i) => (
+      {confetti.map((c, i) => (
         <div key={i} style={{
           position: 'absolute',
           width: '12px',
           height: '12px',
-          borderRadius: i % 2 === 0 ? '50%' : '2px',
-          backgroundColor: ['var(--cr-yellow)', 'var(--cr-blush)', 'var(--cr-orange)'][i % 3],
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
+          borderRadius: c.isCircle ? '50%' : '2px',
+          backgroundColor: c.color,
+          top: c.top,
+          left: c.left,
           opacity: 0.6,
-          animation: `spin ${5 + Math.random() * 5}s linear infinite`,
+          animation: `spin ${c.duration}s linear infinite`,
           pointerEvents: 'none',
           zIndex: -1
         }} />

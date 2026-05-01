@@ -1,4 +1,4 @@
-import { Camera, Music2, PlayCircle, AtSign, Users } from 'lucide-react';
+import { Camera, Music2, PlayCircle, AtSign, Users, Ghost } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { WaitlistFormData } from '../../types/waitlist';
 
@@ -8,12 +8,13 @@ interface Props {
   errors: Partial<Record<keyof WaitlistFormData, string>>;
 }
 
-const PLATFORMS: { value: string; label: string; Icon: LucideIcon; color: string; field: keyof WaitlistFormData }[] = [
-  { value: 'instagram', label: 'Instagram', Icon: Camera,     color: '#E1306C', field: 'instagram_handle' },
-  { value: 'tiktok',    label: 'TikTok',    Icon: Music2,     color: '#69C9D0', field: 'tiktok_handle' },
-  { value: 'youtube',   label: 'YouTube',   Icon: PlayCircle, color: '#FF0000', field: 'youtube_handle' },
-  { value: 'twitter',   label: 'Twitter/X', Icon: AtSign,     color: '#1DA1F2', field: 'twitter_handle' },
-  { value: 'facebook',  label: 'Facebook',  Icon: Users,      color: '#1877F2', field: 'facebook_handle' },
+const PLATFORMS: { value: string; label: string; Icon: LucideIcon; color: string; field: keyof WaitlistFormData; linkField: keyof WaitlistFormData }[] = [
+  { value: 'instagram', label: 'Instagram', Icon: Camera,     color: '#E1306C', field: 'instagram_handle', linkField: 'instagram_link' },
+  { value: 'tiktok',    label: 'TikTok',    Icon: Music2,     color: '#69C9D0', field: 'tiktok_handle', linkField: 'tiktok_link' },
+  { value: 'youtube',   label: 'YouTube',   Icon: PlayCircle, color: '#FF0000', field: 'youtube_handle', linkField: 'youtube_link' },
+  { value: 'twitter',   label: 'Twitter/X', Icon: AtSign,     color: '#1DA1F2', field: 'twitter_handle', linkField: 'twitter_link' },
+  { value: 'facebook',  label: 'Facebook',  Icon: Users,      color: '#1877F2', field: 'facebook_handle', linkField: 'facebook_link' },
+  { value: 'snapchat',  label: 'Snapchat',  Icon: Ghost,      color: '#FFFC00', field: 'snapchat_handle', linkField: 'snapchat_link' },
 ];
 
 export default function Step2Creator({ data, onChange, errors }: Props) {
@@ -30,6 +31,7 @@ export default function Step2Creator({ data, onChange, errors }: Props) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       <div className="form-field">
         <label className="form-label">Which platforms are you on? *</label>
+        <p className="form-helper" style={{ marginBottom: '12px' }}>Select all the platforms where you actively create content.</p>
         {errors.selected_platforms && <span className="form-error">{errors.selected_platforms}</span>}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '12px' }}>
           {PLATFORMS.map(({ value, label, Icon, color }) => {
@@ -56,22 +58,34 @@ export default function Step2Creator({ data, onChange, errors }: Props) {
         </div>
       </div>
 
-      {/* Dynamic Handles */}
+      {/* Dynamic Handles & Links */}
       {(data.selected_platforms || []).length > 0 && (
         <div style={{ 
           display: 'flex', flexDirection: 'column', gap: '20px',
           animation: 'slideUpSmooth 0.4s cubic-bezier(0.16,1,0.3,1) both' 
         }}>
-          <label className="form-label">Social Handles *</label>
+          <label className="form-label">Social Handles & Links *</label>
+          <p className="form-helper" style={{ marginBottom: '4px' }}>Provide your handle and a direct link to your profile for verification.</p>
           {PLATFORMS.filter(p => (data.selected_platforms || []).includes(p.value)).map(p => (
-            <div key={p.value} className="form-field">
-              <label className="form-label" style={{ fontSize: '11px', color: p.color }}>{p.label} Handle</label>
-              <input
-                className={`form-input${errors[p.field] ? ' error' : ''}`}
-                type="text" placeholder={`@your_${p.value}_handle`}
-                value={(data[p.field] as string) || ''}
-                onChange={e => onChange(p.field, e.target.value)} />
-              {errors[p.field] && <span className="form-error">{errors[p.field]}</span>}
+            <div key={p.value} style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', borderRadius: '12px', backgroundColor: 'rgba(250, 250, 249, 0.5)', border: '1px solid var(--cr-blush)' }}>
+              <div className="form-field">
+                <label className="form-label" style={{ fontSize: '11px', color: p.color === '#FFFC00' ? '#D4D000' : p.color }}>{p.label} Handle</label>
+                <input
+                  className={`form-input${errors[p.field] ? ' error' : ''}`}
+                  type="text" placeholder={`@your_${p.value}_handle`}
+                  value={(data[p.field] as string) || ''}
+                  onChange={e => onChange(p.field, e.target.value)} />
+                {errors[p.field] && <span className="form-error">{errors[p.field]}</span>}
+              </div>
+              <div className="form-field">
+                <label className="form-label" style={{ fontSize: '11px', color: p.color === '#FFFC00' ? '#D4D000' : p.color }}>{p.label} Profile Link</label>
+                <input
+                  className={`form-input${errors[p.linkField] ? ' error' : ''}`}
+                  type="url" placeholder={`https://${p.value === 'twitter' ? 'x' : p.value}.com/your_profile`}
+                  value={(data[p.linkField] as string) || ''}
+                  onChange={e => onChange(p.linkField, e.target.value)} />
+                {errors[p.linkField] && <span className="form-error">{errors[p.linkField]}</span>}
+              </div>
             </div>
           ))}
         </div>

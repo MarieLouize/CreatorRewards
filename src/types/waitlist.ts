@@ -10,16 +10,28 @@ export interface WaitlistEntry {
   gender?: 'male' | 'female' | 'prefer_not_to_say';
 
   // Creator Profile
-  selected_platforms: string[];
+  primary_platform: 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'facebook' | 'snapchat';
+  selected_platforms?: string[];
   instagram_handle?: string;
+  instagram_link?: string;
   tiktok_handle?: string;
+  tiktok_link?: string;
   youtube_handle?: string;
+  youtube_link?: string;
   twitter_handle?: string;
+  twitter_link?: string;
   facebook_handle?: string;
+  facebook_link?: string;
+  snapchat_handle?: string;
+  snapchat_link?: string;
+
+  // Creator Type
+  creator_type?: 'video_editor' | 'ugc_creator';
 
   // Content
   content_niches?: string[];
   content_formats?: string[];
+  bio?: string;
   preferred_content?: string;
   avoid_content?: string;
 

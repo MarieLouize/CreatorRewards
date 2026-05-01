@@ -16,16 +16,20 @@ create table if not exists waitlist_entries (
   -- Creator Profile
   primary_platform text not null, -- 'instagram' | 'tiktok' | 'youtube' | 'twitter' | 'facebook'
   instagram_handle text,
+  instagram_link text,
   tiktok_handle text,
+  tiktok_link text,
   youtube_handle text,
+  youtube_link text,
   twitter_handle text,
+  twitter_link text,
   facebook_handle text,
+  facebook_link text,
+  snapchat_handle text,
+  snapchat_link text,
 
-  -- Metrics
-  total_followers integer,
-  primary_follower_count integer,
-  avg_engagement_rate numeric(5,2),
-  monthly_content_count integer,
+  -- Creator Type
+  creator_type text, -- 'video_editor' | 'ugc_creator'
 
   -- Content
   content_niches text[],
