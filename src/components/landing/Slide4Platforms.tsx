@@ -22,6 +22,8 @@ export default function Slide4Platforms({ active }: { active: boolean }) {
     { name: 'Gaming', color: 'var(--cr-orange)' },
     { name: 'Sports', color: 'var(--cr-purple)' },
     { name: 'Finance', color: 'var(--cr-pink)' },
+    { name: 'Education', color: 'var(--cr-orange)' },
+    { name: 'Betting', color: 'var(--cr-purple)' },
     { name: 'Music', color: 'var(--cr-orange)' },
     { name: 'Parenting', color: 'var(--cr-purple)' },
     { name: 'Fitness', color: 'var(--cr-pink)' },

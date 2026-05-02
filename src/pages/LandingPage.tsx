@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import Navbar from '../components/Navbar';
 import Slide1Hero from '../components/landing/Slide1Hero';
 import Slide2HowItWorks from '../components/landing/Slide2HowItWorks';
-import Slide3ForCreators from '../components/landing/Slide3ForCreators';
 import Slide4Platforms from '../components/landing/Slide4Platforms';
 import Slide5FinalCTA from '../components/landing/Slide5FinalCTA';
 import DotNav from '../components/landing/DotNav';
@@ -11,7 +10,7 @@ import { ChevronDown } from 'lucide-react';
 
 export default function LandingPage() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const totalSlides = 5;
+  const totalSlides = 4;
   const lastScrollTime = useRef(0);
   const touchStartY = useRef(0);
 
@@ -19,8 +18,8 @@ export default function LandingPage() {
   const prevSlide = () => setActiveSlide(prev => Math.max(prev - 1, 0));
   const goToSlide = (index: number) => setActiveSlide(Math.max(0, Math.min(index, totalSlides - 1)));
 
-  // Slides 2 and 5 (index 1 and 4) have pink backgrounds
-  const isPinkBg = activeSlide === 1 || activeSlide === 4;
+  // Slides 2 and 4 (index 1 and 3) have pink backgrounds
+  const isPinkBg = activeSlide === 1 || activeSlide === 3;
 
   const techParticles = useMemo(() => {
     return [...Array(20)].map((_) => ({
@@ -112,7 +111,7 @@ export default function LandingPage() {
       <a 
         href="/join" 
         className="persistent-cta"
-        style={{ opacity: activeSlide === 4 ? 0 : 1, pointerEvents: activeSlide === 4 ? 'none' : 'all' }}
+        style={{ opacity: activeSlide === 3 ? 0 : 1, pointerEvents: activeSlide === 3 ? 'none' : 'all' }}
       >
         Join the Waitlist →
       </a>
@@ -150,9 +149,8 @@ export default function LandingPage() {
 
         <Slide1Hero active={activeSlide === 0} />
         <Slide2HowItWorks active={activeSlide === 1} />
-        <Slide3ForCreators active={activeSlide === 2} />
-        <Slide4Platforms active={activeSlide === 3} />
-        <Slide5FinalCTA active={activeSlide === 4} />
+        <Slide4Platforms active={activeSlide === 2} />
+        <Slide5FinalCTA active={activeSlide === 3} />
       </div>
 
       <DotNav active={activeSlide} total={totalSlides} onChange={goToSlide} />

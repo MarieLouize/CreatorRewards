@@ -32,15 +32,6 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
         />
       )}
 
-      <div className="animate-pop-bounce delay-1">
-        <span className="annotation-pill" style={{ 
-          position: 'relative', top: '0', left: '0', marginBottom: '16px',
-          backgroundColor: 'white', color: 'var(--cr-pink)', borderColor: 'white'
-        }}>
-          HOW IT WORKS
-        </span>
-      </div>
-
       <h2 className="mobile-text-lg" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(28px, 6vw, 64px)',
