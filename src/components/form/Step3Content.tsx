@@ -6,7 +6,7 @@ interface Props {
   errors: Partial<Record<keyof WaitlistFormData, string>>;
 }
 
-const NICHES = ['lifestyle', 'comedy', 'tech', 'fashion', 'food', 'travel', 'beauty', 'gaming', 'sports', 'finance', 'education', 'betting', 'parenting', 'music', 'fitness', 'entertainment'];
+const NICHES = ['Lifestyle', 'comedy', 'tech', 'Fashion & Style', 'Food & Drinks', 'travel', 'Beauty & Care', 'gaming', 'Fitness & Sports', 'Business & Finance', 'education', 'betting', 'parenting', 'Dance & Music', 'Health & Wellness', 'entertainment', 'Home & Garden'];
 const FORMATS = [
   { value: 'short_video', label: 'Short Video' },
   { value: 'long_video', label: 'Long Video' },
