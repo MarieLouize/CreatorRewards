@@ -24,13 +24,30 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
     <section className={`slide bg-pink-grad ${active ? 'active' : ''}`}>
       <div className="animate-pop-bounce delay-1">
         <div style={{ 
-          display: 'flex', alignItems: 'center', gap: '8px',
-          background: 'rgba(255,255,255,0.15)', padding: '8px 16px', borderRadius: '4px',
-          borderLeft: '4px solid white', color: 'white', fontWeight: 700,
-          fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em',
-          marginBottom: '32px'
+          display: 'flex', alignItems: 'center', gap: '10px',
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(12px)',
+          border: '1.5px solid rgba(255, 255, 255, 0.3)',
+          padding: '10px 20px', 
+          borderRadius: '100px',
+          color: 'white',
+          marginBottom: '32px',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)'
         }}>
-          {count && count > 0 ? `${count.toLocaleString()} creators joined` : 'Waitlist Open Now'} <VerifiedBadge />
+          <div style={{
+            width: '8px', height: '8px', borderRadius: '50%',
+            background: 'var(--cr-yellow)',
+            boxShadow: '0 0 12px var(--cr-yellow)',
+            animation: 'pulse-soft 2s infinite'
+          }} />
+          <span style={{ 
+            fontFamily: 'var(--font-display)',
+            fontSize: '13px', fontWeight: 800, 
+            letterSpacing: '0.06em', textTransform: 'uppercase'
+          }}>
+            {count && count > 0 ? `${count.toLocaleString()} creators joined` : 'Waitlist Open Now'}
+          </span>
+          <VerifiedBadge />
         </div>
       </div>
 
@@ -52,12 +69,16 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
 
       <p className="animate-slide-up delay-3 mobile-text-sm mobile-px-4" style={{
         fontFamily: 'var(--font-body)',
-        fontSize: 'clamp(18px, 2vw, 24px)',
+        fontSize: 'clamp(14px, 1.5vw, 16px)',
         color: 'white',
+        fontWeight: 800,
         marginBottom: '48px',
-        maxWidth: '600px'
+        maxWidth: '600px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        opacity: 0.8
       }}>
-        CreatorRewards is launching soon. Waitlist closes when we hit capacity.
+        CreatorsRewards is launching soon. Waitlist closes when we hit capacity.
       </p>
 
       <MagneticWrapper range={100} className="animate-pop-bounce delay-4" style={{ animationDelay: '0.4s' }}>
@@ -90,41 +111,63 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
       <div className="animate-slide-up delay-5 mobile-stack mobile-px-4" style={{
         marginTop: '64px',
         display: 'flex',
-        gap: '24px',
+        gap: '12px',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexWrap: 'wrap'
       }}>
-        {[
-          { Icon: Camera, link: '#' },
-          { Icon: Music2, link: '#' },
-          { Icon: AtSign, link: '#' }
-        ].map((social, i) => (
-          <a 
-            key={i} 
-            href={social.link} 
-            className="float-subtle" 
-            style={{ 
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: '48px', height: '48px', borderRadius: '12px',
-              backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', 
-              border: '2px solid rgba(255,255,255,0.2)',
-              transition: 'all 0.2s ease',
-              animationDelay: `${i * 0.3}s`
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.backgroundColor = 'white';
-              e.currentTarget.style.color = 'var(--cr-pink)';
-              e.currentTarget.style.transform = 'translateY(-4px) scale(1.1)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
-              e.currentTarget.style.color = 'white';
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-            }}
-          >
-            <social.Icon size={20} strokeWidth={2.5} />
-          </a>
-        ))}
+        <span style={{ 
+          fontFamily: 'var(--font-body)', 
+          fontSize: '20px', 
+          fontWeight: 800, 
+          color: 'white',
+          letterSpacing: '-0.01em'
+        }}>
+          creatorsrewards
+        </span>
+
+        <div style={{
+          width: '32px', height: '32px', borderRadius: '10px',
+          backgroundColor: 'white', color: 'var(--cr-pink)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontWeight: 900, fontSize: '14px',
+          boxShadow: '3px 3px 0px rgba(0,0,0,0.1)'
+        }}>
+          @
+        </div>
+
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {[
+            { Icon: Camera, color: '#E1306C', link: '#' },
+            { Icon: Music2, color: '#69C9D0', link: '#' },
+            { Icon: AtSign, color: '#1DA1F2', link: '#' }
+          ].map((social, i) => (
+            <a 
+              key={i} 
+              href={social.link} 
+              className="float-subtle" 
+              style={{ 
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: '42px', height: '42px', borderRadius: '10px',
+                backgroundColor: 'white', color: social.color, 
+                border: '2px solid white',
+                boxShadow: '4px 4px 0px rgba(0,0,0,0.1)',
+                transition: 'all 0.2s ease',
+                animationDelay: `${i * 0.2}s`
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-4px) scale(1.1)';
+                e.currentTarget.style.boxShadow = '6px 6px 0px rgba(0,0,0,0.2)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                e.currentTarget.style.boxShadow = '4px 4px 0px rgba(0,0,0,0.1)';
+              }}
+            >
+              <social.Icon size={18} strokeWidth={2.5} />
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Decorative Confetti Shapes (CSS only) */}

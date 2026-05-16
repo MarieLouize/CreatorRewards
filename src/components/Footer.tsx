@@ -21,13 +21,21 @@ export default function Footer() {
               color: '#000', fontFamily: 'var(--font-display)',
               fontWeight: 700, fontSize: '12px', padding: '4px 10px', borderRadius: '100px',
               boxShadow: '0 2px 10px rgba(245,200,66,0.3)',
-            }}>CR</span>
+            }}>CsR</span>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '16px' }}>
-              CreatorRewards
+              CreatorsRewards
             </span>
           </div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.7 }}>
-            Nigeria's #1 creator rewards platform. Get paid for your content.
+          <p style={{ 
+            color: 'var(--text-muted)', 
+            fontSize: '11px', 
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            lineHeight: 1.5,
+            marginTop: '8px'
+          }}>
+            Nigeria's #1 creators rewards platform.<br/>Get paid for your content.
           </p>
         </div>
 
@@ -82,7 +90,7 @@ export default function Footer() {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px',
       }}>
         <p style={{ color: 'var(--text-muted)', fontSize: '13px' }}>
-          © {new Date().getFullYear()} CreatorRewards. All rights reserved.
+          © {new Date().getFullYear()} CreatorsRewards. All rights reserved.
         </p>
         <p style={{ color: 'var(--text-muted)', fontSize: '12px' }}>
           Built for Nigerian creators

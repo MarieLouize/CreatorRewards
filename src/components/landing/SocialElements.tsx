@@ -83,7 +83,7 @@ export const LikeCounter = ({ initialCount, className = '', style }: { initialCo
         )}
       </div>
       
-      <span style={{ minWidth: '60px', textAlign: 'left', fontFamily: 'var(--font-display)', fontWeight: 800 }}>
+      <span style={{ minWidth: '60px', textAlign: 'left', fontWeight: 800 }}>
         {count.toLocaleString()}
       </span>
 

@@ -206,7 +206,7 @@ Simulates: outdoor street/lifestyle photo (like Image 1 reference)
 Simulates: neutral, soft lifestyle photo
 
 **Layout**:
-- **Top-center**: `<SpotifyPlayerWidget />` — pink bg, title "Your Brand Deal Alert 🔔", artist "CreatorRewards · Just Now"  
+- **Top-center**: `<SpotifyPlayerWidget />` — pink bg, title "Your Brand Deal Alert 🔔", artist "CreatorsRewards · Just Now"  
   This is the exact design from Image 2 reference — pink card, white text, progress bar
 
 - **Bottom-center**: `<iMessageBubble />` styled as a "note" card:
@@ -309,7 +309,7 @@ Simulates: vibrant, high-energy shot
   ```
 
 - **Sub** (DM Sans 400, white 85% opacity, 18px):
-  `CreatorRewards launches soon. Waitlist closes at capacity.`
+  `CreatorsRewards launches soon. Waitlist closes at capacity.`
 
 - **Large CTA button** (white bg, pink text, DM Sans 700, full-width on mobile / 360px desktop):
   `Secure My Spot →`
@@ -377,7 +377,7 @@ All navigation mechanics from v1 spec remain:
 }
 ```
 
-- **Logo**: "CreatorRewards" — Cormorant Garamond 600, white (or dark based on slide bg)
+- **Logo**: "CreatorsRewards" — Cormorant Garamond 600, white (or dark based on slide bg)
 - No secondary nav button — the persistent CTA handles this
 
 ---
@@ -475,4 +475,4 @@ Replace the bouncy `popIn` with more refined entrance animations:
 
 ---
 
-*Update prompt v2.0 — CreatorRewards Refined Landing · April 2026*
+*Update prompt v2.0 — CreatorsRewards Refined Landing · April 2026*

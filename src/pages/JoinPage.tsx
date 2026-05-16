@@ -205,13 +205,10 @@ export default function JoinPage() {
               Join the Waitlist
             </h1>
             <p style={{ 
-              fontFamily: 'var(--font-display)',
               color: 'var(--cr-dark)', 
               opacity: 0.8, 
               fontSize: '18px', 
-              fontWeight: 600, 
-              letterSpacing: '0.02em',
-              textTransform: 'uppercase',
+              fontWeight: 700, 
               animation: 'slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms' 
             }}>
               Build your creator profile and secure your spot.

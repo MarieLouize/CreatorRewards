@@ -40,7 +40,7 @@ function exportCSV(entries: WaitlistEntry[]) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `creatorRewards-waitlist-${Date.now()}.csv`;
+  a.download = `creatorsRewards-waitlist-${Date.now()}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }

@@ -1,4 +1,4 @@
--- CreatorRewards Waitlist Schema
+-- CreatorsRewards Waitlist Schema
 -- Run this in Supabase SQL Editor
 
 create table if not exists waitlist_entries (

@@ -72,7 +72,7 @@ export default function SuccessView({ position, email }: Props) {
       </div>
 
       <p style={{ color: 'var(--cr-dark)', fontSize: '18px', fontWeight: 500, maxWidth: '420px', margin: '0 auto 40px' }}>
-        We'll notify you at <strong style={{ color: 'var(--cr-pink)' }}>{email}</strong> when CreatorRewards launches.
+        We'll notify you at <strong style={{ color: 'var(--cr-pink)' }}>{email}</strong> when CreatorsRewards launches.
       </p>
 
       {/* Referral share card */}

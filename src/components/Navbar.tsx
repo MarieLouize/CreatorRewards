@@ -15,7 +15,7 @@ export default function Navbar({ activeSlide = 0 }: { activeSlide?: number }) {
       transition: 'all 0.3s ease',
     }}>
       <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span className="stylized-name">CreatorRewards</span>
+        <span className="stylized-name">CreatorsRewards</span>
       </Link>
       
       <button 

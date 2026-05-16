@@ -12,9 +12,8 @@ export default function ProgressBar({ currentStep, totalSteps = 4 }: Props) {
     <div style={{ marginBottom: '32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
         <span style={{ 
-          fontFamily: 'var(--font-display)',
           fontSize: '13px', 
-          fontWeight: 800, 
+          fontWeight: 900, 
           color: 'var(--cr-pink)', 
           letterSpacing: '0.05em', 
           textTransform: 'uppercase' 
@@ -22,7 +21,6 @@ export default function ProgressBar({ currentStep, totalSteps = 4 }: Props) {
           Step {currentStep} of {totalSteps}
         </span>
         <span style={{ 
-          fontFamily: 'var(--font-display)',
           fontSize: '13px', 
           fontWeight: 700, 
           color: 'var(--cr-dark)', 

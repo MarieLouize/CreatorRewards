@@ -114,12 +114,15 @@ export default function Slide1Hero({ active }: { active: boolean }) {
 
       <p className="animate-slide-up delay-8 mobile-text-sm" style={{
         fontFamily: 'var(--font-body)',
-        fontSize: 'clamp(18px, 2.5vw, 24px)',
+        fontSize: 'clamp(14px, 1.5vw, 16px)',
         color: 'var(--cr-dark)',
         maxWidth: '600px',
         margin: '40px auto 0',
-        fontWeight: 600,
-        lineHeight: 1.3
+        fontWeight: 700,
+        lineHeight: 1.4,
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        opacity: 0.7
       }}>
         Post content. Work with brands.<br/>
         Get paid straight to your bank account.

@@ -33,7 +33,7 @@ export default function NotFoundPage() {
           animation: 'popBounce 0.8s cubic-bezier(0.16,1,0.3,1) both 100ms'
         }}>
           <h2 style={{
-            fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 700,
+            fontSize: '28px', fontWeight: 800,
             marginBottom: '16px', color: 'var(--cr-dark)'
           }}>
             Lost in the Feed?

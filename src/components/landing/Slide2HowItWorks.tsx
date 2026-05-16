@@ -1,5 +1,4 @@
 
-import { NotificationBanner } from './SocialElements';
 import SplitText from './SplitText';
 
 export default function Slide2HowItWorks({ active }: { active: boolean }) {
@@ -23,15 +22,6 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
 
   return (
     <section className={`slide bg-pink-grad ${active ? 'active' : ''}`}>
-      {active && (
-        <NotificationBanner 
-          brand="NIKE" 
-          brandIcon="N" 
-          offer="Campaign Invite: ₦150k" 
-          className="animate-toast mobile-hide"
-        />
-      )}
-
       <h2 className="mobile-text-lg" style={{
         fontFamily: 'var(--font-display)',
         fontSize: 'clamp(28px, 6vw, 64px)',
@@ -76,15 +66,14 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
               width: '40px',
               height: '40px',
               borderRadius: '12px',
-              fontFamily: 'var(--font-display)',
               fontWeight: 900,
               fontSize: '18px',
               flexShrink: 0
             }}>{step.num}</span>
             <div>
               <h3 style={{
-                fontFamily: 'var(--font-display)',
                 fontSize: '18px',
+                fontWeight: 800,
                 color: 'var(--cr-pink)',
                 textTransform: 'uppercase',
                 lineHeight: 1,
@@ -93,9 +82,12 @@ export default function Slide2HowItWorks({ active }: { active: boolean }) {
               <p style={{
                 fontFamily: 'var(--font-body)',
                 color: 'var(--cr-dark)',
-                lineHeight: 1.2,
-                fontSize: '14px',
-                fontWeight: 600
+                lineHeight: 1.3,
+                fontSize: '11px',
+                fontWeight: 800,
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+                opacity: 0.6
               }}>{step.desc}</p>
             </div>
           </div>
