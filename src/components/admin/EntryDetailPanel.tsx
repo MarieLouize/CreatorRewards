@@ -119,8 +119,14 @@ export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpd
           </Section>
 
           {/* Content Taxonomies */}
-          {(entry.content_niches?.length || entry.content_formats?.length) && (
+          {(entry.content_niches?.length || entry.content_formats?.length || entry.follower_range) && (
             <Section title="Content Tags">
+              {entry.follower_range && (
+                <div style={{ marginBottom: '12px' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Follower Range</span>
+                  <span className="chip selected" style={{ fontSize: '11px', padding: '4px 10px' }}>{entry.follower_range}</span>
+                </div>
+              )}
               {entry.content_niches?.length ? (
                 <div>
                   <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Niches</span>

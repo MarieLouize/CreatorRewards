@@ -9,12 +9,26 @@ export default function ProgressBar({ currentStep, totalSteps = 4 }: Props) {
   const pct = ((currentStep - 1) / (totalSteps - 1)) * 100;
 
   return (
-    <div style={{ marginBottom: '40px' }}>
+    <div style={{ marginBottom: '32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-        <span style={{ fontSize: '13px', fontWeight: 800, color: 'var(--cr-pink)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+        <span style={{ 
+          fontFamily: 'var(--font-display)',
+          fontSize: '13px', 
+          fontWeight: 800, 
+          color: 'var(--cr-pink)', 
+          letterSpacing: '0.05em', 
+          textTransform: 'uppercase' 
+        }}>
           Step {currentStep} of {totalSteps}
         </span>
-        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--cr-dark)', opacity: 0.6 }}>
+        <span style={{ 
+          fontFamily: 'var(--font-display)',
+          fontSize: '13px', 
+          fontWeight: 700, 
+          color: 'var(--cr-dark)', 
+          opacity: 0.6,
+          textTransform: 'uppercase'
+        }}>
           {STEP_NAMES[currentStep - 1]}
         </span>
       </div>

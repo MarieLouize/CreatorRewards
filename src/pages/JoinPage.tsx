@@ -33,6 +33,7 @@ const INITIAL_FORM: WaitlistFormData = {
   creator_type: undefined,
   content_niches: [],
   content_formats: [],
+  follower_range: '',
   preferred_content: '',
   avoid_content: '',
   has_worked_with_brands: undefined,
@@ -63,6 +64,9 @@ function validateStep(step: number, data: WaitlistFormData): Partial<Record<keyo
   if (step === 3) {
     if (!data.creator_type) {
       errors.creator_type = 'Select your creator type';
+    }
+    if (!data.follower_range) {
+      errors.follower_range = 'Select your follower range';
     }
   }
   if (step === 4) {
@@ -129,6 +133,7 @@ export default function JoinPage() {
         snapchat_handle: formData.snapchat_handle || null,
         snapchat_link: formData.snapchat_link || null,
         creator_type: formData.creator_type || null,
+        follower_range: formData.follower_range || null,
         bio: formData.bio || null,
         preferred_content: formData.preferred_content || null,
         avoid_content: formData.avoid_content || null,
@@ -199,7 +204,16 @@ export default function JoinPage() {
             }}>
               Join the Waitlist
             </h1>
-            <p style={{ color: 'var(--cr-dark)', opacity: 0.8, fontSize: '18px', fontWeight: 500, animation: 'slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms' }}>
+            <p style={{ 
+              fontFamily: 'var(--font-display)',
+              color: 'var(--cr-dark)', 
+              opacity: 0.8, 
+              fontSize: '18px', 
+              fontWeight: 600, 
+              letterSpacing: '0.02em',
+              textTransform: 'uppercase',
+              animation: 'slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms' 
+            }}>
               Build your creator profile and secure your spot.
             </p>
           </>

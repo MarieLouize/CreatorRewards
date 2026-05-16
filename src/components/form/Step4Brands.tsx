@@ -35,11 +35,11 @@ export default function Step4Brands({ data, onChange, errors }: Props) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Has worked with brands */}
       <div className="form-field">
         <label className="form-label">Have you worked with brands before? *</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>Tell us about your experience with brand partnerships.</p>
+        <p className="form-helper">Tell us about your experience with brand partnerships.</p>
         {errors.has_worked_with_brands && <span className="form-error">{errors.has_worked_with_brands}</span>}
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '4px' }}>
           {[
@@ -50,7 +50,7 @@ export default function Step4Brands({ data, onChange, errors }: Props) {
               onClick={() => onChange('has_worked_with_brands', opt.boolVal)}
               style={{
                 padding: '12px 24px', borderRadius: '12px', cursor: 'pointer',
-                border: `2px solid ${workedWithBrands === opt.boolVal ? 'var(--cr-pink)' : 'var(--cr-blush)'}`,
+                border: `2px solid ${workedWithBrands === opt.boolVal ? 'var(--cr-pink)' : 'rgba(28, 25, 23, 0.15)'}`,
                 background: 'white',
                 color: workedWithBrands === opt.boolVal ? 'var(--cr-pink)' : 'var(--cr-dark)',
                 fontWeight: 700, fontSize: '14px', transition: 'all 0.2s',
@@ -68,13 +68,13 @@ export default function Step4Brands({ data, onChange, errors }: Props) {
       {workedWithBrands === true && (
         <div className="form-field" style={{ animation: 'slideUpSmooth 0.4s both' }}>
           <label className="form-label">How many brands have you collaborated with?</label>
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', paddingTop: '10px' }}>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', paddingTop: '4px' }}>
             {(['1-3', '4-10', '10+'] as const).map(opt => (
               <button key={opt} type="button"
                 onClick={() => onChange('brand_count_estimate', opt)}
                 style={{
                   padding: '10px 20px', borderRadius: '12px', cursor: 'pointer',
-                  border: `2px solid ${data.brand_count_estimate === opt ? 'var(--cr-pink)' : 'var(--cr-blush)'}`,
+                  border: `2px solid ${data.brand_count_estimate === opt ? 'var(--cr-pink)' : 'rgba(28, 25, 23, 0.15)'}`,
                   background: 'white',
                   color: data.brand_count_estimate === opt ? 'var(--cr-pink)' : 'var(--cr-dark)',
                   fontWeight: 700, fontSize: '14px', transition: 'all 0.2s',
@@ -92,7 +92,7 @@ export default function Step4Brands({ data, onChange, errors }: Props) {
       {/* Preferred deal type */}
       <div className="form-field">
         <label className="form-label">Preferred Deal Types</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>What kind of partnerships are you most interested in?</p>
+        <p className="form-helper">What kind of partnerships are you most interested in?</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '4px' }}>
           {DEAL_TYPES.map(d => (
             <button key={d.value} type="button"
@@ -107,7 +107,7 @@ export default function Step4Brands({ data, onChange, errors }: Props) {
       {/* Referral source */}
       <div className="form-field">
         <label className="form-label">How did you hear about us? *</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>Helps us understand our growth.</p>
+        <p className="form-helper">Helps us understand our growth.</p>
         {errors.referral_source && <span className="form-error">{errors.referral_source}</span>}
         <select className={`form-input${errors.referral_source ? ' error' : ''}`}
           value={data.referral_source || ''}

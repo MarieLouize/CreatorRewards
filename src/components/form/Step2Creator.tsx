@@ -28,12 +28,12 @@ export default function Step2Creator({ data, onChange, errors }: Props) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div className="form-field">
         <label className="form-label">Which platforms are you on? *</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>Select all the platforms where you actively create content.</p>
+        <p className="form-helper">Select all the platforms where you actively create content.</p>
         {errors.selected_platforms && <span className="form-error">{errors.selected_platforms}</span>}
-        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '8px' }}>
           {PLATFORMS.map(({ value, label, Icon, color }) => {
             const active = (data.selected_platforms || []).includes(value);
             return (
@@ -42,7 +42,7 @@ export default function Step2Creator({ data, onChange, errors }: Props) {
                 style={{
                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
                   padding: '16px 20px', borderRadius: '16px', cursor: 'pointer',
-                  border: `2px solid ${active ? 'var(--cr-pink)' : 'var(--cr-blush)'}`,
+                  border: `2px solid ${active ? 'var(--cr-pink)' : 'rgba(28, 25, 23, 0.15)'}`,
                   background: 'white',
                   transition: 'all 0.2s', minWidth: '88px',
                   boxShadow: active ? '4px 4px 0px var(--cr-dark)' : 'none',
@@ -61,11 +61,13 @@ export default function Step2Creator({ data, onChange, errors }: Props) {
       {/* Dynamic Handles & Links */}
       {(data.selected_platforms || []).length > 0 && (
         <div style={{ 
-          display: 'flex', flexDirection: 'column', gap: '20px',
+          display: 'flex', flexDirection: 'column', gap: '16px',
           animation: 'slideUpSmooth 0.4s cubic-bezier(0.16,1,0.3,1) both' 
         }}>
-          <label className="form-label">Social Handles & Links *</label>
-          <p className="form-helper" style={{ marginBottom: '4px' }}>Provide your handle and a direct link to your profile for verification.</p>
+          <div>
+            <label className="form-label">Social Handles & Links *</label>
+            <p className="form-helper">Provide your handle and a direct link to your profile for verification.</p>
+          </div>
           {PLATFORMS.filter(p => (data.selected_platforms || []).includes(p.value)).map(p => (
             <div key={p.value} style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', borderRadius: '12px', backgroundColor: 'rgba(250, 250, 249, 0.5)', border: '1px solid var(--cr-blush)' }}>
               <div className="form-field">

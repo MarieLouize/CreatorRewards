@@ -14,6 +14,7 @@ const FORMATS = [
   { value: 'reels', label: 'Reels' },
   { value: 'stories', label: 'Stories' },
   { value: 'live', label: 'Live Streams' },
+  { value: 'threads', label: 'Threads' },
 ];
 
 export default function Step3Content({ data, onChange, errors }: Props) {
@@ -37,19 +38,19 @@ export default function Step3Content({ data, onChange, errors }: Props) {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div className="form-field">
         <label className="form-label">What type of content creator are you? *</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>Choose the role that best describes your content production style.</p>
+        <p className="form-helper">Choose the role that best describes your content production style.</p>
         {errors.creator_type && <span className="form-error">{errors.creator_type}</span>}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '4px' }}>
           {[
             { value: 'video_editor', label: 'Video Editor / Clipper', desc: 'I focus on editing, curation, and high-engagement clipping.' },
             { value: 'ugc_creator', label: 'UGC Creator', desc: 'I focus on original content, filming, and authentic brand storytelling.' },
           ].map(opt => (
             <label key={opt.value} style={{
               display: 'flex', gap: '12px', padding: '16px', borderRadius: '12px',
-              border: `2px solid ${data.creator_type === opt.value ? 'var(--cr-pink)' : 'var(--cr-blush)'}`,
+              border: `2px solid ${data.creator_type === opt.value ? 'var(--cr-pink)' : 'rgba(28, 25, 23, 0.15)'}`,
               background: data.creator_type === opt.value ? 'rgba(251, 113, 133, 0.05)' : 'white',
               cursor: 'pointer', transition: 'all 0.2s',
               boxShadow: data.creator_type === opt.value ? '4px 4px 0px var(--cr-dark)' : 'none',
@@ -70,7 +71,7 @@ export default function Step3Content({ data, onChange, errors }: Props) {
 
       <div className="form-field">
         <label className="form-label">Content Niches</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>What categories do you create content in? Pick up to 5.</p>
+        <p className="form-helper">What categories do you create content in? Pick up to 5.</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '4px' }}>
           {NICHES.map(n => (
             <button key={n} type="button"
@@ -87,8 +88,32 @@ export default function Step3Content({ data, onChange, errors }: Props) {
       </div>
 
       <div className="form-field">
+        <label className="form-label">Total Follower Range *</label>
+        <p className="form-helper">Across your primary platforms.</p>
+        {errors.follower_range && <span className="form-error">{errors.follower_range}</span>}
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', paddingTop: '4px' }}>
+          {['1k - 10k', '10k - 50k', '50k - 500k', '500k+'].map(range => (
+            <button key={range} type="button"
+              onClick={() => onChange('follower_range', range)}
+              style={{
+                padding: '12px 20px', borderRadius: '12px', cursor: 'pointer',
+                border: `2px solid ${data.follower_range === range ? 'var(--cr-pink)' : 'rgba(28, 25, 23, 0.15)'}`,
+                background: 'white',
+                color: data.follower_range === range ? 'var(--cr-pink)' : 'var(--cr-dark)',
+                fontWeight: 700, fontSize: '14px', transition: 'all 0.2s',
+                boxShadow: data.follower_range === range ? '4px 4px 0px var(--cr-dark)' : 'none',
+                transform: data.follower_range === range ? 'translateY(-2px)' : 'none',
+                opacity: data.follower_range === range ? 1 : 0.8
+              }}>
+              {range}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="form-field">
         <label className="form-label">Content Formats</label>
-        <p className="form-helper" style={{ marginBottom: '12px' }}>What type of content do you post most often?</p>
+        <p className="form-helper">What type of content do you post most often?</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '4px' }}>
           {FORMATS.map(f => (
             <button key={f.value} type="button"

@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Navbar({ activeSlide = 0 }: { activeSlide?: number }) {
   const navigate = useNavigate();
 
-  // Slides 2 and 5 (index 1 and 4) have pink backgrounds, so we need white text
-  const isPinkBg = activeSlide === 1 || activeSlide === 4;
+  // Slides 2 and 3 (index 1 and 2) have pink backgrounds, so we need white text
+  const isPinkBg = activeSlide === 1 || activeSlide === 2;
 
   return (
     <nav className={`navbar-container ${isPinkBg ? 'pink-bg' : ''}`} style={{

@@ -31,6 +31,7 @@ export interface WaitlistEntry {
   // Content
   content_niches?: string[];
   content_formats?: string[];
+  follower_range?: string;
   bio?: string;
   preferred_content?: string;
   avoid_content?: string;

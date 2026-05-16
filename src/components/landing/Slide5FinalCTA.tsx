@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Camera, Music2, AtSign } from 'lucide-react';
 import { useWaitlistCount } from '../../hooks/useWaitlistCount';
 import { VerifiedBadge } from './SocialElements';
 import SplitText from './SplitText';
@@ -22,12 +23,15 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
   return (
     <section className={`slide bg-pink-grad ${active ? 'active' : ''}`}>
       <div className="animate-pop-bounce delay-1">
-        <span className="annotation-pill float-subtle" style={{ 
-          position: 'relative', top: '0', left: '0', marginBottom: '32px',
-          backgroundColor: 'white', color: 'var(--cr-pink)', borderColor: 'white'
+        <div style={{ 
+          display: 'flex', alignItems: 'center', gap: '8px',
+          background: 'rgba(255,255,255,0.15)', padding: '8px 16px', borderRadius: '4px',
+          borderLeft: '4px solid white', color: 'white', fontWeight: 700,
+          fontSize: '14px', textTransform: 'uppercase', letterSpacing: '0.1em',
+          marginBottom: '32px'
         }}>
           {count && count > 0 ? `${count.toLocaleString()} creators joined` : 'Waitlist Open Now'} <VerifiedBadge />
-        </span>
+        </div>
       </div>
 
       <h2 className="mobile-text-xl" style={{
@@ -90,15 +94,37 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <div className="annotation-pill float-subtle no-circles" style={{ position: 'relative', top: '0', left: '0', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'white', animationDelay: '0s' }}>
-          @CreatorRewards on IG
-        </div>
-        <div className="annotation-pill float-subtle no-circles" style={{ position: 'relative', top: '0', left: '0', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'white', animationDelay: '0.5s' }}>
-          TikTok
-        </div>
-        <div className="annotation-pill float-subtle no-circles" style={{ position: 'relative', top: '0', left: '0', backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'white', animationDelay: '1s' }}>
-          X
-        </div>
+        {[
+          { Icon: Camera, link: '#' },
+          { Icon: Music2, link: '#' },
+          { Icon: AtSign, link: '#' }
+        ].map((social, i) => (
+          <a 
+            key={i} 
+            href={social.link} 
+            className="float-subtle" 
+            style={{ 
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              width: '48px', height: '48px', borderRadius: '12px',
+              backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', 
+              border: '2px solid rgba(255,255,255,0.2)',
+              transition: 'all 0.2s ease',
+              animationDelay: `${i * 0.3}s`
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = 'white';
+              e.currentTarget.style.color = 'var(--cr-pink)';
+              e.currentTarget.style.transform = 'translateY(-4px) scale(1.1)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+            }}
+          >
+            <social.Icon size={20} strokeWidth={2.5} />
+          </a>
+        ))}
       </div>
 
       {/* Decorative Confetti Shapes (CSS only) */}

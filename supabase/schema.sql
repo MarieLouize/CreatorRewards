@@ -34,6 +34,7 @@ create table if not exists waitlist_entries (
   -- Content
   content_niches text[],
   content_formats text[],
+  follower_range text,
   bio text,
 
   -- Brand Experience
