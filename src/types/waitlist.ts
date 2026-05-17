@@ -33,8 +33,6 @@ export interface WaitlistEntry {
   content_formats?: string[];
   follower_range?: string;
   bio?: string;
-  preferred_content?: string;
-  avoid_content?: string;
 
   // Brand Experience
   has_worked_with_brands?: boolean;

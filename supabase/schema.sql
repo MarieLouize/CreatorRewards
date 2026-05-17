@@ -66,7 +66,7 @@ begin
   new.waitlist_position = nextval('waitlist_position_seq');
   return new;
 end;
-$$ language plpgsql;
+$$ language plpgsql security definer;
 
 drop trigger if exists set_waitlist_position on waitlist_entries;
 create trigger set_waitlist_position
@@ -77,10 +77,22 @@ for each row execute function assign_waitlist_position();
 alter table waitlist_entries enable row level security;
 
 -- Allow public INSERT (waitlist signups)
+drop policy if exists "Allow public insert" on waitlist_entries;
 create policy "Allow public insert"
   on waitlist_entries for insert
   to anon
   with check (true);
 
+-- Allow public SELECT (to see waitlist position and total count)
+drop policy if exists "Allow public select" on waitlist_entries;
+create policy "Allow public select"
+  on waitlist_entries for select
+  to anon
+  using (true);
+
 -- Allow service role full access (admin dashboard)
--- Service role bypasses RLS by default — no extra policy needed.
+-- Service role bypasses RLS by deyfault — no extra policy needed.
+
+-- Grant permissions to anon role
+grant usage on sequence waitlist_position_seq to anon;
+grant all on table waitlist_entries to anon;

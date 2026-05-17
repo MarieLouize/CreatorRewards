@@ -34,8 +34,7 @@ const INITIAL_FORM: WaitlistFormData = {
   content_niches: [],
   content_formats: [],
   follower_range: '',
-  preferred_content: '',
-  avoid_content: '',
+  bio: '',
   has_worked_with_brands: undefined,
   brand_count_estimate: undefined,
   preferred_deal_type: [],
@@ -115,8 +114,14 @@ export default function JoinPage() {
     setLoading(true);
     setSubmitError('');
     try {
+      // Destructure to remove non-database fields
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { selected_platforms, ...dataToSubmit } = formData;
+
       const payload = {
-        ...formData,
+        ...dataToSubmit,
+        // Ensure primary_platform is set to the first selected platform if available
+        primary_platform: formData.selected_platforms?.[0] || formData.primary_platform,
         phone: formData.phone || null,
         location_city: formData.location_city || null,
         gender: formData.gender || null,
@@ -135,11 +140,10 @@ export default function JoinPage() {
         creator_type: formData.creator_type || null,
         follower_range: formData.follower_range || null,
         bio: formData.bio || null,
-        preferred_content: formData.preferred_content || null,
-        avoid_content: formData.avoid_content || null,
         brand_count_estimate: formData.brand_count_estimate || null,
         referral_source: formData.referral_source || null,
       };
+
       const { data, error } = await supabase
         .from('waitlist_entries')
         .insert(payload)
