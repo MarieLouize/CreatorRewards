@@ -151,6 +151,20 @@ export default function JoinPage() {
         .single();
 
       if (error) throw error;
+
+      // Fire off both background notifications in parallel
+      await Promise.all([
+        supabase.functions.invoke("send-telegram", {
+          body: { data: payload },
+        }),
+        supabase.functions.invoke("send-welcome-email", {
+          body: {
+            email: formData.email,
+            fullName: formData.full_name,
+          },
+        }),
+      ]);
+
       setSuccess({ position: data.waitlist_position ?? 0, email: formData.email });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
