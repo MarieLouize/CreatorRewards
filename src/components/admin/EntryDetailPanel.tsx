@@ -106,18 +106,6 @@ export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpd
             </Section>
           )}
 
-          {/* Content Preferences */}
-          <Section title="Content Preferences">
-            <div style={{ marginBottom: '16px' }}>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Preferred Content</span>
-              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{entry.preferred_content || '—'}</p>
-            </div>
-            <div>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '8px' }}>Would Not Promote</span>
-              <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>{entry.avoid_content || '—'}</p>
-            </div>
-          </Section>
-
           {/* Content Taxonomies */}
           {(entry.content_niches?.length || entry.content_formats?.length || entry.follower_range) && (
             <Section title="Content Tags">

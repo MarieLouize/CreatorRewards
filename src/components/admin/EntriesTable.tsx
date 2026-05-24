@@ -20,7 +20,7 @@ const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
 const PAGE_SIZE = 25;
 
 function exportCSV(entries: WaitlistEntry[]) {
-  const headers = ['Position', 'Name', 'Email', 'Phone', 'Platforms', 'Niches', 'Follower Range', 'Preferred', 'Avoid', 'City', 'Status', 'Signed Up'];
+  const headers = ['Position', 'Name', 'Email', 'Phone', 'Platforms', 'Niches', 'Follower Range', 'City', 'Status', 'Signed Up'];
   const rows = entries.map(e => [
     e.waitlist_position ?? '',
     e.full_name,
@@ -29,8 +29,6 @@ function exportCSV(entries: WaitlistEntry[]) {
     (e.selected_platforms ?? []).join('; '),
     (e.content_niches ?? []).join('; '),
     e.follower_range ?? '',
-    e.preferred_content ?? '',
-    e.avoid_content ?? '',
     e.location_city ?? '',
     e.status,
     new Date(e.created_at).toLocaleDateString(),
