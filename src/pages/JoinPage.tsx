@@ -167,6 +167,7 @@ export default function JoinPage() {
 
       setSuccess({ position: data.waitlist_position ?? 0, email: formData.email });
     } catch (err: unknown) {
+      console.error('Waitlist submission error:', err);
       const msg = err instanceof Error ? err.message : String(err);
       if (msg.includes('duplicate') || msg.includes('unique')) {
         setSubmitError('This email is already on the waitlist!');
