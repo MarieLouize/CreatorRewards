@@ -62,7 +62,7 @@ export const LikeCounter = ({ initialCount, className = '', style }: { initialCo
     }, 4000);
 
     return () => clearInterval(loop);
-  }, []);
+  }, [initialCount]);
 
   return (
     <div className={`like-counter ${className}`} style={{ 
@@ -96,11 +96,11 @@ export const LikeCounter = ({ initialCount, className = '', style }: { initialCo
             position: 'absolute',
             left: '20px',
             top: '0',
-            opacity: 0.4, // Low opacity as requested
+            opacity: 0.4,
             fontSize: '16px',
             '--tx': `${p.tx}px`,
             '--ty': `${p.ty}px`
-          } as any}
+          } as CSSProperties & { '--tx': string; '--ty': string }}
         >
           ❤️
         </span>

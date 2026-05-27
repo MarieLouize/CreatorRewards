@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Slide1Hero from '../components/landing/Slide1Hero';
 import Slide2HowItWorks from '../components/landing/Slide2HowItWorks';
@@ -20,14 +20,14 @@ export default function LandingPage() {
   // Slides 2 and 3 (index 1 and 2) have pink backgrounds
   const isPinkBg = activeSlide === 1 || activeSlide === 2;
 
-  const techParticles = useMemo(() => {
-    return [...Array(20)].map((_) => ({
+  const [techParticles] = useState(() => {
+    return [...Array(20)].map(() => ({
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
       driftDuration: 10 + Math.random() * 10,
       delay: Math.random() * 5
     }));
-  }, []);
+  });
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -81,7 +81,7 @@ export default function LandingPage() {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      style={{ '--scroll-progress': activeSlide / (totalSlides - 1) } as any}
+      style={{ '--scroll-progress': activeSlide / (totalSlides - 1) } as React.CSSProperties & { '--scroll-progress': number }}
     >
       <Navbar activeSlide={activeSlide} />
 

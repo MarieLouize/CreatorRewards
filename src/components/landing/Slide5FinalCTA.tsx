@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Camera, Music2, AtSign } from 'lucide-react';
 import { useWaitlistCount } from '../../hooks/useWaitlistCount';
@@ -8,9 +8,9 @@ import MagneticWrapper from './MagneticWrapper';
 
 export default function Slide5FinalCTA({ active }: { active: boolean }) {
   const navigate = useNavigate();
-  const count = useWaitlistCount();
+  const { count } = useWaitlistCount();
 
-  const confetti = useMemo(() => {
+  const [confetti] = useState(() => {
     return [...Array(12)].map((_, i) => ({
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
@@ -18,7 +18,7 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
       duration: 5 + Math.random() * 5,
       isCircle: i % 2 === 0
     }));
-  }, []);
+  });
 
   return (
     <section className={`slide bg-pink-grad ${active ? 'active' : ''}`}>

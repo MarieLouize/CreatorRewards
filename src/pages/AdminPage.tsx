@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { KeyRound, ArrowLeft, LogOut } from 'lucide-react';
+import { KeyRound, ArrowLeft, LogOut, RefreshCcw } from 'lucide-react';
+import { toast } from 'sonner';
 import { useWaitlistEntries } from '../hooks/useWaitlistEntries';
 import StatsBar from '../components/admin/StatsBar';
 import ChartsRow from '../components/admin/ChartsRow';
@@ -16,10 +17,12 @@ function PasswordGate({ onSuccess }: { onSuccess: () => void }) {
   const attempt = () => {
     if (pwd === import.meta.env.VITE_ADMIN_PASSWORD) {
       sessionStorage.setItem('admin_authed', '1');
+      toast.success('Authenticated successfully');
       onSuccess();
     } else {
       setError(true);
       setShaking(true);
+      toast.error('Incorrect password');
       setTimeout(() => setShaking(false), 600);
     }
   };
@@ -70,7 +73,7 @@ export default function AdminPage() {
   const [filters, setFilters] = useState({ status: 'all', search: '', page: 0 });
   const [selectedEntry, setSelectedEntry] = useState<WaitlistEntry | null>(null);
 
-  const { entries, total, loading, updateStatus, updateNotes } = useWaitlistEntries(filters);
+  const { entries, total, loading, error, refresh, updateStatus, updateNotes } = useWaitlistEntries(filters);
 
   const handleFilterChange = (key: string, value: string | number) => {
     setFilters(prev => ({ ...prev, [key]: value, ...(key !== 'page' ? { page: 0 } : {}) }));
@@ -125,29 +128,48 @@ export default function AdminPage() {
 
       {/* Main content */}
       <div style={{ padding: '32px 24px', maxWidth: '1400px', margin: '0 auto' }}>
-        <div style={{ marginBottom: '28px' }}>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>
-            Waitlist Entries
-          </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
-            Manage and review creator applications
-          </p>
+        <div style={{ marginBottom: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+          <div>
+            <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>
+              Waitlist Entries
+            </h1>
+            <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>
+              Manage and review creator applications
+            </p>
+          </div>
+          <button className="btn-ghost" style={{ padding: '8px 12px', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px' }}
+            onClick={() => refresh()}>
+            <RefreshCcw size={14} className={loading ? 'animate-spin' : ''} /> Refresh Data
+          </button>
         </div>
 
-        <StatsBar entries={entries} total={total} />
-        <ChartsRow entries={entries} />
-        <EntriesTable
-          entries={entries}
-          total={total}
-          loading={loading}
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          onUpdateStatus={handleUpdateStatus}
-          onRowClick={setSelectedEntry}
-        />
+        {error ? (
+          <div style={{
+            background: 'var(--bg-card)', border: '1px solid var(--cr-orange)',
+            borderRadius: '12px', padding: '40px', textAlign: 'center', margin: '40px 0'
+          }}>
+            <p style={{ color: 'var(--cr-orange)', fontWeight: 700, marginBottom: '16px' }}>{error}</p>
+            <button className="btn-gold" onClick={() => refresh()}>Try Again</button>
+          </div>
+        ) : (
+          <>
+            <StatsBar entries={entries} total={total} />
+            <ChartsRow entries={entries} />
+            <EntriesTable
+              entries={entries}
+              total={total}
+              loading={loading}
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onUpdateStatus={handleUpdateStatus}
+              onRowClick={setSelectedEntry}
+            />
+          </>
+        )}
       </div>
 
       <EntryDetailPanel
+        key={selectedEntry?.id || 'none'}
         entry={selectedEntry}
         onClose={() => setSelectedEntry(null)}
         onUpdateStatus={handleUpdateStatus}

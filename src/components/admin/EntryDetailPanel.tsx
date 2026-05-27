@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { X } from 'lucide-react';
 import type { WaitlistEntry } from '../../types/waitlist';
 
@@ -23,11 +23,7 @@ function handleLink(platform: string, handle?: string) {
 }
 
 export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpdateNotes }: Props) {
-  const [notes, setNotes] = useState('');
-
-  useEffect(() => {
-    if (entry) setNotes(entry.admin_notes ?? '');
-  }, [entry?.id]);
+  const [notes, setNotes] = useState(entry?.admin_notes ?? '');
 
   if (!entry) return null;
 

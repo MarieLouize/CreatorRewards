@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import type { WaitlistEntry } from '../../types/waitlist';
 
 interface Props {
@@ -6,20 +7,25 @@ interface Props {
 }
 
 export default function StatsBar({ entries, total }: Props) {
-  const now = Date.now();
-  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
-  const thisWeek = entries.filter(e => new Date(e.created_at).getTime() > weekAgo).length;
+  const [now] = useState(() => Date.now());
+  
+  const { thisWeek, topPlatform, brandPercent } = useMemo(() => {
+    const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+    const thisWeek = entries.filter(e => new Date(e.created_at).getTime() > weekAgo).length;
 
-  const platformCounts: Record<string, number> = {};
-  entries.forEach(e => {
-    (e.selected_platforms || []).forEach(p => {
-      platformCounts[p] = (platformCounts[p] || 0) + 1;
+    const platformCounts: Record<string, number> = {};
+    entries.forEach(e => {
+      (e.selected_platforms || []).forEach(p => {
+        platformCounts[p] = (platformCounts[p] || 0) + 1;
+      });
     });
-  });
-  const topPlatform = Object.entries(platformCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—';
+    const topPlatform = Object.entries(platformCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? '—';
 
-  const brandExperience = entries.filter(e => e.has_worked_with_brands).length;
-  const brandPercent = total > 0 ? Math.round((brandExperience / total) * 100) : 0;
+    const brandExperience = entries.filter(e => e.has_worked_with_brands).length;
+    const brandPercent = total > 0 ? Math.round((brandExperience / total) * 100) : 0;
+
+    return { thisWeek, topPlatform, brandPercent };
+  }, [entries, total, now]);
 
   const stats = [
     { label: 'Total Signups', value: total.toLocaleString() },

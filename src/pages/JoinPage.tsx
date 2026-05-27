@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 import { supabase } from '../lib/supabase';
 import type { WaitlistFormData } from '../types/waitlist';
 import ProgressBar from '../components/form/ProgressBar';
@@ -84,8 +85,12 @@ export default function JoinPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState<Partial<Record<keyof WaitlistFormData, string>>>({});
   const [loading, setLoading] = useState(false);
-  const [submitError, setSubmitError] = useState('');
   const [success, setSuccess] = useState<{ position: number; email: string } | null>(null);
+
+  // Scroll to top when step changes or validation errors occur
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentStep, success]);
 
   const handleChange = (field: keyof WaitlistFormData, value: unknown) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -96,6 +101,8 @@ export default function JoinPage() {
     const stepErrors = validateStep(currentStep, formData);
     if (Object.keys(stepErrors).length > 0) {
       setErrors(stepErrors);
+      toast.error('Please fix the errors before continuing');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     setErrors({});
@@ -109,10 +116,16 @@ export default function JoinPage() {
 
   const handleSubmit = async () => {
     const stepErrors = validateStep(currentStep, formData);
-    if (Object.keys(stepErrors).length > 0) { setErrors(stepErrors); return; }
+    if (Object.keys(stepErrors).length > 0) { 
+      setErrors(stepErrors); 
+      toast.error('Please fix the errors before submitting');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return; 
+    }
 
     setLoading(true);
-    setSubmitError('');
+    const toastId = toast.loading('Submitting your application...');
+    
     try {
       // Destructure to remove non-database fields
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -120,7 +133,6 @@ export default function JoinPage() {
 
       const payload = {
         ...dataToSubmit,
-        // Ensure primary_platform is set to the first selected platform if available
         primary_platform: formData.selected_platforms?.[0] || formData.primary_platform,
         phone: formData.phone || null,
         location_city: formData.location_city || null,
@@ -150,30 +162,37 @@ export default function JoinPage() {
         .select('waitlist_position')
         .single();
 
-      if (error) throw error;
+      if (error) {
+        if (error.code === '23505') {
+          throw new Error('This email is already on the waitlist!');
+        }
+        throw error;
+      }
 
       // Fire off both background notifications in parallel
-      await Promise.all([
-        supabase.functions.invoke("send-telegram", {
-          body: { data: payload },
-        }),
-        supabase.functions.invoke("send-welcome-email", {
-          body: {
-            email: formData.email,
-            fullName: formData.full_name,
-          },
-        }),
-      ]);
+      try {
+        await Promise.all([
+          supabase.functions.invoke("send-telegram", {
+            body: { data: payload },
+          }),
+          supabase.functions.invoke("send-welcome-email", {
+            body: {
+              email: formData.email,
+              fullName: formData.full_name,
+            },
+          }),
+        ]);
+      } catch (notifyErr) {
+        console.warn('Notification error (non-fatal):', notifyErr);
+      }
 
-      setSuccess({ position: data.waitlist_position ?? 0, email: formData.email });
+      toast.success('Welcome to the waitlist!', { id: toastId });
+      const boostedPosition = (data.waitlist_position ?? 0) + 100;
+      setSuccess({ position: boostedPosition, email: formData.email });
     } catch (err: unknown) {
       console.error('Waitlist submission error:', err);
-      const msg = err instanceof Error ? err.message : String(err);
-      if (msg.includes('duplicate') || msg.includes('unique')) {
-        setSubmitError('This email is already on the waitlist!');
-      } else {
-        setSubmitError('Something went wrong. Please try again.');
-      }
+      const msg = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      toast.error(msg, { id: toastId });
     } finally {
       setLoading(false);
     }
@@ -250,16 +269,6 @@ export default function JoinPage() {
             <div style={{ minHeight: '320px' }}>
               {STEP_COMPONENTS[currentStep - 1]}
             </div>
-
-            {submitError && (
-              <div style={{
-                background: 'var(--cr-white)', border: '2px solid var(--cr-orange)',
-                borderRadius: '12px', padding: '12px 16px', marginTop: '24px',
-                color: 'var(--cr-orange)', fontSize: '14px', fontWeight: 600,
-              }}>
-                {submitError}
-              </div>
-            )}
 
             <div style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
