@@ -21,7 +21,7 @@ export default function Footer() {
               color: '#000', fontFamily: 'var(--font-display)',
               fontWeight: 700, fontSize: '12px', padding: '4px 10px', borderRadius: '100px',
               boxShadow: '0 2px 10px rgba(245,200,66,0.3)',
-            }}>CsR</span>
+            }}>CR</span>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '16px' }}>
               CreatorsRewards
             </span>
@@ -35,7 +35,7 @@ export default function Footer() {
             lineHeight: 1.5,
             marginTop: '8px'
           }}>
-            Nigeria's #1 creators rewards platform.<br/>Get paid for your content.
+            Nigeria's #1 CreatorsRewards platform.<br/>Get paid for your content.
           </p>
         </div>
 

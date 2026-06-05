@@ -123,7 +123,7 @@ export default function Slide5FinalCTA({ active }: { active: boolean }) {
           color: 'white',
           letterSpacing: '-0.01em'
         }}>
-          creatorsrewards
+          CreatorsRewards
         </span>
 
         <div style={{
