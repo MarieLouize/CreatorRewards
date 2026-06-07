@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Copy, Check } from 'lucide-react';
+import { toast } from 'sonner';
 import type { WaitlistEntry } from '../../types/waitlist';
 
 interface Props {
@@ -24,8 +25,20 @@ function handleLink(platform: string, handle?: string) {
 
 export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpdateNotes }: Props) {
   const [notes, setNotes] = useState(entry?.admin_notes ?? '');
+  const [copied, setCopied] = useState(false);
 
   if (!entry) return null;
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(entry.email);
+      setCopied(true);
+      toast.success('Email copied to clipboard');
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      toast.error('Failed to copy');
+    }
+  };
 
   const handles: { platform: string; handle?: string }[] = [
     { platform: 'instagram', handle: entry.instagram_handle ?? undefined },
@@ -75,7 +88,23 @@ export default function EntryDetailPanel({ entry, onClose, onUpdateStatus, onUpd
         <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {/* Contact */}
           <Section title="Contact Info">
-            <Row label="Email"><a href={`mailto:${entry.email}`} style={{ color: 'var(--accent-gold)' }}>{entry.email}</a></Row>
+            <Row label="Email">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <a href={`mailto:${entry.email}`} style={{ color: 'var(--accent-gold)' }}>{entry.email}</a>
+                <button 
+                  onClick={copyEmail}
+                  style={{ 
+                    padding: '4px', borderRadius: '4px', display: 'flex', alignItems: 'center',
+                    background: copied ? 'rgba(61,255,151,0.1)' : 'rgba(255,255,255,0.05)',
+                    color: copied ? '#3DFF97' : 'var(--text-muted)',
+                    transition: 'all 0.2s'
+                  }}
+                  title="Copy email"
+                >
+                  {copied ? <Check size={12} /> : <Copy size={12} />}
+                </button>
+              </div>
+            </Row>
             {entry.phone && <Row label="Phone">{entry.phone}</Row>}
             <Row label="City">{entry.location_city || '—'}</Row>
             {entry.gender && <Row label="Gender" style={{ textTransform: 'capitalize' }}>{entry.gender.replace(/_/g, ' ')}</Row>}

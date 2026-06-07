@@ -28,3 +28,4 @@ dist-ssr
 .claude/
 email_function.txt
 welcome_email.html
+scripts/

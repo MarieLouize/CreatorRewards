@@ -1,4 +1,6 @@
-import { Download, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Download, ChevronLeft, ChevronRight, Mail, User, ChevronDown } from 'lucide-react';
+import { toast } from 'sonner';
 import type { WaitlistEntry } from '../../types/waitlist';
 
 interface Props {
@@ -9,6 +11,7 @@ interface Props {
   onFilterChange: (key: string, value: string | number) => void;
   onUpdateStatus: (id: string, status: 'pending' | 'approved' | 'rejected') => void;
   onRowClick: (entry: WaitlistEntry) => void;
+  fetchAllMatching: () => Promise<WaitlistEntry[]>;
 }
 
 const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
@@ -19,8 +22,24 @@ const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
 
 const PAGE_SIZE = 25;
 
-function exportCSV(entries: WaitlistEntry[]) {
-  const headers = ['Position', 'Name', 'Email', 'Phone', 'Platforms', 'Niches', 'Follower Range', 'City', 'Status', 'Signed Up'];
+const dropdownItemStyle: React.CSSProperties = {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '12px',
+  padding: '10px 12px',
+  borderRadius: '6px',
+  background: 'transparent',
+  border: 'none',
+  color: 'var(--text-primary)',
+  fontSize: '13px',
+  cursor: 'pointer',
+  transition: 'background 0.2s',
+  textAlign: 'left',
+};
+
+function generateCSV(entries: WaitlistEntry[]) {
+  const headers = ['Position', 'Name', 'Email', 'Phone', 'Platforms', 'Niches', 'Follower Range', 'City', 'Status', 'Signed Up', 'Admin Notes'];
   const rows = entries.map(e => [
     e.waitlist_position ?? '',
     e.full_name,
@@ -32,19 +51,62 @@ function exportCSV(entries: WaitlistEntry[]) {
     e.location_city ?? '',
     e.status,
     new Date(e.created_at).toLocaleDateString(),
+    e.admin_notes ?? '',
   ]);
-  const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `CreatorsRewards-waitlist-${Date.now()}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
+  return [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
 }
 
-export default function EntriesTable({ entries, total, loading, filters, onFilterChange, onUpdateStatus, onRowClick }: Props) {
+export default function EntriesTable({ entries, total, loading, filters, onFilterChange, onUpdateStatus, onRowClick, fetchAllMatching }: Props) {
   const totalPages = Math.ceil(total / PAGE_SIZE);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [exporting, setExporting] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setExportOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleExport = async (type: 'csv' | 'emails' | 'names') => {
+    setExporting(true);
+    setExportOpen(false);
+    try {
+      const allEntries = await fetchAllMatching();
+      if (allEntries.length === 0) {
+        toast.error('No entries to export');
+        return;
+      }
+
+      if (type === 'csv') {
+        const csv = generateCSV(allEntries);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `CR-Waitlist-${filters.status}-${Date.now()}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        toast.success(`Exported ${allEntries.length} entries to CSV`);
+      } else if (type === 'emails') {
+        const emails = allEntries.map(e => e.email).join(', ');
+        await navigator.clipboard.writeText(emails);
+        toast.success(`Copied ${allEntries.length} emails to clipboard`);
+      } else if (type === 'names') {
+        const names = allEntries.map(e => e.full_name).join('\n');
+        await navigator.clipboard.writeText(names);
+        toast.success(`Copied ${allEntries.length} names to clipboard`);
+      }
+    } catch (err) {
+      toast.error('Export failed');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: '12px', overflow: 'hidden' }}>
@@ -83,10 +145,75 @@ export default function EntriesTable({ entries, total, loading, filters, onFilte
             onBlur={e => (e.target.style.borderColor = 'var(--border)')}
           />
         </div>
-        <button className="btn-ghost" style={{ padding: '8px 16px', fontSize: '13px' }}
-          onClick={() => exportCSV(entries)}>
-          <Download size={14} strokeWidth={2} /> Export CSV
-        </button>
+        
+        <div style={{ position: 'relative' }} ref={menuRef}>
+          <button 
+            className="btn-gold" 
+            style={{ padding: '8px 16px', fontSize: '13px', gap: '8px' }}
+            disabled={exporting}
+            onClick={() => setExportOpen(!exportOpen)}
+          >
+            {exporting ? 'Exporting...' : (
+              <>
+                <Download size={14} strokeWidth={2.5} /> 
+                Quick Export
+                <ChevronDown size={14} style={{ marginLeft: '4px', transform: exportOpen ? 'rotate(180)deg' : 'none', transition: 'transform 0.2s' }} />
+              </>
+            )}
+          </button>
+
+          {exportOpen && (
+            <div style={{
+              position: 'absolute', top: '100%', right: 0, marginTop: '8px',
+              background: 'var(--bg-card)', border: '1px solid var(--border)',
+              borderRadius: '8px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.4)',
+              zIndex: 100, width: '220px', padding: '6px',
+            }}>
+              <div style={{ padding: '8px 12px', fontSize: '11px', color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Format Options
+              </div>
+              <button 
+                className="dropdown-item" 
+                onClick={() => handleExport('csv')} 
+                style={dropdownItemStyle}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              >
+                <Download size={14} color="var(--accent-gold)" />
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontWeight: 600 }}>Download CSV</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Full spreadsheet data</div>
+                </div>
+              </button>
+              <button 
+                className="dropdown-item" 
+                onClick={() => handleExport('emails')} 
+                style={dropdownItemStyle}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              >
+                <Mail size={14} color="var(--accent-gold)" />
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontWeight: 600 }}>Copy Emails</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Paste directly into BCC</div>
+                </div>
+              </button>
+              <button 
+                className="dropdown-item" 
+                onClick={() => handleExport('names')} 
+                style={dropdownItemStyle}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              >
+                <User size={14} color="var(--accent-gold)" />
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontWeight: 600 }}>Copy Names</div>
+                  <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>List of all creator names</div>
+                </div>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Table */}

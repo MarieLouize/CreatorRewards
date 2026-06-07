@@ -73,7 +73,7 @@ export default function AdminPage() {
   const [filters, setFilters] = useState({ status: 'all', search: '', page: 0 });
   const [selectedEntry, setSelectedEntry] = useState<WaitlistEntry | null>(null);
 
-  const { entries, total, loading, error, refresh, updateStatus, updateNotes } = useWaitlistEntries(filters);
+  const { entries, total, loading, error, refresh, updateStatus, updateNotes, fetchAllMatching } = useWaitlistEntries(filters);
 
   const handleFilterChange = (key: string, value: string | number) => {
     setFilters(prev => ({ ...prev, [key]: value, ...(key !== 'page' ? { page: 0 } : {}) }));
@@ -163,6 +163,7 @@ export default function AdminPage() {
               onFilterChange={handleFilterChange}
               onUpdateStatus={handleUpdateStatus}
               onRowClick={setSelectedEntry}
+              fetchAllMatching={fetchAllMatching}
             />
           </>
         )}

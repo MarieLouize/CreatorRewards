@@ -88,5 +88,29 @@ export function useWaitlistEntries(filters: Filters) {
     }
   };
 
-  return { entries, total, loading, error, refresh: fetch, updateStatus, updateNotes };
+  const fetchAllMatching = useCallback(async () => {
+    try {
+      let query = supabaseAdmin
+        .from('waitlist_entries')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (filters.status && filters.status !== 'all') {
+        query = query.eq('status', filters.status);
+      }
+      if (filters.search) {
+        query = query.or(`full_name.ilike.%${filters.search}%,email.ilike.%${filters.search}%`);
+      }
+
+      const { data, error: supabaseError } = await query;
+      if (supabaseError) throw supabaseError;
+      return (data as WaitlistEntry[]) ?? [];
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to fetch all entries';
+      toast.error(msg);
+      return [];
+    }
+  }, [filters.status, filters.search]);
+
+  return { entries, total, loading, error, refresh: fetch, updateStatus, updateNotes, fetchAllMatching };
 }
