@@ -4,8 +4,48 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO Tags -->
     <title>CreatorsRewards — Get Paid. Stay You. Create More.</title>
-    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600&f[]=cabinet-grotesk@400,500,700&display=swap" rel="stylesheet">
+    <meta
+      name="description"
+      content="Join the exclusive waitlist for CreatorsRewards. The ultimate platform built for creators to manage contracts, automate rewards, and scale their careers."
+    />
+    <meta
+      name="keywords"
+      content="CreatorsRewards, creators waitlist, creator economy, influencer rewards, creator monetization"
+    />
+    <meta name="author" content="CreatorsRewards Team" />
+
+    <!-- Facebook SEO Tags  -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://creatorsrewards.com/" />
+    <meta
+      property="og:title"
+      content="CreatorsRewards — Get Paid. Stay You. Create More."
+    />
+    <meta
+      property="og:description"
+      content="Join the exclusive waitlist for CreatorsRewards. The ultimate platform built for creators to manage contracts, automate rewards, and scale their careers."
+    />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter SEO Tags  -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="CreatorsRewards — Get Paid. Stay You. Create More."
+    />
+    <meta
+      name="twitter:description"
+      content="Join the exclusive waitlist for CreatorsRewards. Get paid, stay you, and create more."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600&f[]=cabinet-grotesk@400,500,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
@@ -15,14 +55,28 @@
     <div class="vignette"></div>
 
     <!-- SVG Filters for Liquid/Cloud Effects -->
-    <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; width: 0; height: 0; pointer-events: none;">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style="position: absolute; width: 0; height: 0; pointer-events: none"
+    >
       <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.015"
+          numOctaves="3"
+          result="noise"
+        />
         <feDisplacementMap in="SourceGraphic" in2="noise" scale="50" />
       </filter>
-      
+
       <filter id="cloud-filter" x="-50%" y="-50%" width="200%" height="200%">
-        <feTurbulence type="fractalNoise" seed="462" baseFrequency="0.011" numOctaves="5" result="noise1" />
+        <feTurbulence
+          type="fractalNoise"
+          seed="462"
+          baseFrequency="0.011"
+          numOctaves="5"
+          result="noise1"
+        />
         <feGaussianBlur in="SourceGraphic" stdDeviation="20" />
         <feDisplacementMap scale="100" in2="noise1" />
       </filter>
