@@ -1,30 +1,31 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import BackButton from "../components/props/BackButton";
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import BackButton from '../components/props/BackButton';
 
 export default function PrivacyPage() {
   return (
     <div
       className="bg-matcha-grad"
       style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        color: "var(--cr-dark)",
-        position: "relative",
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        color: 'var(--cr-dark)',
+        position: 'relative',
       }}
     >
-      <div style={{ position: "relative", zIndex: 10 }}>
+      <div style={{ position: 'relative', zIndex: 10 }}>
         <Navbar />
       </div>
 
       <div
         style={{
           flex: 1,
-          maxWidth: "720px",
-          margin: "0 auto",
-          padding: "100px 24px 60px",
-          position: "relative",
+          maxWidth: '1140px',
+          width: '100%',
+          margin: '0 auto',
+          padding: '70px 24px 30px', // Reduced top/bottom padding
+          position: 'relative',
           zIndex: 1,
         }}
       >
@@ -32,14 +33,14 @@ export default function PrivacyPage() {
 
         <h1
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(32px, 6vw, 48px)",
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(28px, 4vw, 40px)',
             fontWeight: 700,
-            letterSpacing: "-0.02em",
-            color: "var(--cr-pink)",
-            textTransform: "uppercase",
-            marginBottom: "32px",
-            animation: "popBounce 0.6s cubic-bezier(0.16,1,0.3,1) both",
+            letterSpacing: '-0.02em',
+            color: 'var(--cr-pink)',
+            textTransform: 'uppercase',
+            marginBottom: '16px', // Tightened margin
+            animation: 'popBounce 0.6s cubic-bezier(0.16,1,0.3,1) both',
           }}
         >
           Privacy Policy
@@ -48,13 +49,18 @@ export default function PrivacyPage() {
         <div
           className="card"
           style={{
-            padding: "clamp(24px, 5vw, 40px)",
+            padding: 'clamp(20px, 3vw, 32px)',
             animation:
-              "slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms",
+              'slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms',
           }}
         >
+          {/* Responsive 2-column grid for wide screens */}
           <div
-            style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: '20px 32px',
+            }}
           >
             <Section title="1. Information We Collect">
               We collect information you provide directly to us, such as when
@@ -102,12 +108,12 @@ export default function PrivacyPage() {
 
             <Section title="8. Contact Us">
               If you have any questions about this Privacy Policy, please
-              contact us at{" "}
+              contact us at{' '}
               <a
                 href="mailto:privacy@creatorsrewards.ng"
                 style={{
-                  color: "var(--cr-pink)",
-                  textDecoration: "none",
+                  color: 'var(--cr-pink)',
+                  textDecoration: 'none',
                   fontWeight: 700,
                 }}
               >
@@ -115,24 +121,24 @@ export default function PrivacyPage() {
               </a>
               .
             </Section>
-
-            <p
-              style={{
-                fontSize: "12px",
-                color: "var(--text-muted)",
-                marginTop: "16px",
-                paddingTop: "24px",
-                borderTop: "1px solid var(--border-subtle)",
-              }}
-            >
-              Last updated:{" "}
-              {new Date().toLocaleDateString("en-NG", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
           </div>
+
+          <p
+            style={{
+              fontSize: '12px',
+              color: 'var(--text-muted)',
+              marginTop: '16px',
+              paddingTop: '16px',
+              borderTop: '1px solid var(--border-subtle)',
+            }}
+          >
+            Last updated:{' '}
+            {new Date().toLocaleDateString('en-NG', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </p>
         </div>
       </div>
 
@@ -152,22 +158,22 @@ function Section({
     <div>
       <h2
         style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "16px",
+          fontFamily: 'var(--font-display)',
+          fontSize: '15px',
           fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.05em",
-          color: "var(--cr-dark)",
-          marginBottom: "10px",
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          color: 'var(--cr-dark)',
+          marginBottom: '6px',
         }}
       >
         {title}
       </h2>
       <p
         style={{
-          fontSize: "15px",
-          color: "var(--text-secondary)",
-          lineHeight: 1.7,
+          fontSize: '14px',
+          color: 'var(--text-secondary)',
+          lineHeight: 1.5,
         }}
       >
         {children}
