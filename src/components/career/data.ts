@@ -1,0 +1,103 @@
+import type { JobPosting } from "./types";
+
+export const MOCK_JOBS: JobPosting[] = [
+  {
+    id: "eng-001",
+    title: "Backend Engineer",
+    department: "Engineering",
+    location: "Remote",
+    type: "Internship",
+    workType: "Remote",
+    experienceLevel: "Intern",
+    description:
+      "You will work closely with the Full-Stack Lead to implement and maintain the NestJS API. Your primary focus areas are the submission review pipeline, payout processing logic, OAuth performance data ingestion, and the background job infrastructure that keeps campaigns, views tracking, and payouts running reliably.",
+    requirements: [
+      "Backend experience with Node.js in TypeScript",
+      "NestJS experience — modules, guards, interceptors, pipes",
+      "Solid PostgreSQL and Prisma knowledge",
+      "BullMQ or Bull queue experience with Redis",
+      "OAuth 2.0 implementation experience",
+      "Experience with scheduled/cron job patterns in production systems",
+      "Understanding of financial transaction patterns — idempotency, failure recovery, audit trails",
+    ],
+  },
+  {
+    id: "eng-002",
+    title: "Frontend Engineer",
+    department: "Engineering",
+    location: "Remote",
+    type: "Full-time",
+    workType: "Remote",
+    experienceLevel: "Senior",
+    description:
+      "You will build the creator-facing dashboard, brand portal, admin dashboard, and all public-facing pages in Next.js 14 using the App Router. Performance on slow African mobile connections (3G/4G) is a hard requirement — every page must load within 3 seconds and all key creator actions must be completable in 3 clicks or fewer from the dashboard.",
+    requirements: [
+      "3+ years of frontend experience; 1+ year with Next.js 13+ App Router",
+      "Strong TypeScript skills",
+      "Tailwind CSS for styling; shadcn/ui component library experience preferred",
+      "Clerk or similar managed auth integration experience",
+      "Familiarity with React Server Components and Next.js data fetching patterns",
+      "Experience optimising web performance for low-bandwidth environments",
+      "Ability to translate Figma designs into pixel-accurate, accessible components",
+    ],
+  },
+  {
+    id: "des-001",
+    title: "Product Designer (UI/UX)",
+    department: "Design",
+    location: "Remote",
+    type: "Internship",
+    workType: "Remote",
+    experienceLevel: "Intern",
+    description:
+      "You will own the end-to-end design of the CreatorsRewards platform — from user flows through to high-fidelity Figma screens. The platform serves African creators (UGC creators and clippers) and brands through three distinct interfaces: creator dashboard, brand portal, and admin dashboard. Mobile-first design for Nigerian 3G/4G connections is essential.",
+    requirements: [
+      "2+ years of product design experience, with a portfolio demonstrating dashboard or marketplace UI",
+      "Figma proficiency — components, auto-layout, variables, prototyping",
+      "Strong understanding of mobile-first design",
+      "Experience designing for emerging-market users or low-bandwidth contexts is a strong plus",
+      "Ability to translate complex multi-step flows into simple, clear UI",
+      "Experience designing for multiple user roles within the same product",
+      "Comfortable working directly from a written PRD to produce user flows",
+    ],
+  },
+  {
+    id: "ops-001",
+    title: "DevOps / Infrastructure Engineer",
+    department: "Operations",
+    location: "Remote",
+    type: "Contract",
+    workType: "Remote",
+    experienceLevel: "Senior",
+    description:
+      "You will set up and maintain the infrastructure that keeps CreatorsRewards running reliably. At MVP, the stack runs on Railway (backend + PostgreSQL + Redis) and Vercel (Next.js frontend), with Cloudflare R2 for file storage. Your job is to get the deployment pipeline right from day one — automated deployments, environment variable management, database migration workflows, monitoring, and alerting.",
+    requirements: [
+      "3+ years of DevOps or infrastructure engineering experience",
+      "Hands-on experience with Railway and Vercel deployments",
+      "Experience deploying monorepo applications",
+      "PostgreSQL backup and restore procedures",
+      "Redis configuration and monitoring",
+      "CI/CD pipeline setup (GitHub Actions preferred)",
+      "Cloudflare or AWS S3-compatible storage configuration",
+    ],
+  },
+  {
+    id: "ops-002",
+    title: "QA Engineer",
+    department: "Operations",
+    location: "Remote",
+    type: "Contract",
+    workType: "Remote",
+    experienceLevel: "Intermediate",
+    description:
+      "You will own quality assurance across the CreatorsRewards platform, with particular focus on the submission state machine, payout logic, and OAuth integration edge cases. The PRD documents 30+ explicit edge cases that must be verified before launch — many involving payment processing, OAuth failures, and campaign closure conditions.",
+    requirements: [
+      "3+ years of QA experience on web platforms",
+      "Experience writing structured test plans from product requirements documents",
+      "Manual testing of complex multi-step user flows and state machines",
+      "Experience testing payment flows and financial transaction edge cases",
+      "API testing experience (Postman or similar) for backend endpoint verification",
+      "Ability to reproduce and document bugs clearly for developer handoff",
+    ],
+  },
+];

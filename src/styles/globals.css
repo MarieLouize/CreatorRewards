@@ -346,6 +346,39 @@ input, textarea, select { font-family: var(--font-body); }
 .bg-pink-grad   { background: linear-gradient(135deg, var(--cr-pink) 0%, #F43F5E 100%); }
 .bg-blush-grad  { background: radial-gradient(circle at center, var(--cr-blush) 0%, #E7E5E4 100%); }
 
+
+.bg-footer-grad {
+  background: linear-gradient(160deg, var(--bg-dark) 0%, var(--bg-dark-alt) 55%, #1C0A2E 100%);
+  position: relative;
+  overflow: hidden;
+}
+.bg-footer-grad::before {
+  content: "";
+  position: absolute;
+  top: -15%;
+  right: -10%;
+  width: 560px;
+  height: 560px;
+  background: var(--cr-pink);
+  filter: blur(140px);
+  opacity: 0.22;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bg-footer-grad::after {
+  content: "";
+  position: absolute;
+  bottom: -20%;
+  left: -10%;
+  width: 480px;
+  height: 480px;
+  background: var(--violet);
+  filter: blur(140px);
+  opacity: 0.15;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
 .slides-wrapper {
   height: 100%;
   position: relative;
