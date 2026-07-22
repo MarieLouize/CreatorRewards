@@ -24,7 +24,7 @@ export default function PrivacyPage() {
           maxWidth: '1140px',
           width: '100%',
           margin: '0 auto',
-          padding: '70px 24px 30px', // Reduced top/bottom padding
+          padding: '70px 24px 30px',
           position: 'relative',
           zIndex: 1,
         }}
@@ -34,12 +34,12 @@ export default function PrivacyPage() {
         <h1
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px, 4vw, 40px)',
+            fontSize: 'clamp(24px, 5vw, 40px)', // ← reduced floor
             fontWeight: 700,
             letterSpacing: '-0.02em',
             color: 'var(--cr-pink)',
             textTransform: 'uppercase',
-            marginBottom: '16px', // Tightened margin
+            marginBottom: '16px',
             animation: 'popBounce 0.6s cubic-bezier(0.16,1,0.3,1) both',
           }}
         >
@@ -49,17 +49,17 @@ export default function PrivacyPage() {
         <div
           className="card"
           style={{
-            padding: 'clamp(20px, 3vw, 32px)',
+            padding: 'clamp(16px, 3vw, 32px)',
             animation:
               'slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms',
           }}
         >
-          {/* Responsive 2-column grid for wide screens */}
+          {/* Grid: 2-col on desktop, 1-col on mobile */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '20px 32px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', // ← 280 → 240
+              gap: 'clamp(16px, 2vw, 24px) clamp(20px, 3vw, 32px)',
             }}
           >
             <Section title="1. Information We Collect">
@@ -110,14 +110,14 @@ export default function PrivacyPage() {
               If you have any questions about this Privacy Policy, please
               contact us at{' '}
               <a
-                href="mailto:privacy@creatorsrewards.ng"
+                href="mailto:creatorsrewards.net"
                 style={{
                   color: 'var(--cr-pink)',
                   textDecoration: 'none',
                   fontWeight: 700,
                 }}
               >
-                privacy@creatorsrewards.ng
+                creatorsrewards.net
               </a>
               .
             </Section>
@@ -125,9 +125,9 @@ export default function PrivacyPage() {
 
           <p
             style={{
-              fontSize: '12px',
+              fontSize: '11px', // ← smaller
               color: 'var(--text-muted)',
-              marginTop: '16px',
+              marginTop: '20px',
               paddingTop: '16px',
               borderTop: '1px solid var(--border-subtle)',
             }}
@@ -159,19 +159,20 @@ function Section({
       <h2
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: '15px',
+          fontSize: 'clamp(12px, 2vw, 15px)', // ← mobile floor 12px
           fontWeight: 700,
           textTransform: 'uppercase',
           letterSpacing: '0.05em',
           color: 'var(--cr-dark)',
           marginBottom: '6px',
+          lineHeight: 1.3,
         }}
       >
         {title}
       </h2>
       <p
         style={{
-          fontSize: '14px',
+          fontSize: 'clamp(12px, 1.8vw, 14px)', // ← mobile floor 12px
           color: 'var(--text-secondary)',
           lineHeight: 1.5,
         }}
