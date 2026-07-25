@@ -1,4 +1,3 @@
-import Footer from "../Footer";
 import { VerifiedBadge } from "./SocialElements";
 import SplitText from "./SplitText";
 
