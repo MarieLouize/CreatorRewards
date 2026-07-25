@@ -6,7 +6,6 @@ import {
   Briefcase,
   FileText,
   Mail,
-  Shield,
   ShieldAlert,
 } from "lucide-react";
 

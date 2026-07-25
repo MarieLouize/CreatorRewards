@@ -384,18 +384,18 @@ function FormField({
   placeholder: string;
   rows?: number;
 }) {
-  const inputStyle: React.CSSProperties = {
-    width: "100%",
-    padding: "12px 16px",
-    background: "var(--bg-primary, #0a0a0a)",
-    border: "1px solid var(--border, #222)",
-    borderRadius: "12px",
-    color: "var(--text-primary)",
-    fontSize: "15px",
-    fontFamily: "var(--font-body)",
-    outline: "none",
-    transition: "border-color 0.2s",
-  };
+  // const inputStyle: React.CSSProperties = {
+  //   width: "100%",
+  //   padding: "12px 16px",
+  //   background: "var(--bg-primary, #0a0a0a)",
+  //   border: "1px solid var(--border, #222)",
+  //   borderRadius: "12px",
+  //   color: "var(--text-primary)",
+  //   fontSize: "15px",
+  //   fontFamily: "var(--font-body)",
+  //   outline: "none",
+  //   transition: "border-color 0.2s",
+  // };
 
   return (
     <div>
