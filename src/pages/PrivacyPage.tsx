@@ -5,8 +5,8 @@ import {
   privacyMeta,
   privacyIntro,
   privacySections,
-} from '../data/privacyData';
-import type { PrivacySubsection, PrivacyLink } from '../data/privacyData';
+} from '../data/PrivacyData';
+import type { PrivacySubsection, PrivacyLink } from '../data/PrivacyData';
 
 export default function PrivacyPage() {
   return (
