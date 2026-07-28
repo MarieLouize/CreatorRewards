@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
+  /* Colors — mapped from your :root tokens */
   --color-cr-yellow: var(--cr-yellow);
   --color-cr-pink: var(--cr-pink);
   --color-cr-blush: var(--cr-blush);
@@ -8,6 +9,7 @@
   --color-cr-orange: var(--cr-orange);
   --color-cr-purple: var(--cr-purple);
   --color-cr-green: var(--cr-green);
+  --color-cr-deep: var(--cr-deep);
   --color-bg-page: var(--bg-page);
   --color-bg-dark: var(--bg-dark);
   --color-bg-dark-alt: var(--bg-dark-alt);
@@ -24,16 +26,17 @@
   --color-border: var(--border);
   --color-border-subtle: var(--border-subtle);
 
+  /* Fonts */
   --font-display: var(--font-display);
   --font-body: var(--font-body);
-
-  --spacing-hud: 12px;
+  --font-condensed: var(--font-condensed);
 }
 
-@utility scrollbar-hide {
+/* Scrollbar hide utility — standard CSS, not @utility */
+.scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-@utility scrollbar-hide::-webkit-scrollbar {
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, LucideTag, Timer } from 'lucide-react';
 import type { BlogPost } from '../../types/blog';
 
 interface BlogPostCardProps {
@@ -18,58 +18,41 @@ export default function BlogPostCard({
     <motion.article
       whileHover={{ y: -4 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className={`
-        bg-cr-blush border-4 border-cr-pink rounded-3xl overflow-hidden
-        shadow-[8px_8px_0px_var(--cr-dark)] transition-shadow duration-200
-        hover:shadow-[12px_12px_0px_var(--cr-dark)]
-        ${isFeatured ? 'w-full' : 'w-full'}
-      `}
+      className="group bg-cr-blush border-2 border-cr-pink rounded-lg overflow-hidden shadow-[4px_4px_0px_var(--cr-pink)] hover:shadow-[6px_6px_0px_var(--cr-pink)] transition-shadow duration-200"
     >
       {/* Image Section */}
-      <div
-        className={`relative overflow-hidden ${isFeatured ? 'h-64 md:h-96' : 'h-48'}`}
-      >
+      <div className="relative overflow-hidden h-48 md:h-96">
         {/* Tag Badge */}
-        <div
-          className={`
-            absolute top-4 left-4 z-10 px-3 py-1.5 rounded
-            font-mono text-[10px] font-bold uppercase tracking-widest text-white
-            ${post.tag === 'featured' ? 'bg-cr-pink' : 'bg-cr-pink/90'}
-          `}
-        >
+        <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded font-mono text-[10px] font-bold uppercase tracking-widest text-white bg-cr-pink">
           {post.tag}
         </div>
 
-        {/* Arrow CTA */}
+        {/* Arrow CTA — rotates on CARD hover */}
         <Link
           to={`/blog/${post.slug}`}
-          className="
-            absolute bottom-4 right-4 z-10 w-10 h-10 bg-white rounded-lg
-            flex items-center justify-center
-            shadow-[3px_3px_0px_var(--cr-dark)]
-            group transition-transform duration-200
-            hover:rotate-45
-          "
+          className="absolute bottom-4 right-4 z-10 w-10 h-10 bg-white rounded-[8px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-45"
         >
           <ArrowUpRight
             size={18}
             strokeWidth={2.5}
-            className="text-cr-pink transition-transform duration-200 group-hover:rotate-45"
+            className="text-cr-pink transition-transform duration-200"
           />
         </Link>
 
-        {/* Placeholder Image */}
-        <div className="w-full h-full bg-cr-yellow/50 flex items-center justify-center">
-          <div className="w-16 h-16 bg-cr-pink/20 rounded-full" />
-        </div>
+        <img
+          src={post.image}
+          alt={post.title}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* Content Section */}
       <div className={`p-5 ${isFeatured ? 'md:p-7' : ''}`}>
         {/* Category Label */}
-        <div className="flex items-center gap-2 mb-3">
-          <span className="w-1.5 h-1.5 rounded-full bg-cr-pink" />
-          <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-cr-pink">
+        <div className="flex items-center gap-2 mb-2">
+          {/* <span className="w-1.5 h-1.5 rounded-full bg-cr-pink" /> */}
+          <LucideTag className="w-3 h-3 text-cr-pink" />
+          <span className="font-mono text-[12px] font-bold uppercase tracking-widest text-cr-pink">
             {post.category.replace('-', ' ')}
           </span>
         </div>
@@ -77,7 +60,7 @@ export default function BlogPostCard({
         {/* Title */}
         <h3
           className={`
-            font-display font-extrabold text-cr-pink uppercase leading-tight mb-3
+            font-condensed font-extrabold text-cr-pink uppercase leading-[100%] mb-3
             ${isFeatured ? 'text-2xl md:text-4xl' : 'text-lg'}
           `}
         >
@@ -86,13 +69,13 @@ export default function BlogPostCard({
 
         {/* Excerpt */}
         <p
-          className={`font-body text-cr-dark/70 leading-relaxed mb-4 ${isFeatured ? 'text-sm md:text-base' : 'text-xs'}`}
+          className={`font-body text-cr-deep leading-relaxed mb-4 ${isFeatured ? 'text-sm md:text-base' : 'text-xs'}`}
         >
           {post.excerpt}
         </p>
 
         {/* Divider */}
-        <div className="h-px bg-cr-pink/30 mb-4" />
+        <div className="h-0.5 bg-cr-pink mb-2" />
 
         {/* Author + Meta */}
         <div className="flex items-end justify-between">
@@ -100,20 +83,20 @@ export default function BlogPostCard({
             <p className="font-body text-sm font-bold text-cr-dark">
               {post.author.name}
             </p>
-            <p className="font-mono text-[10px] text-cr-dark/50">
+            <p className="font-mono text-[10px] text-cr-deep">
               {post.author.role}
             </p>
           </div>
-          <div className="flex items-center gap-3 font-mono text-[10px] text-cr-dark/50">
+          <div className="flex items-center gap-3 font-mono text-[10px] text-cr-deep">
             <span>
-              {new Date(post.date).toLocaleDateString('en-NG', {
+              {new Date(post.date).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric',
               })}
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-1 h-1 rounded-full bg-cr-dark/30" />
+              <Timer className="h-3 w-3" />
               {post.readTime}
             </span>
           </div>

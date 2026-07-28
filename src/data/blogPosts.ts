@@ -1,4 +1,5 @@
 import type { BlogCategory, BlogPost, FAQItem } from '../types/blog';
+import { getImageSrc } from '../utils/imagesUtils';
 
 export const blogPosts: BlogPost[] = [
   {
@@ -14,7 +15,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Priya Nkosi', role: 'Head of Creator Research' },
     date: '2026-06-24',
     readTime: '9 min read',
-    image: '/images/blog/b2b-creators.jpg',
+    image: getImageSrc('creatorImg.png'),
   },
   {
     id: '2',
@@ -28,10 +29,55 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Marcus Delgado', role: 'Growth Economist' },
     date: '2026-06-20',
     readTime: '6 min read',
-    image: '/images/blog/pricing-models.jpg',
+    image: getImageSrc('monetizationImg.png'),
   },
+
   {
     id: '3',
+    slug: 'Creator-stack-2026',
+    title: 'Automating Your Creator Stack: What Actually Works in 2026',
+    excerpt: `We audited 200 top creators' tooling. Most automation is cosmetic. Here's what's genuinely saving them 10+ hours a week.`,
+    content: '',
+    category: 'tools-tech',
+    tag: 'deep-dive',
+    author: { name: 'Aiko Tanaka', role: 'Product Strategist' },
+    date: '2026-06-17',
+    readTime: '11 min read',
+    image: getImageSrc('toolsTechImg.png'),
+  },
+  {
+    id: '4',
+    slug: 'nigerian-beauty-brand-case-study',
+    title:
+      '$0 to $84K MRR: How Lena Osei Built a Creator Ops Empire in 14 Months',
+    excerpt:
+      'No viral moments, no celebrity collabs. Just ruthless systemization and a very specific niche no one else wanted to touch.',
+    content: '',
+    category: 'case-studies',
+    tag: 'case-study',
+    author: { name: 'Editorial Team', role: 'CREATORSREWARDS Magazine' },
+    date: '2026-06-14',
+    readTime: '14 min read',
+    image: getImageSrc('casestudyImg.png'),
+  },
+  {
+    id: '5',
+    slug: 'platform-dependency',
+    title: `Platform Dependency Is Killing Creator Businesses. Here's the Exit`,
+    excerpt: `Every algorithm change wipes out someone's income. The creators building durable businesses share one trait: diversified distribution before they needed it.
+
+`,
+    content: '',
+    category: 'growth',
+    tag: 'analysis',
+    author: { name: 'James Fortier', role: 'Creator Economist' },
+    date: '2026-06-10',
+    readTime: '8 min read',
+    image: getImageSrc('analysisImg.png'),
+  },
+
+  {
+    id: '6',
     slug: 'platform-fatigue-creator-response',
     title: `The Marketplace Model Is Broken for Most Creators (And Who's Fixing It)
 `,
@@ -40,52 +86,9 @@ export const blogPosts: BlogPost[] = [
     category: 'monetization',
     tag: 'opinion',
     author: { name: 'Priya Nkosi', role: 'Head of Creator Research' },
-    date: '2026-06-18',
-    readTime: '4 min read',
-    image: '/images/blog/platform-fatigue.jpg',
-  },
-  {
-    id: '4',
-    slug: 'ai-workflow-stack-2026',
-    title: 'THE AI WORKFLOW STACK EVERY CREATOR NEEDS IN 2026',
-    excerpt:
-      'From ideation to distribution, these tools cut production time in half without sacrificing quality.',
-    content: '',
-    category: 'tools-tech',
-    tag: 'deep-dive',
-    author: { name: 'Tunde Bakare', role: 'Tech Editor' },
-    date: '2026-06-15',
-    readTime: '8 min read',
-    image: '/images/blog/ai-workflows.jpg',
-  },
-  {
-    id: '5',
-    slug: 'micro-creators-outgrowing-mega',
-    title: 'HOW MICRO-CREATORS ARE OUTGROWING MEGA-INFLUENCERS',
-    excerpt:
-      'Smaller audiences, deeper trust, better monetization. The math is simple.',
-    content: '',
-    category: 'growth',
-    tag: 'strategy',
-    author: { name: 'Amara Diallo', role: 'Audience Growth Lead' },
-    date: '2026-06-12',
-    readTime: '5 min read',
-    image: '/images/blog/micro-creators.jpg',
-  },
-  {
-    id: '6',
-    slug: 'nigerian-beauty-brand-case-study',
-    title:
-      'CASE STUDY: HOW A NIGERIAN BEAUTY BRAND BUILT A $2M CREATOR PROGRAM',
-    excerpt:
-      'No celebrity endorsements. No massive ad spend. Just smart creator partnerships and authentic storytelling.',
-    content: '',
-    category: 'case-studies',
-    tag: 'case-study',
-    author: { name: 'Chioma Eze', role: 'Brand Partnerships Director' },
-    date: '2026-06-10',
-    readTime: '11 min read',
-    image: '/images/blog/beauty-case-study.jpg',
+    date: '2026-06-06',
+    readTime: '7 min read',
+    image: getImageSrc('marketplaceImg.png'),
   },
 ];
 

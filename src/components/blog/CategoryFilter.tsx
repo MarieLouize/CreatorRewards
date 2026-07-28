@@ -16,28 +16,25 @@ export default function CategoryFilter() {
   };
 
   return (
-    <div className="flex border-b-2 border-cr-pink overflow-x-auto scrollbar-hide">
-      {categories.map((cat) => {
-        const isActive = activeCategory === cat.value;
-        return (
-          <button
-            key={cat.value}
-            onClick={() => handleClick(cat.value)}
-            className={`
-              flex-shrink-0 px-5 py-3 font-mono text-[11px] font-bold uppercase tracking-widest
-              cursor-pointer border-0 border-r-2 border-cr-pink whitespace-nowrap
-              transition-colors duration-200
-              ${
-                isActive
-                  ? 'bg-cr-pink text-white'
-                  : 'bg-cr-yellow text-cr-dark hover:bg-cr-blush'
-              }
-            `}
-          >
-            {cat.label}
-          </button>
-        );
-      })}
+    <div className="flex gap-2 bg-cr-yellow border-b-2 border-cr-pink overflow-x-auto scrollbar-hide">
+      <div className="max-w-[1440px] w-full mx-auto">
+        {categories.map((cat) => {
+          const isActive = activeCategory === cat.value;
+          return (
+            <button
+              key={cat.value}
+              onClick={() => handleClick(cat.value)}
+              className={`
+          flex-shrink-0 px-5 py-3.5 font-mono text-[11px] font-bold uppercase tracking-widest
+          cursor-pointer whitespace-nowrap border-2 transition-all duration-200
+          ${isActive ? 'bg-cr-pink text-[white] border-transparent' : ' text-cr-deep border-transparent md:border-r-cr-pink'}
+        `}
+            >
+              {cat.label}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

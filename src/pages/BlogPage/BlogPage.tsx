@@ -12,7 +12,7 @@ export default function BlogPage() {
       <CategoryFilter />
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-5 py-8">
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-5 py-8 md:px-0">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Posts */}
           <div className="flex-1 min-w-0">
