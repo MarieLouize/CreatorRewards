@@ -1,6 +1,12 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BackButton from '../components/props/BackButton';
+import {
+  privacyMeta,
+  privacyIntro,
+  privacySections,
+} from '../data/PrivacyData';
+import type { PrivacySubsection, PrivacyLink } from '../data/PrivacyData';
 
 export default function PrivacyPage() {
   return (
@@ -34,7 +40,7 @@ export default function PrivacyPage() {
         <h1
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(24px, 5vw, 40px)', // ← reduced floor
+            fontSize: 'clamp(24px, 5vw, 40px)',
             fontWeight: 700,
             letterSpacing: '-0.02em',
             color: 'var(--cr-pink)',
@@ -54,90 +60,53 @@ export default function PrivacyPage() {
               'slideUpSmooth 0.6s cubic-bezier(0.16,1,0.3,1) both 80ms',
           }}
         >
+          {/* Intro paragraphs */}
+          <div style={{ marginBottom: '24px' }}>
+            {privacyIntro.map((paragraph, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: 'clamp(12px, 1.8vw, 14px)',
+                  color: 'var(--text-secondary)',
+                  lineHeight: 1.6,
+                  marginBottom: i < privacyIntro.length - 1 ? '12px' : 0,
+                }}
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
           {/* Grid: 2-col on desktop, 1-col on mobile */}
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', // ← 280 → 240
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: 'clamp(16px, 2vw, 24px) clamp(20px, 3vw, 32px)',
             }}
           >
-            <Section title="1. Information We Collect">
-              We collect information you provide directly to us, such as when
-              you create an account, fill out a form, or communicate with us.
-              This may include your name, email address, phone number, and any
-              other information you choose to provide.
-            </Section>
-
-            <Section title="2. How We Use Your Information">
-              We use the information we collect to operate, maintain, and
-              improve our services; to process transactions; to communicate with
-              you; and to comply with legal obligations.
-            </Section>
-
-            <Section title="3. Information Sharing">
-              We do not sell, trade, or rent your personal information to third
-              parties. We may share information with trusted service providers
-              who assist us in operating our platform, subject to
-              confidentiality agreements.
-            </Section>
-
-            <Section title="4. Data Security">
-              We implement appropriate technical and organizational measures to
-              protect your personal data against unauthorized access,
-              alteration, disclosure, or destruction.
-            </Section>
-
-            <Section title="5. Your Rights">
-              You have the right to access, correct, or delete your personal
-              information. You may also object to or restrict certain processing
-              of your data. Contact us to exercise these rights.
-            </Section>
-
-            <Section title="6. Cookies">
-              We use cookies and similar technologies to enhance your
-              experience, analyze usage, and deliver personalized content. You
-              can control cookie settings through your browser.
-            </Section>
-
-            <Section title="7. Changes to This Policy">
-              We may update this Privacy Policy from time to time. We will
-              notify you of any material changes by posting the new policy on
-              this page with an updated effective date.
-            </Section>
-
-            <Section title="8. Contact Us">
-              If you have any questions about this Privacy Policy, please
-              contact us at{' '}
-              <a
-                href="mailto:creatorsrewards.net"
-                style={{
-                  color: 'var(--cr-pink)',
-                  textDecoration: 'none',
-                  fontWeight: 700,
-                }}
-              >
-                creatorsrewards.net
-              </a>
-              .
-            </Section>
+            {privacySections.map((section) => (
+              <Section
+                key={section.id}
+                title={section.title}
+                content={section.content}
+                list={section.list}
+                subsections={section.subsections}
+                links={section.links}
+              />
+            ))}
           </div>
 
           <p
             style={{
-              fontSize: '11px', // ← smaller
+              fontSize: '11px',
               color: 'var(--text-muted)',
               marginTop: '20px',
               paddingTop: '16px',
               borderTop: '1px solid var(--border-subtle)',
             }}
           >
-            Last updated:{' '}
-            {new Date().toLocaleDateString('en-NG', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+            Last updated: {privacyMeta.effectiveDate}
           </p>
         </div>
       </div>
@@ -149,36 +118,155 @@ export default function PrivacyPage() {
 
 function Section({
   title,
-  children,
+  content,
+  list,
+  subsections,
+  links,
 }: {
-  title: string;
-  children: React.ReactNode;
+  title?: string;
+  content?: string[];
+  list?: string[];
+  subsections?: PrivacySubsection[];
+  links?: PrivacyLink[];
 }) {
   return (
     <div>
-      <h2
-        style={{
-          fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(12px, 2vw, 15px)', // ← mobile floor 12px
-          fontWeight: 700,
-          textTransform: 'uppercase',
-          letterSpacing: '0.05em',
-          color: 'var(--cr-dark)',
-          marginBottom: '6px',
-          lineHeight: 1.3,
-        }}
-      >
-        {title}
-      </h2>
-      <p
-        style={{
-          fontSize: 'clamp(12px, 1.8vw, 14px)', // ← mobile floor 12px
-          color: 'var(--text-secondary)',
-          lineHeight: 1.5,
-        }}
-      >
-        {children}
-      </p>
+      {title && (
+        <h2
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(12px, 2vw, 15px)',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            color: 'var(--cr-dark)',
+            marginBottom: '6px',
+            lineHeight: 1.3,
+          }}
+        >
+          {title}
+        </h2>
+      )}
+
+      {content?.map((paragraph, i) => (
+        <p
+          key={i}
+          style={{
+            fontSize: 'clamp(12px, 1.8vw, 14px)',
+            color: 'var(--text-secondary)',
+            lineHeight: 1.5,
+            marginBottom: '6px',
+          }}
+        >
+          {paragraph}
+        </p>
+      ))}
+
+      {list && (
+        <ul
+          style={{
+            listStyleType: 'disc',
+            paddingLeft: '18px',
+            margin: '4px 0 8px',
+          }}
+        >
+          {list.map((item, i) => (
+            <li
+              key={i}
+              style={{
+                fontSize: 'clamp(12px, 1.8vw, 14px)',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.5,
+                marginBottom: '4px',
+              }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {subsections?.map((sub, i) => (
+        <div key={i} style={{ marginTop: '10px' }}>
+          {sub.title && (
+            <h3
+              style={{
+                fontSize: 'clamp(11px, 1.6vw, 13px)',
+                fontWeight: 700,
+                color: 'var(--cr-dark)',
+                marginBottom: '4px',
+                lineHeight: 1.3,
+              }}
+            >
+              {sub.title}
+            </h3>
+          )}
+
+          {sub.content?.map((paragraph, j) => (
+            <p
+              key={j}
+              style={{
+                fontSize: 'clamp(12px, 1.8vw, 14px)',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.5,
+                marginBottom: '6px',
+              }}
+            >
+              {paragraph}
+            </p>
+          ))}
+
+          {sub.list && (
+            <ul
+              style={{
+                listStyleType: 'disc',
+                paddingLeft: '18px',
+                margin: '4px 0 8px',
+              }}
+            >
+              {sub.list.map((item, j) => (
+                <li
+                  key={j}
+                  style={{
+                    fontSize: 'clamp(12px, 1.8vw, 14px)',
+                    color: 'var(--text-secondary)',
+                    lineHeight: 1.5,
+                    marginBottom: '4px',
+                  }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+
+      {links && (
+        <div style={{ marginTop: '4px' }}>
+          {links.map((link, i) => (
+            <p
+              key={i}
+              style={{
+                fontSize: 'clamp(12px, 1.8vw, 14px)',
+                lineHeight: 1.5,
+                marginBottom: '4px',
+              }}
+            >
+              <a
+                href={link.href}
+                style={{
+                  color: 'var(--cr-pink)',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                }}
+              >
+                {link.label}
+              </a>
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
