@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { X, Send, CheckCircle, Briefcase, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '../../lib/supabase';
 import type { JobPosting } from './types';
 
 interface ApplicationForm {
   fullName: string;
   email: string;
+  phone: string;
+  linkedin: string;
   portfolio: string;
   message: string;
 }
@@ -19,6 +22,8 @@ export default function ApplyModal({ job, onClose }: ApplyModalProps) {
   const [form, setForm] = useState<ApplicationForm>({
     fullName: '',
     email: '',
+    phone: '',
+    linkedin: '',
     portfolio: '',
     message: '',
   });
@@ -39,10 +44,38 @@ export default function ApplyModal({ job, onClose }: ApplyModalProps) {
     }
 
     setSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setSubmitting(false);
-    setSubmitted(true);
-    toast.success(`Application submitted for ${job.title}!`);
+
+    try {
+      const payload = {
+        fullName: form.fullName,
+        email: form.email,
+        phone: form.phone.trim() ? form.phone : 'Not provided',
+        linkedin: form.linkedin.trim() ? form.linkedin : 'Not provided',
+        portfolio: form.portfolio.trim() ? form.portfolio : 'Not provided',
+        message: form.message.trim()
+          ? form.message
+          : 'No cover letter provided.',
+        jobTitle: job.title,
+      };
+
+      // Call the Edge Function we just created
+      const { error } = await supabase.functions.invoke(
+        'submit-job-application',
+        {
+          body: payload,
+        }
+      );
+
+      if (error) throw error;
+
+      setSubmitted(true);
+      toast.success(`Application submitted for ${job.title}!`);
+    } catch (error) {
+      console.error('Application error:', error);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const updateField = (field: keyof ApplicationForm, value: string) => {
@@ -282,13 +315,29 @@ function FormView({
         onSubmit={onSubmit}
         style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
       >
-        <FormField
-          label="Full Name *"
-          type="text"
-          value={form.fullName}
-          onChange={(v) => onUpdate('fullName', v)}
-          placeholder="John Doe"
-        />
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '16px',
+          }}
+        >
+          <FormField
+            label="Full Name *"
+            type="text"
+            value={form.fullName}
+            onChange={(v) => onUpdate('fullName', v)}
+            placeholder="John Doe"
+          />
+          <FormField
+            label="Phone Number"
+            type="tel"
+            value={form.phone}
+            onChange={(v) => onUpdate('phone', v)}
+            placeholder="+1 (555) 000-0000"
+          />
+        </div>
+
         <FormField
           label="Email Address *"
           type="email"
@@ -296,13 +345,30 @@ function FormView({
           onChange={(v) => onUpdate('email', v)}
           placeholder="john@example.com"
         />
-        <FormField
-          label="Portfolio / CV Link"
-          type="url"
-          value={form.portfolio}
-          onChange={(v) => onUpdate('portfolio', v)}
-          placeholder="https://yourportfolio.com"
-        />
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '16px',
+          }}
+        >
+          <FormField
+            label="LinkedIn Profile"
+            type="url"
+            value={form.linkedin}
+            onChange={(v) => onUpdate('linkedin', v)}
+            placeholder="linkedin.com/in/johndoe"
+          />
+          <FormField
+            label="Portfolio / CV Link"
+            type="url"
+            value={form.portfolio}
+            onChange={(v) => onUpdate('portfolio', v)}
+            placeholder="https://yourportfolio.com"
+          />
+        </div>
+
         <FormField
           label="Why You? (Optional)"
           type="textarea"
@@ -384,19 +450,6 @@ function FormField({
   placeholder: string;
   rows?: number;
 }) {
-  // const inputStyle: React.CSSProperties = {
-  //   width: "100%",
-  //   padding: "12px 16px",
-  //   background: "var(--bg-primary, #0a0a0a)",
-  //   border: "1px solid var(--border, #222)",
-  //   borderRadius: "12px",
-  //   color: "var(--text-primary)",
-  //   fontSize: "15px",
-  //   fontFamily: "var(--font-body)",
-  //   outline: "none",
-  //   transition: "border-color 0.2s",
-  // };
-
   return (
     <div>
       <label
