@@ -8,7 +8,10 @@ export default function BlogNavbar() {
   return (
     <nav className="flex items-center justify-between py-4 bg-cr-yellow relative max-w-[1440px] w-full mx-auto">
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-2 no-underline">
+      <Link
+        to="/"
+        className="px-2 md:px-0 flex items-center gap-2 no-underline"
+      >
         <div className="w-5 h-5 md:w-8 md:h-8 bg-cr-pink rounded" />
         <span className="font-condensed text-xs md:text-[20px] font-extrabold text-cr-pink uppercase tracking-wider pr-2">
           CreatorsRewards

@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { blogPosts } from '../../data/blogPosts';
 import BlogNavbar from '../../components/blog/BlogNavbar';
 import BlogSidebar from '../../components/blog/BlogSidebar';
+import ArticleContent from '../../components/blog/ArticleContent';
+// import ArticleContent from '../../components/ArticleContent'; // 1. Import your block renderer
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -11,7 +13,7 @@ export default function BlogPostPage() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-cr-yellow flex items-center justify-center ">
+      <div className="min-h-screen bg-cr-yellow flex items-center justify-center">
         <div className="text-center">
           <h1 className="font-display text-4xl font-extrabold text-cr-pink uppercase mb-4">
             Post Not Found
@@ -48,9 +50,11 @@ export default function BlogPostPage() {
               <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded bg-cr-pink font-mono text-[10px] font-bold uppercase tracking-widest text-white">
                 {post.tag}
               </div>
-              <div className="w-full h-full bg-cr-yellow/50 flex items-center justify-center">
-                <div className="w-20 h-20 bg-cr-pink/20 rounded-full" />
-              </div>
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Meta */}
@@ -91,9 +95,11 @@ export default function BlogPostPage() {
               </div>
             </div>
 
-            {/* Content */}
+            {/* Content Renderer */}
             <div className="prose prose-lg max-w-none">
-              {post.content ? (
+              {post.blocks && post.blocks.length > 0 ? (
+                <ArticleContent blocks={post.blocks} />
+              ) : post.content ? (
                 <div
                   className="font-body text-cr-dark leading-relaxed space-y-4"
                   dangerouslySetInnerHTML={{ __html: post.content }}

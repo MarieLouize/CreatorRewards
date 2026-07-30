@@ -11,7 +11,7 @@ export default function FAQAccordion() {
   };
 
   return (
-    <div className="bg-cr-blush border-4 border-cr-pink rounded-3xl overflow-hidden shadow-[6px_6px_0px_var(--cr-dark)]">
+    <div className="bg-cr-blush border-4 border-cr-pink rounded-[8px] overflow-hidden shadow-[6px_6px_0px_var(--cr-dark)]">
       {/* Header */}
       <div className="px-5 py-4 border-b-2 border-cr-pink/20">
         <h3 className="font-display text-xs font-extrabold text-cr-pink uppercase tracking-widest">
@@ -36,10 +36,7 @@ export default function FAQAccordion() {
                   animate={{ rotate: isOpen ? 90 : 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <ChevronRight
-                    size={16}
-                    className="text-cr-pink flex-shrink-0"
-                  />
+                  <ChevronRight size={16} className="text-cr-pink shrink-0" />
                 </motion.div>
               </button>
 
@@ -52,7 +49,7 @@ export default function FAQAccordion() {
                     transition={{ duration: 0.25, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 pb-4 font-body text-xs text-cr-dark/70 leading-relaxed">
+                    <p className="px-5 pb-4 font-body text-xs text-cr-deep leading-relaxed">
                       {item.answer}
                     </p>
                   </motion.div>
