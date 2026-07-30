@@ -118,7 +118,7 @@ export default function BlogPostPage() {
             </div>
 
             {/* Share / CTA */}
-            <div className="mt-12 pt-8 border-t-2 border-cr-pink/20">
+            {/* <div className="mt-12 pt-8 border-t-2 border-cr-pink/20">
               <div className="flex items-center justify-between">
                 <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-cr-dark/50">
                   Share this article
@@ -130,7 +130,7 @@ export default function BlogPostPage() {
                   <ArrowUpRight size={18} className="text-white" />
                 </motion.button>
               </div>
-            </div>
+            </div> */}
           </article>
 
           {/* Sidebar */}

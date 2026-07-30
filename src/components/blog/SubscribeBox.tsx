@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 export default function SubscribeBox() {
@@ -6,13 +7,17 @@ export default function SubscribeBox() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire to actual newsletter signup
     console.log('Subscribe:', email);
     setEmail('');
   };
 
   return (
-    <div className="bg-cr-pink rounded-3xl p-6 shadow-[6px_6px_0px_var(--cr-dark)]">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-cr-pink rounded-[6px] p-6 "
+    >
       <h3 className="font-display text-lg font-extrabold text-white uppercase tracking-wide mb-2">
         Don't Miss Next Week's Drop
       </h3>
@@ -28,25 +33,26 @@ export default function SubscribeBox() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="your@email.com"
           className="
-            w-full px-4 py-3 rounded-lg bg-white/20 border-2 border-white/40
-            font-mono text-sm text-white placeholder:text-white/50
+            w-full px-4 py-3 rounded-sm border-2 border-white
+            font-mono text-sm text-white placeholder:text-white/50 placeholder:font-condensed
             focus:outline-none focus:border-white focus:bg-white/30
             transition-colors
           "
         />
-        <button
+        <motion.button
+          whileHover={{ y: -2, scale: 1.01 }}
           type="submit"
           className="
             w-full flex items-center justify-center gap-2 px-4 py-3
-            bg-white text-cr-pink font-display text-xs font-bold uppercase tracking-widest
-            rounded-lg shadow-[3px_3px_0px_var(--cr-dark)]
-            hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_var(--cr-dark)]
+            bg-white text-cr-pink font-condensed text-xs font-bold uppercase tracking-widest
+            rounded-sm
+            hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_var(--cr-pink)]
             transition-all duration-150
           "
         >
           Subscribe Free <ArrowRight size={14} strokeWidth={2.5} />
-        </button>
+        </motion.button>
       </form>
-    </div>
+    </motion.div>
   );
 }

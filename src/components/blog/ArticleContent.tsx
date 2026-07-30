@@ -84,7 +84,7 @@ export default function ArticleContent({
             return (
               <div
                 key={index}
-                className="my-6 p-5 bg-cr-blush border-2 border-cr-pink rounded-xl shadow-[4px_4px_0px_var(--cr-dark)] flex items-center justify-between gap-4"
+                className="my-6 p-5 bg-cr-blush border-2 border-cr-pink rounded-xl flex items-center justify-between gap-4"
               >
                 <div className="font-body text-sm md:text-base font-bold text-cr-dark">
                   <Link
@@ -97,9 +97,9 @@ export default function ArticleContent({
                 </div>
                 <Link
                   to={block.linkUrl || '/join'}
-                  className="shrink-0 w-8 h-8 bg-cr-pink text-white rounded-lg flex items-center justify-center shadow-[2px_2px_0px_var(--cr-dark)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  className="shrink-0 w-8 h-8 bg-cr-pink rounded-lg flex items-center justify-center hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                 >
-                  <ArrowUpRight size={16} />
+                  <ArrowUpRight color="white" size={16} />
                 </Link>
               </div>
             );

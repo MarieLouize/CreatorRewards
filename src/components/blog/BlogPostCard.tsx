@@ -16,48 +16,52 @@ export default function BlogPostCard({
 
   return (
     <motion.article
-      whileHover={{ y: -4 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="group bg-cr-blush border-2 border-cr-pink rounded-lg overflow-hidden shadow-[4px_4px_0px_var(--cr-pink)] hover:shadow-[6px_6px_0px_var(--cr-pink)] transition-shadow duration-200"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+      className="lg:h-[620px] group bg-cr-blush border-2 border-cr-pink rounded-lg overflow-hidden shadow-[4px_4px_0px_var(--cr-pink)] hover:shadow-[6px_6px_0px_var(--cr-pink)] transition-shadow duration-200"
     >
-      {/* Image Section */}
       <div className="relative overflow-hidden h-48 md:h-96">
-        {/* Tag Badge */}
         <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded font-mono text-[10px] font-bold uppercase tracking-widest text-white bg-cr-pink">
           {post.tag}
         </div>
 
-        {/* Arrow CTA — rotates on CARD hover */}
-        <Link
-          to={`/blog/${post.slug}`}
-          className="absolute bottom-4 right-4 z-10 w-10 h-10 bg-white rounded-[8px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-45"
+        <motion.div
+          whileHover={{ scale: 1.04 }}
+          transition={{ duration: 0.2 }}
+          className="absolute bottom-4 right-4 z-10"
         >
-          <ArrowUpRight
-            size={18}
-            strokeWidth={2.5}
-            className="text-cr-pink transition-transform duration-200"
-          />
-        </Link>
+          <Link
+            to={`/blog/${post.slug}`}
+            className="w-10 h-10 bg-white rounded-[8px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-45"
+          >
+            <ArrowUpRight
+              size={18}
+              strokeWidth={2.5}
+              className="text-cr-pink transition-transform duration-200"
+            />
+          </Link>
+        </motion.div>
 
-        <img
+        <motion.img
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
           src={post.image}
           alt={post.title}
           className="w-full h-full object-cover"
         />
       </div>
 
-      {/* Content Section */}
       <div className={`p-5 ${isFeatured ? 'md:p-7' : ''}`}>
-        {/* Category Label */}
         <div className="flex items-center gap-2 mb-2">
-          {/* <span className="w-1.5 h-1.5 rounded-full bg-cr-pink" /> */}
           <LucideTag className="w-3 h-3 text-cr-pink" />
           <span className="font-mono text-[12px] font-bold uppercase tracking-widest text-cr-pink">
             {post.category.replace('-', ' ')}
           </span>
         </div>
 
-        {/* Title */}
         <h3
           className={`
             font-condensed font-extrabold text-cr-pink uppercase leading-[100%] mb-3
@@ -67,17 +71,14 @@ export default function BlogPostCard({
           {post.title}
         </h3>
 
-        {/* Excerpt */}
         <p
           className={`font-body text-cr-deep leading-relaxed mb-4 ${isFeatured ? 'text-sm md:text-base' : 'text-xs'}`}
         >
           {post.excerpt}
         </p>
 
-        {/* Divider */}
         <div className="h-0.5 bg-cr-pink mb-2" />
 
-        {/* Author + Meta */}
         <div className="flex items-end justify-between">
           <div>
             <p className="font-body text-sm font-bold text-cr-dark">

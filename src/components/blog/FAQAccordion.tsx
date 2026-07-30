@@ -11,21 +11,25 @@ export default function FAQAccordion() {
   };
 
   return (
-    <div className="bg-cr-blush border-4 border-cr-pink rounded-[8px] overflow-hidden shadow-[6px_6px_0px_var(--cr-dark)]">
-      {/* Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-cr-blush border-4 border-cr-pink rounded-[8px] overflow-hidden"
+    >
       <div className="px-5 py-4 border-b-2 border-cr-pink/20">
         <h3 className="font-display text-xs font-extrabold text-cr-pink uppercase tracking-widest">
           FAQ
         </h3>
       </div>
 
-      {/* Items */}
       <div className="divide-y divide-cr-pink/20">
         {faqItems.map((item, index) => {
           const isOpen = openIndex === index;
           return (
             <div key={index}>
-              <button
+              <motion.button
+                whileHover={{ x: 2 }}
                 onClick={() => toggle(index)}
                 className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-cr-yellow/30 transition-colors"
               >
@@ -38,7 +42,7 @@ export default function FAQAccordion() {
                 >
                   <ChevronRight size={16} className="text-cr-pink shrink-0" />
                 </motion.div>
-              </button>
+              </motion.button>
 
               <AnimatePresence>
                 {isOpen && (
@@ -59,6 +63,6 @@ export default function FAQAccordion() {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -131,7 +131,7 @@ export const blogPosts: BlogPost[] = [
     tag: 'deep dive',
     author: { name: 'Aiko Tanaka', role: 'Product Strategist' },
     date: '2026-06-17',
-    readTime: '11 min read',
+    readTime: '3 min read',
     image: getImageSrc('toolsTechImg.png'),
     blocks: [
       {
@@ -180,7 +180,7 @@ export const blogPosts: BlogPost[] = [
     tag: 'getting paid',
     author: { name: 'Editorial Team', role: 'CREATORSREWARDS Magazine' },
     date: '2026-06-14',
-    readTime: '14 min read',
+    readTime: '5 min read',
     image: getImageSrc('casestudyImg.png'),
     blocks: [
       {
@@ -558,13 +558,9 @@ export const categories: { label: string; value: BlogCategory }[] = [
 export const browseTopics: { label: string; value: BlogCategory }[] = [
   { label: 'blueprint', value: 'blueprint' },
   { label: 'CREATOR BASICS', value: 'creator-basics' },
-
   { label: 'MARKET REPORT', value: 'market-report' },
   { label: 'BRAND STANDARDS', value: 'brand-standards' },
   { label: 'PAYOUTS & RAILS', value: 'payouts & rails' },
   { label: 'ACTION PLAN', value: 'action-plan' },
   { label: 'INFRASTRUCTURE', value: 'infrastructure' },
-  { label: 'BRAND DEALS', value: 'all' },
-  { label: 'COMMUNITY', value: 'all' },
-  { label: 'ANALYTICS', value: 'all' },
 ];
