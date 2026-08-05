@@ -14,7 +14,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Priya Nkosi', role: 'Head of Creator Research' },
     date: '2026-06-24',
     readTime: '9 min read',
-    image: getImageSrc('creatorImg.png'),
+    image: 'https://i.ibb.co/VWpxfxLs/creator-Img.png',
     blocks: [
       {
         type: 'paragraph',
@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Marcus Delgado', role: 'Growth Economist' },
     date: '2026-06-20',
     readTime: '6 min read',
-    image: getImageSrc('monetizationImg.png'),
+    image: 'https://i.ibb.co/ycX5Cw0J/monetization-Img.png',
     blocks: [
       {
         type: 'heading2',
@@ -132,7 +132,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Aiko Tanaka', role: 'Product Strategist' },
     date: '2026-06-17',
     readTime: '3 min read',
-    image: getImageSrc('toolsTechImg.png'),
+    image: 'https://i.ibb.co/kVd4zsTT/tools-Tech-Img.png',
     blocks: [
       {
         type: 'heading2',
@@ -181,7 +181,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Editorial Team', role: 'CREATORSREWARDS Magazine' },
     date: '2026-06-14',
     readTime: '5 min read',
-    image: getImageSrc('casestudyImg.png'),
+    image: 'https://i.ibb.co/TxK3v73T/casestudy-Img.png',
     blocks: [
       {
         type: 'heading2',
@@ -267,7 +267,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'James Fortier', role: 'Creator Economist' },
     date: '2026-06-10',
     readTime: '8 min read',
-    image: getImageSrc('analysisImg.png'),
+    image: 'https://i.ibb.co/5htCZRBV/analysis-Img.png',
     blocks: [
       {
         type: 'heading2',
@@ -382,7 +382,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Priya Nkosi', role: 'Head of Creator Research' },
     date: '2026-06-06',
     readTime: '7 min read',
-    image: getImageSrc('marketplaceImg.png'),
+    image: 'https://i.ibb.co/Ld9SQcgt/marketplace-Img.png',
     blocks: [
       {
         type: 'heading2',
@@ -452,7 +452,7 @@ export const blogPosts: BlogPost[] = [
     author: { name: 'Marcus Delgado', role: 'Growth Economist' },
     date: '2026-06-02',
     readTime: '5 min read',
-    image: getImageSrc('marketplaceImg.png'), // Or create/use another image key
+    image: 'https://i.ibb.co/VWpxfxLs/creator-Img.png', // Or create/use another image key
     blocks: [
       {
         type: 'heading2',

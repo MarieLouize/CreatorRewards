@@ -16,7 +16,7 @@ export default function SubscribeBox() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-cr-pink rounded-[6px] p-6 "
+      className="bg-cr-pink rounded-md p-6 "
     >
       <h3 className="font-display text-lg font-extrabold text-white uppercase tracking-wide mb-2">
         Don't Miss Next Week's Drop
