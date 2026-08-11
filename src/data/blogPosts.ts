@@ -1,5 +1,4 @@
 import type { BlogCategory, BlogPost, FAQItem } from '../types/blog';
-import { getImageSrc } from '../utils/imagesUtils';
 
 export const blogPosts: BlogPost[] = [
   {

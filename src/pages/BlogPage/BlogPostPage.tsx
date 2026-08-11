@@ -1,11 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { blogPosts } from '../../data/blogPosts';
 import BlogNavbar from '../../components/blog/BlogNavbar';
-import BlogSidebar from '../../components/blog/BlogSidebar';
 import ArticleContent from '../../components/blog/ArticleContent';
-// import ArticleContent from '../../components/ArticleContent'; // 1. Import your block renderer
+import Footer from '../../components/Footer';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -46,7 +44,7 @@ export default function BlogPostPage() {
             </Link>
 
             {/* Featured Image */}
-            <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden border-4 border-cr-pink shadow-[8px_8px_0px_var(--cr-dark)] mb-8">
+            <div className="relative h-64 md:h-96 rounded-3xl overflow-hidden border-4 border-cr-pink shadow-[4px_4px_0px_var(--cr-pink)] mb-8">
               <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded bg-cr-pink font-mono text-[10px] font-bold uppercase tracking-widest text-white">
                 {post.tag}
               </div>
@@ -116,29 +114,11 @@ export default function BlogPostPage() {
                 </div>
               )}
             </div>
-
-            {/* Share / CTA */}
-            {/* <div className="mt-12 pt-8 border-t-2 border-cr-pink/20">
-              <div className="flex items-center justify-between">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-cr-dark/50">
-                  Share this article
-                </p>
-                <motion.button
-                  whileHover={{ rotate: 45 }}
-                  className="w-10 h-10 bg-cr-pink rounded-lg flex items-center justify-center shadow-[3px_3px_0px_var(--cr-dark)]"
-                >
-                  <ArrowUpRight size={18} className="text-white" />
-                </motion.button>
-              </div>
-            </div> */}
           </article>
-
-          {/* Sidebar */}
-          <div className="w-full lg:w-80 flex-shrink-0">
-            <BlogSidebar />
-          </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
