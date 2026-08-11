@@ -4,6 +4,7 @@ import BlogBanner from '../../components/blog/BlogBanner';
 import CategoryFilter from '../../components/blog/CategoryFilter';
 import BlogGrid from '../../components/blog/BlogGrid';
 import BlogSidebar from '../../components/blog/BlogSidebar';
+import Footer from '../../components/Footer';
 
 export default function BlogPage() {
   return (
@@ -33,6 +34,7 @@ export default function BlogPage() {
           </div>
         </motion.div>
       </main>
+      <Footer />
     </motion.div>
   );
 }

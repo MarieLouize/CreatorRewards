@@ -21,7 +21,7 @@ export default function BlogPostCard({
       viewport={{ once: true, amount: 0.2 }}
       whileHover={{ y: -6, scale: 1.01 }}
       transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-      className="lg:h-[620x] group bg-cr-blush border-2 border-cr-pink rounded-lg overflow-hidden shadow-[4px_4px_0px_var(--cr-pink)] hover:shadow-[6px_6px_0px_var(--cr-pink)] transition-shadow duration-200"
+      className="lg:h-[620px] group bg-cr-blush border-2 border-cr-pink rounded-lg overflow-hidden shadow-[4px_4px_0px_var(--cr-pink)] hover:shadow-[6px_6px_0px_var(--cr-pink)] transition-shadow duration-200"
     >
       <div className="relative overflow-hidden h-48 md:h-96">
         <div className="absolute top-4 left-4 z-10 px-3 py-1.5 rounded font-mono text-[10px] font-bold uppercase tracking-widest text-white bg-cr-pink">

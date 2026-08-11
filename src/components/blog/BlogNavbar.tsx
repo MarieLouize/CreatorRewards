@@ -22,12 +22,12 @@ export default function BlogNavbar() {
         </span>
       </Link>
 
-      <motion.div whileHover={{ y: -2, scale: 1.01 }}>
+      <motion.div>
         <Link
           to="/join"
-          className="hidden md:inline-flex bg-cr-pink text-xs font-bold uppercase tracking-wide px-5 py-2.5 rounded hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_var(--cr-dark)] transition-all"
+          className="hidden md:inline-flex bg-cr-pink hover:bg-white text-white hover:text-cr-pink text-xs font-bold uppercase tracking-wide px-5 py-2.5 rounded border-2 border-cr-pink "
         >
-          <p className="text-white"> Subscribe — Free</p>
+          <p className=" "> Subscribe — Free</p>
         </Link>
       </motion.div>
 
