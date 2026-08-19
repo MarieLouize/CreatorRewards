@@ -111,9 +111,9 @@ export default function Footer() {
                   {item.label}
                 </Link>
               ) : (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -131,12 +131,12 @@ export default function Footer() {
                   }
                 >
                   {item.label}
-                </a>
+                </Link>
               )
             )}
 
-            <a
-              href="/blog"
+            <Link
+              to="/blog"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -155,7 +155,7 @@ export default function Footer() {
             >
               <FileText size={14} strokeWidth={1.75} />
               Blog Post
-            </a>
+            </Link>
           </div>
 
           <div
@@ -177,9 +177,9 @@ export default function Footer() {
               { label: 'Twitter / X', Icon: AtSign },
               { label: 'TikTok', Icon: Music2 },
             ].map(({ label, Icon }) => (
-              <a
+              <Link
                 key={label}
-                href="#"
+                to="#"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -198,7 +198,7 @@ export default function Footer() {
               >
                 <Icon size={14} strokeWidth={1.75} />
                 {label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
