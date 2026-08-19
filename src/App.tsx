@@ -1,14 +1,16 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Toaster } from "sonner";
-import "./styles/globals.css";
-import LandingPage from "./pages/LandingPage";
-import JoinPage from "./pages/JoinPage";
-import AdminPage from "./pages/AdminPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import CareerPage from "./pages/CareerPage";
-import ContactPage from "./pages/ContactPage";
-import PrivacyPage from "./pages/PrivacyPage";
-import ScrollToTop from "./components/ui/ScrollToTop";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import './styles/globals.css';
+import LandingPage from './pages/LandingPage';
+import JoinPage from './pages/JoinPage';
+import AdminPage from './pages/AdminPage';
+import NotFoundPage from './pages/NotFoundPage';
+import CareerPage from './pages/CareerPage';
+import ContactPage from './pages/ContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import ScrollToTop from './components/ui/ScrollToTop';
+import BlogPage from './pages/BlogPage/BlogPage';
+import BlogPostPage from './pages/BlogPage/BlogPostPage';
 
 export default function App() {
   return (
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/careers" element={<CareerPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
