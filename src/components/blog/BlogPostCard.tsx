@@ -34,20 +34,13 @@ export default function BlogPostCard({
             transition={{ duration: 0.2 }}
             className="absolute bottom-4 right-4 z-10"
           >
-            {/* <Link
-            to={`/blog/${post.slug}`}
-            
-          > */}
-
-            <div className="w-10 h-10 bg-white rounded-[8px] flex items-center justify-center transition-transform duration-200 group-hover:rotate-45">
+            <div className="w-10 h-10 bg-white rounded- flex items-center justify-center transition-transform duration-200 group-hover:rotate-45">
               <ArrowUpRight
                 size={18}
                 strokeWidth={2.5}
                 className="text-cr-pink transition-transform duration-200"
               />
             </div>
-
-            {/* </Link> */}
           </motion.div>
 
           <motion.img
