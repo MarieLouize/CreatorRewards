@@ -6,11 +6,6 @@ export interface BlogAuthor {
 
 export type BlogCategory =
   | 'all'
-  // | 'creator-economy'
-  // | 'monetization'
-  // | 'tools-tech'
-  // | 'growth'
-  // | 'case-studies'
   | 'blueprint'
   | 'creator-basics'
   | 'market-report'
