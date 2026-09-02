@@ -10,7 +10,7 @@ export const blogPosts: BlogPost[] = [
     content: '',
     category: 'blueprint',
     tag: 'featured',
-    author: { name: 'Priya Nkosi', role: 'Head of Creator Research' },
+    author: { name: 'Editorial Team', role: 'CREATORSREWARDS Magazine' },
     date: '2026-06-24',
     readTime: '9 min read',
     image: 'https://i.ibb.co/23xxh2dn/unnamed.jpg',
